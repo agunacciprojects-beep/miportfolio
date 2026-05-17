@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="es" style="background:#04070d;">
+<head>
+    <meta charset="UTF-8">
+    <title>NacciTech — Reel</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&family=Orbitron:wght@400..900&family=Geist:wght@100..900&family=JetBrains+Mono:wght@300..800&display=block" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #04070d;
+            --bg-2: #060c18;
+            --cyan: #00d4ff;
+            --cyan-bright: #5ee4ff;
+            --cyan-deep: #0a85a8;
+            --silver: #c5d3df;
+            --silver-mute: #7a8a99;
+            --blue-glow: #7dd3fc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 1080px; height: 1920px;
+            background: var(--bg);
+            overflow: hidden;
+            font-family: 'Geist', sans-serif;
+            color: var(--silver);
+        }
+        body {
+            position: relative;
+            background:
+              radial-gradient(circle at 50% 20%, rgba(0, 212, 255, 0.18), transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(10, 133, 168, 0.25), transparent 60%),
+              radial-gradient(circle at 20% 70%, rgba(125, 211, 252, 0.08), transparent 60%),
+              var(--bg);
+        }
+
+        /* Atmosphere: scanlines */
+        body::before {
+            content: ""; position: absolute; inset: 0; z-index: 100; pointer-events: none;
+            background: repeating-linear-gradient(0deg, rgba(0, 212, 255, 0.025) 0px, rgba(0, 212, 255, 0.025) 1px, transparent 1px, transparent 4px);
+            mix-blend-mode: overlay;
+        }
+        body::after {
+            content: ""; position: absolute; inset: 0; z-index: 99; pointer-events: none; opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* Grid pattern */
+        .grid-bg {
+            position: absolute; inset: 0; z-index: 1; pointer-events: none;
+            background-image:
+              linear-gradient(rgba(0, 212, 255, 0.06) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0, 212, 255, 0.06) 1px, transparent 1px);
+            background-size: 90px 90px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 90%);
+        }
+
+        /* Floating particles (decorative) */
+        .particles {
+            position: absolute; inset: 0; z-index: 2; pointer-events: none;
+            overflow: hidden;
+        }
+        .particles span {
+            position: absolute;
+            width: 3px; height: 3px; border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 12px var(--cyan), 0 0 24px var(--cyan-bright);
+            opacity: 0;
+            animation: rise 16s linear infinite;
+        }
+        @keyframes rise {
+            0% { transform: translateY(2000px); opacity: 0; }
+            5%  { opacity: 0.9; }
+            85% { opacity: 0.6; }
+            100% { transform: translateY(-200px); opacity: 0; }
+        }
+        .particles span:nth-child(1) { left: 8%; animation-delay: 0s; }
+        .particles span:nth-child(2) { left: 18%; animation-delay: 1.3s; }
+        .particles span:nth-child(3) { left: 30%; animation-delay: 2.5s; width: 2px; height: 2px; }
+        .particles span:nth-child(4) { left: 45%; animation-delay: 0.6s; }
+        .particles span:nth-child(5) { left: 55%; animation-delay: 3.1s; width: 4px; height: 4px; }
+        .particles span:nth-child(6) { left: 67%; animation-delay: 1.8s; }
+        .particles span:nth-child(7) { left: 78%; animation-delay: 4.2s; }
+        .particles span:nth-child(8) { left: 88%; animation-delay: 2.1s; width: 2px; height: 2px; }
+        .particles span:nth-child(9) { left: 12%; animation-delay: 5.5s; }
+        .particles span:nth-child(10) { left: 62%; animation-delay: 6.0s; }
+
+        /* Persistent brand bar (small, top-left) */
+        .brand-bar {
+            position: absolute; top: 50px; left: 50px; z-index: 50;
+            display: flex; align-items: center; gap: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px; letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--cyan);
+            opacity: 0;
+            animation: brand-show 0.6s ease forwards 0.4s, brand-pulse 3s ease-in-out infinite 1.5s;
+        }
+        @keyframes brand-show { to { opacity: 1; } }
+        @keyframes brand-pulse {
+            0%, 100% { color: var(--cyan); }
+            50% { color: var(--cyan-bright); text-shadow: 0 0 18px var(--cyan); }
+        }
+        .brand-bar .led {
+            width: 9px; height: 9px; border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 14px var(--cyan), 0 0 30px var(--cyan);
+        }
+
+        /* Progress dots (timing indicator at bottom) */
+        .progress-dots {
+            position: absolute; bottom: 60px; left: 50%;
+            transform: translateX(-50%);
+            display: flex; gap: 14px;
+            z-index: 50;
+        }
+        .progress-dots span {
+            width: 30px; height: 4px; border-radius: 2px;
+            background: rgba(0, 212, 255, 0.18);
+            position: relative; overflow: hidden;
+        }
+        .progress-dots span::after {
+            content: ""; position: absolute; inset: 0;
+            background: var(--cyan); box-shadow: 0 0 12px var(--cyan);
+            transform: translateX(-100%);
+        }
+        .progress-dots span:nth-child(1)::after { animation: fillp 2.5s linear forwards 0s; }
+        .progress-dots span:nth-child(2)::after { animation: fillp 2.5s linear forwards 2.5s; }
+        .progress-dots span:nth-child(3)::after { animation: fillp 2.5s linear forwards 5.0s; }
+        .progress-dots span:nth-child(4)::after { animation: fillp 3.0s linear forwards 7.5s; }
+        .progress-dots span:nth-child(5)::after { animation: fillp 2.5s linear forwards 10.5s; }
+        .progress-dots span:nth-child(6)::after { animation: fillp 3.0s linear forwards 13.0s; }
+        @keyframes fillp { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+
+        /* Pause all animations until body has .start (after fonts load) */
+        body:not(.start) *, body:not(.start) *::before, body:not(.start) *::after {
+            animation-play-state: paused !important;
+        }
+
+        /* ============================
+           SCENES
+        ============================ */
+        .scene {
+            position: absolute; inset: 0; z-index: 10;
+            display: flex; flex-direction: column;
+            opacity: 0;
+            padding: 180px 80px 200px;
+        }
+
+        /* Scene 1: Intro logo (0 - 2.5s) */
+        .scene-1 {
+            animation: s1 2.5s ease forwards 0s;
+            align-items: center; justify-content: center;
+            padding-top: 0; padding-bottom: 0;
+        }
+        @keyframes s1 {
+            0% { opacity: 0; }
+            8%, 88% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .logo-wrap {
+            text-align: center;
+            transform: scale(0.85);
+            animation: logo-grow 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.1s;
+        }
+        @keyframes logo-grow {
+            0% { transform: scale(0.85); filter: blur(8px); }
+            40% { transform: scale(1.02); filter: blur(0); }
+            100% { transform: scale(1); filter: blur(0); }
+        }
+        .logo-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px; letter-spacing: 0.4em;
+            color: var(--cyan);
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fade-in 0.6s ease forwards 0.3s;
+        }
+        .logo-main {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 160px;
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            position: relative;
+        }
+        .logo-main .nacci {
+            background: linear-gradient(180deg, #ffffff 0%, #c5d3df 100%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+            display: inline-block;
+            animation: glitch-light 4s steps(1) infinite;
+        }
+        .logo-main .tech {
+            background: linear-gradient(180deg, #5ee4ff 0%, #00d4ff 60%, #0a85a8 100%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+            display: inline-block;
+            filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.6));
+            animation: glitch-cyan 4s steps(1) infinite;
+        }
+        @keyframes glitch-light {
+            0%, 96%, 100% { transform: translate(0); }
+            97% { transform: translate(-3px, 1px); }
+            98% { transform: translate(2px, -1px); }
+        }
+        @keyframes glitch-cyan {
+            0%, 92%, 100% { transform: translate(0); }
+            94% { transform: translate(3px, -1px); }
+            95% { transform: translate(-2px, 2px); }
+        }
+        .logo-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 24px;
+            color: var(--silver-mute);
+            margin-top: 60px;
+            letter-spacing: 0.18em;
+            opacity: 0;
+            animation: fade-in 0.6s ease forwards 1.0s;
+        }
+        .logo-sub .acc { color: var(--cyan); }
+        .logo-line {
+            margin: 40px auto 0;
+            width: 120px; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            box-shadow: 0 0 12px var(--cyan);
+            opacity: 0;
+            animation: line-grow 0.8s ease forwards 1.2s;
+        }
+        @keyframes line-grow { 0% { width: 0; opacity: 0; } 100% { width: 220px; opacity: 1; } }
+        @keyframes fade-in { to { opacity: 1; } }
+
+        /* Scene 2: HOOK (2.5 - 5s) */
+        .scene-2 {
+            animation: s2 2.5s ease forwards 2.5s;
+            justify-content: center;
+        }
+        @keyframes s2 {
+            0% { opacity: 0; transform: translateY(40px); }
+            10%, 86% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-30px); }
+        }
+        .hook-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--cyan); font-size: 28px;
+            letter-spacing: 0.3em; text-transform: uppercase;
+            margin-bottom: 50px;
+            display: flex; align-items: center; gap: 18px;
+        }
+        .hook-eyebrow::before {
+            content: ""; display: block; width: 60px; height: 2px;
+            background: var(--cyan); box-shadow: 0 0 14px var(--cyan);
+        }
+        .hook-title {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 700;
+            font-size: 150px;
+            line-height: 0.88;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #ffffff 0%, #c5d3df 100%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+        }
+        .hook-title .accent {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 300; font-style: italic;
+            color: rgba(0, 212, 255, 0.5);
+            font-size: 0.6em;
+            margin-right: 12px; vertical-align: 18%;
+        }
+        .hook-title .cyan-word {
+            background: linear-gradient(180deg, #5ee4ff 0%, #00d4ff 60%, #0a85a8 100%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.4));
+        }
+
+        /* Scene 3: PROMISE (5 - 7.5s) */
+        .scene-3 {
+            animation: s3 2.5s ease forwards 5s;
+            justify-content: center;
+        }
+        @keyframes s3 {
+            0% { opacity: 0; transform: translateY(40px); }
+            10%, 86% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-30px); }
+        }
+        .promise-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--cyan); font-size: 28px;
+            letter-spacing: 0.3em; text-transform: uppercase;
+            margin-bottom: 60px;
+        }
+        .promise-eyebrow .arrow { color: var(--cyan-bright); margin-right: 8px; }
+        .promise-title {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 700;
+            font-size: 130px;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #ffffff 0%, #c5d3df 100%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+        }
+        .promise-title .last {
+            background: linear-gradient(180deg, #5ee4ff 0%, #00d4ff 60%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+            position: relative;
+            filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.5));
+        }
+        .caret {
+            display: inline-block; width: 0.6em; height: 1em;
+            background: var(--cyan);
+            margin-left: 0.15em;
+            vertical-align: -0.1em;
+            box-shadow: 0 0 24px var(--cyan);
+            animation: blink 0.9s steps(2) infinite;
+        }
+        @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+        /* Scene 4: ABOUT (7.5 - 10.5s) */
+        .scene-4 {
+            animation: s4 3s ease forwards 7.5s;
+            align-items: center; justify-content: center;
+        }
+        @keyframes s4 {
+            0% { opacity: 0; transform: scale(0.96); }
+            10%, 88% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.04); }
+        }
+        .about-frame {
+            position: relative;
+            width: 600px; height: 880px;
+            overflow: hidden;
+            border-radius: 24px;
+            border: 2px solid var(--cyan);
+            box-shadow: 0 0 80px -10px rgba(0, 212, 255, 0.6), 0 0 30px -5px rgba(0, 212, 255, 0.4);
+            margin-bottom: 60px;
+        }
+        .about-frame img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.9) contrast(1.1) brightness(0.85);
+        }
+        .about-frame::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(0, 212, 255, 0.35) 0%, rgba(10, 133, 168, 0.5) 100%);
+            mix-blend-mode: color;
+            pointer-events: none;
+        }
+        .about-frame::before {
+            content: ""; position: absolute; inset: 0; z-index: 2;
+            background: repeating-linear-gradient(0deg, rgba(0, 212, 255, 0.12) 0px, rgba(0, 212, 255, 0.12) 1px, transparent 1px, transparent 3px);
+            pointer-events: none;
+            opacity: 0.5; mix-blend-mode: overlay;
+        }
+        .about-corner {
+            position: absolute; width: 36px; height: 36px;
+            border: 3px solid var(--cyan-bright);
+            z-index: 3;
+            box-shadow: 0 0 12px var(--cyan);
+        }
+        .about-corner.tl { top: -3px; left: -3px; border-right: none; border-bottom: none; }
+        .about-corner.tr { top: -3px; right: -3px; border-left: none; border-bottom: none; }
+        .about-corner.bl { bottom: -3px; left: -3px; border-right: none; border-top: none; }
+        .about-corner.br { bottom: -3px; right: -3px; border-left: none; border-top: none; }
+        .about-name {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 700;
+            font-size: 92px;
+            line-height: 0.9;
+            color: #fff;
+            text-align: center;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .about-name .who {
+            background: linear-gradient(180deg, #5ee4ff 0%, #00d4ff 60%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 22px rgba(0, 212, 255, 0.5));
+        }
+        .about-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 26px;
+            color: var(--silver-mute);
+            text-align: center;
+            letter-spacing: 0.15em;
+        }
+        .about-tag .pin { color: var(--cyan); }
+
+        /* Scene 5: TRABAJOS (10.5 - 13s) */
+        .scene-5 {
+            animation: s5 2.5s ease forwards 10.5s;
+            justify-content: center;
+            padding: 240px 70px;
+        }
+        @keyframes s5 {
+            0% { opacity: 0; transform: translateY(40px); }
+            10%, 86% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+        .trab-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--cyan);
+            font-size: 26px; letter-spacing: 0.3em; text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+        .trab-title {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 700; font-size: 100px;
+            line-height: 0.92;
+            text-transform: uppercase;
+            letter-spacing: -0.04em;
+            background: linear-gradient(180deg, #ffffff 0%, #c5d3df 100%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+            margin-bottom: 50px;
+        }
+        .trab-title .cyan-line {
+            background: linear-gradient(180deg, #5ee4ff 0%, #00d4ff 60%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 28px rgba(0, 212, 255, 0.5));
+        }
+        .trab-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+        .trab-card {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 18px;
+            padding: 28px 24px;
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .trab-card .ic {
+            width: 60px; height: 60px;
+            border-radius: 12px;
+            background: rgba(0, 212, 255, 0.12);
+            border: 1px solid rgba(0, 212, 255, 0.5);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--cyan-bright);
+            font-size: 32px;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.5));
+        }
+        .trab-card .num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--cyan);
+            letter-spacing: 0.2em;
+            margin-bottom: 6px;
+        }
+        .trab-card .name {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 600;
+            font-size: 26px;
+            color: #fff;
+            line-height: 1.05;
+            margin-bottom: 6px;
+        }
+        .trab-card .ds {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--silver-mute);
+            line-height: 1.4;
+        }
+        .scene-5 .trab-card:nth-child(1) { animation: card-in 0.5s ease forwards 10.8s; }
+        .scene-5 .trab-card:nth-child(2) { animation: card-in 0.5s ease forwards 10.95s; }
+        .scene-5 .trab-card:nth-child(3) { animation: card-in 0.5s ease forwards 11.1s; }
+        .scene-5 .trab-card:nth-child(4) { animation: card-in 0.5s ease forwards 11.25s; }
+        .scene-5 .trab-card:nth-child(5) { animation: card-in 0.5s ease forwards 11.4s; }
+        .scene-5 .trab-card:nth-child(6) { animation: card-in 0.5s ease forwards 11.55s; }
+        @keyframes card-in { to { opacity: 1; transform: translateY(0); } }
+
+        /* Scene 6: CTA (13 - 16s) */
+        .scene-6 {
+            animation: s6 3s ease forwards 13s;
+            align-items: center; justify-content: center;
+            text-align: center;
+        }
+        @keyframes s6 {
+            0% { opacity: 0; transform: scale(0.96); }
+            8%, 92% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.7; transform: scale(0.98); }
+        }
+        .cta-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--cyan);
+            font-size: 28px;
+            letter-spacing: 0.3em; text-transform: uppercase;
+            margin-bottom: 40px;
+            display: flex; align-items: center; gap: 18px; justify-content: center;
+        }
+        .cta-eyebrow .blink-dot {
+            width: 14px; height: 14px; border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 18px var(--cyan);
+            animation: blink-dot 1.2s ease infinite;
+        }
+        @keyframes blink-dot { 50% { opacity: 0.3; } }
+        .cta-title {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 700;
+            font-size: 140px;
+            line-height: 0.88;
+            text-transform: uppercase;
+            letter-spacing: -0.04em;
+            background: linear-gradient(180deg, #ffffff 0%, #c5d3df 100%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+            margin-bottom: 50px;
+        }
+        .cta-title .cy {
+            background: linear-gradient(180deg, #5ee4ff 0%, #00d4ff 60%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.6));
+        }
+        .cta-wa {
+            display: inline-flex; align-items: center; gap: 22px;
+            padding: 36px 60px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #00d4ff, #0a85a8);
+            color: #04070d;
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 700;
+            font-size: 50px;
+            letter-spacing: -0.01em;
+            box-shadow: 0 0 80px -10px rgba(0, 212, 255, 0.8), inset 0 0 0 2px rgba(255, 255, 255, 0.15);
+            margin-bottom: 60px;
+            animation: pulse-btn 1.6s ease-in-out infinite;
+        }
+        @keyframes pulse-btn {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 80px -10px rgba(0, 212, 255, 0.8), inset 0 0 0 2px rgba(255, 255, 255, 0.15); }
+            50% { transform: scale(1.03); box-shadow: 0 0 110px -8px rgba(0, 212, 255, 1), inset 0 0 0 2px rgba(255, 255, 255, 0.3); }
+        }
+        .cta-wa .wa-ic {
+            font-size: 56px;
+        }
+        .cta-handles {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px;
+            color: var(--silver-mute);
+            letter-spacing: 0.18em;
+        }
+        .cta-handles .h { color: var(--cyan); }
+        .cta-handles .sep { color: rgba(0, 212, 255, 0.3); margin: 0 16px; }
+    </style>
+</head>
+<body style="background:#04070d;">
+
+    <div class="grid-bg"></div>
+
+    <div class="particles">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- Persistent brand bar -->
+    <div class="brand-bar">
+        <span class="led"></span>
+        <span>NACCITECH // 2026</span>
+    </div>
+
+    <!-- Progress dots -->
+    <div class="progress-dots">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- ============================
+         SCENE 1: INTRO LOGO
+    ============================ -->
+    <section class="scene scene-1">
+        <div class="logo-wrap">
+            <div class="logo-eyebrow">// SOFTWARE STUDIO</div>
+            <h1 class="logo-main">
+                <span class="nacci">Nacci</span><span class="tech">Tech</span>
+            </h1>
+            <div class="logo-line"></div>
+            <div class="logo-sub">desarrollo <span class="acc">·</span> diseño <span class="acc">·</span> deploy</div>
+        </div>
+    </section>
+
+    <!-- ============================
+         SCENE 2: HOOK
+    ============================ -->
+    <section class="scene scene-2">
+        <div class="hook-eyebrow">SYSTEMS // ONLINE</div>
+        <h2 class="hook-title">
+            Sistemas <br>
+            <span class="accent">{</span><span class="cyan-word">a medida</span><span class="accent">}</span>
+        </h2>
+    </section>
+
+    <!-- ============================
+         SCENE 3: PROMISE
+    ============================ -->
+    <section class="scene scene-3">
+        <div class="promise-eyebrow"><span class="arrow">→</span> PARA QUE TU NEGOCIO</div>
+        <h2 class="promise-title">
+            <span class="last">no se<br>detenga.<span class="caret"></span></span>
+        </h2>
+    </section>
+
+    <!-- ============================
+         SCENE 4: ABOUT
+    ============================ -->
+    <section class="scene scene-4">
+        <div class="about-frame">
+            <span class="about-corner tl"></span>
+            <span class="about-corner tr"></span>
+            <span class="about-corner bl"></span>
+            <span class="about-corner br"></span>
+            <img src="../assets/yo.png" alt="Agustín">
+        </div>
+        <div class="about-name">
+            soy <span class="who">agustín.</span>
+        </div>
+        <div class="about-tag">
+            <span class="pin">◉</span> dev fullstack desde catamarca · ar
+        </div>
+    </section>
+
+    <!-- ============================
+         SCENE 5: TRABAJOS
+    ============================ -->
+    <section class="scene scene-5">
+        <div class="trab-eyebrow">// 06 SISTEMAS EN PRODUCCIÓN</div>
+        <h2 class="trab-title">
+            seis<br>
+            <span class="cyan-line">problemas<br>resueltos.</span>
+        </h2>
+
+        <div class="trab-grid">
+            <div class="trab-card">
+                <div class="ic">$</div>
+                <div class="num">N° 01</div>
+                <div class="name">POS Offline</div>
+                <div class="ds">ventas sin internet</div>
+            </div>
+            <div class="trab-card">
+                <div class="ic">✂</div>
+                <div class="num">N° 02</div>
+                <div class="name">Gestión socios</div>
+                <div class="ds">finanzas compartidas</div>
+            </div>
+            <div class="trab-card">
+                <div class="ic">⛁</div>
+                <div class="num">N° 03</div>
+                <div class="name">Migración legacy</div>
+                <div class="ds">décadas preservadas</div>
+            </div>
+            <div class="trab-card">
+                <div class="ic">▦</div>
+                <div class="num">N° 04</div>
+                <div class="name">PWA · QR</div>
+                <div class="ds">validación en tiempo real</div>
+            </div>
+            <div class="trab-card">
+                <div class="ic">⚡</div>
+                <div class="num">N° 05</div>
+                <div class="name">Desktop tool</div>
+                <div class="ds">mantenimiento PC</div>
+            </div>
+            <div class="trab-card">
+                <div class="ic">◆</div>
+                <div class="num">N° 06</div>
+                <div class="name">IA aplicada</div>
+                <div class="ds">diagnóstico hardware</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+         SCENE 6: CTA
+    ============================ -->
+    <section class="scene scene-6">
+        <div class="cta-eyebrow">
+            <span class="blink-dot"></span>
+            INIT // NEW PROJECT
+        </div>
+        <h2 class="cta-title">
+            ¿tenés un<br>proyecto<br>
+            <span class="cy">en mente?</span>
+        </h2>
+        <div class="cta-wa">
+            <span class="wa-ic">✆</span>
+            <span>conversemos</span>
+        </div>
+        <div class="cta-handles">
+            <span class="h">@naccitech.arg</span>
+            <span class="sep">·</span>
+            <span class="h">+54 9 3834 27-1005</span>
+        </div>
+    </section>
+
+    <script>
+    // Wait for fonts to load, then start all animations simultaneously.
+    // This guarantees the recording captures a synchronized timeline.
+    (async () => {
+        try { await document.fonts.ready; } catch (e) {}
+        // Small grace period for any layout settling
+        await new Promise(r => setTimeout(r, 150));
+        document.body.classList.add('start');
+    })();
+    </script>
+
+</body>
+</html>

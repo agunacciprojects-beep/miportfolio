@@ -472,10 +472,31 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem; line-height: 1.85;
             color: #b8bdcc;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow-x: auto;
+            max-width: 100%;
         }
         .tree .k { color: #ff4d79; }
         .tree .v { color: #e6e9f0; }
         .tree .sym { color: rgba(244, 63, 94, 0.5); }
+
+        /* ============================
+           MOBILE RESPONSIVE FIXES
+        ============================ */
+        @media (max-width: 640px) {
+            html, body { overflow-x: hidden; max-width: 100vw; }
+            .tree { font-size: 0.72rem; line-height: 1.75; }
+            .hero-line, .hero-line-italic { letter-spacing: -0.035em; }
+            /* Tighter padding to gain horizontal breathing room */
+            .px-mobile-tight { padding-left: 1rem; padding-right: 1rem; }
+            /* Prevent any code-float from leaking */
+            .code-float { display: none !important; }
+            /* Disable 3D tilt visual jitter on touch */
+            [data-tilt] { transform: none !important; }
+            /* Smaller magnetic buttons */
+            .magnetic { padding: 0.7rem 1.1rem; font-size: 0.95rem; }
+        }
     </style>
 </head>
 <body class="noise relative min-h-screen">
@@ -569,16 +590,16 @@ $ npm run deploy
 
             <!-- Headline -->
             <h1 class="font-display max-w-6xl reveal text-display-tight" style="font-weight: 600;">
-                <span class="block text-5xl sm:text-6xl md:text-7xl lg:text-[7.5rem] text-bone-gradient">SISTEMAS</span>
-                <span class="block text-5xl sm:text-6xl md:text-7xl lg:text-[7.5rem] mt-1 lg:mt-2">
+                <span class="block text-[2.2rem] sm:text-5xl md:text-7xl lg:text-[7.5rem] text-bone-gradient">SISTEMAS</span>
+                <span class="block text-[2.2rem] sm:text-5xl md:text-7xl lg:text-[7.5rem] mt-1 lg:mt-2">
                     <span class="font-mono font-light text-wine-500/40 italic mr-2 align-top text-3xl lg:text-5xl">{</span>
                     <span class="text-wine-gradient">a medida</span>
                     <span class="font-mono font-light text-wine-500/40 italic ml-2 align-top text-3xl lg:text-5xl">}</span>
                 </span>
-                <span class="block text-5xl sm:text-6xl md:text-7xl lg:text-[7.5rem] mt-1 lg:mt-2 text-bone-gradient">
+                <span class="block text-[2.2rem] sm:text-5xl md:text-7xl lg:text-[7.5rem] mt-1 lg:mt-2 text-bone-gradient">
                     PARA QUE TU NEGOCIO
                 </span>
-                <span class="block text-5xl sm:text-6xl md:text-7xl lg:text-[7.5rem] mt-1 lg:mt-2 text-bone-gradient">
+                <span class="block text-[2.2rem] sm:text-5xl md:text-7xl lg:text-[7.5rem] mt-1 lg:mt-2 text-bone-gradient">
                     <span class="glitch" data-text="NO SE DETENGA.">NO SE DETENGA.</span><span class="caret"></span>
                 </span>
             </h1>
@@ -715,7 +736,7 @@ $ npm run deploy
                         <span>// .ABOUT</span>
                     </div>
 
-                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-display-tight mb-8" style="font-weight: 600;">
+                    <h2 class="font-display text-[1.95rem] sm:text-4xl md:text-5xl lg:text-6xl text-display-tight mb-8" style="font-weight: 600;">
                         <span class="text-bone-gradient">CONSTRUYO</span><br>
                         <span class="text-bone-gradient">DESDE</span>
                         <span class="text-wine-gradient">CATAMARCA.</span>
@@ -760,7 +781,7 @@ $ npm run deploy
                     <div class="section-tag mb-6">
                         <span>// MANIFIESTO.MD</span>
                     </div>
-                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-display-tight" style="font-weight: 600;">
+                    <h2 class="font-display text-[1.95rem] sm:text-4xl md:text-5xl lg:text-6xl text-display-tight" style="font-weight: 600;">
                         <span class="text-bone-gradient">NO VENDO</span><br>
                         <span class="text-bone-gradient">FEATURES.</span><br>
                         <span class="text-wine-gradient">CONSTRUYO</span><br>
@@ -826,7 +847,7 @@ $ npm run deploy
                     <div class="section-tag mb-5">
                         <span>// TRABAJOS.LOG · 2025-2026</span>
                     </div>
-                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-display-tight" style="font-weight: 600;">
+                    <h2 class="font-display text-[1.95rem] sm:text-4xl md:text-5xl lg:text-6xl text-display-tight" style="font-weight: 600;">
                         <span class="text-bone-gradient">06 SISTEMAS</span><br>
                         <span class="text-wine-gradient">EN PRODUCCIÓN.</span>
                     </h2>
@@ -858,7 +879,7 @@ $ npm run deploy
                         </div>
                     </div>
 
-                    <h3 class="font-display text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                    <h3 class="font-display text-2xl sm:text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
                         Vender sin depender<br><span class="text-wine-gradient">de internet.</span>
                     </h3>
 
@@ -876,8 +897,8 @@ $ npm run deploy
                         <span class="chip">Excel</span>
                     </div>
 
-                    <a href="#contacto" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
-                        <span class="link-line">pedir info sobre este sistema</span>
+                    <a href="https://agunacciprojects-beep.github.io/naccistock/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
+                        <span class="link-line">ver caso completo de naccistock</span>
                         <span class="group-hover/cta:translate-x-1 transition-transform">→</span>
                     </a>
                 </article>
@@ -901,7 +922,7 @@ $ npm run deploy
                         </div>
                     </div>
 
-                    <h3 class="font-display text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                    <h3 class="font-display text-2xl sm:text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
                         Saber exactamente<br><span class="text-wine-gradient">cuánto te queda.</span>
                     </h3>
 
@@ -944,7 +965,7 @@ $ npm run deploy
                         </div>
                     </div>
 
-                    <h3 class="font-display text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                    <h3 class="font-display text-2xl sm:text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
                         Modernizá sin perder<br><span class="text-wine-gradient">décadas de info.</span>
                     </h3>
 
@@ -987,7 +1008,7 @@ $ npm run deploy
                         </div>
                     </div>
 
-                    <h3 class="font-display text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                    <h3 class="font-display text-2xl sm:text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
                         Validá socios desde<br><span class="text-wine-gradient">el celular.</span>
                     </h3>
 
@@ -1030,7 +1051,7 @@ $ npm run deploy
                         </div>
                     </div>
 
-                    <h3 class="font-display text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                    <h3 class="font-display text-2xl sm:text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
                         Mantenimiento de PC<br><span class="text-wine-gradient">sin complicaciones.</span>
                     </h3>
 
@@ -1073,7 +1094,7 @@ $ npm run deploy
                         </div>
                     </div>
 
-                    <h3 class="font-display text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                    <h3 class="font-display text-2xl sm:text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
                         Diagnóstico de hardware<br><span class="text-wine-gradient">asistido por IA.</span>
                     </h3>
 
@@ -1151,7 +1172,7 @@ $ npm run deploy
                     <div class="section-tag mb-6">
                         <span>// STACK.JSON</span>
                     </div>
-                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-display-tight" style="font-weight: 600;">
+                    <h2 class="font-display text-[1.95rem] sm:text-4xl md:text-5xl lg:text-6xl text-display-tight" style="font-weight: 600;">
                         <span class="text-bone-gradient">HERRAMIENTAS</span><br>
                         <span class="text-wine-gradient">PROBADAS EN CAMPO.</span>
                     </h2>
@@ -1262,7 +1283,7 @@ $ npm run deploy
                 <span>READY // INIT NEW PROJECT</span>
             </div>
 
-            <h2 class="font-display text-5xl md:text-7xl lg:text-8xl text-display-tight mb-8" style="font-weight: 600;">
+            <h2 class="font-display text-[2.2rem] sm:text-5xl md:text-7xl lg:text-8xl text-display-tight mb-8" style="font-weight: 600;">
                 <span class="text-bone-gradient">¿TENÉS UN</span><br>
                 <span class="text-bone-gradient">PROYECTO</span>
                 <span class="text-wine-gradient glitch" data-text="EN MENTE?">EN MENTE?</span>
@@ -1462,38 +1483,42 @@ $ npm run deploy
     }
 
     // ============================
-    // MAGNETIC BUTTONS
+    // POINTER CAPABILITY GATE
+    // Only run hover-based interactions on devices that can hover (desktop).
     // ============================
-    document.querySelectorAll('.magnetic').forEach(btn => {
-        btn.addEventListener('mousemove', e => {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
-        });
-        btn.addEventListener('mouseleave', () => {
-            btn.style.transform = 'translate(0, 0)';
-        });
-    });
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-    // ============================
-    // 3D TILT CARDS
-    // ============================
-    document.querySelectorAll('[data-tilt]').forEach(card => {
-        card.addEventListener('mousemove', e => {
-            const rect = card.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width;
-            const y = (e.clientY - rect.top) / rect.height;
-            const rotY = (x - 0.5) * 6;
-            const rotX = (0.5 - y) * 6;
-            card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px)`;
-            card.style.setProperty('--mx', (x * 100) + '%');
-            card.style.setProperty('--my', (y * 100) + '%');
+    if (canHover) {
+        // MAGNETIC BUTTONS
+        document.querySelectorAll('.magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', e => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
         });
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+
+        // 3D TILT CARDS
+        document.querySelectorAll('[data-tilt]').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                const rotY = (x - 0.5) * 6;
+                const rotX = (0.5 - y) * 6;
+                card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px)`;
+                card.style.setProperty('--mx', (x * 100) + '%');
+                card.style.setProperty('--my', (y * 100) + '%');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            });
         });
-    });
+    }
 
     // ============================
     // FLOATING CODE PARALLAX
