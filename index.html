@@ -1,242 +1,1515 @@
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍷</text></svg>">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio | Desarrollador Full Stack</title>
-    <meta name="description" content="Portafolio profesional de desarrollo de software.">
+    <title>agunacci // software que opera en producción</title>
+    <meta name="description" content="Desarrollo fullstack independiente. Sistemas a medida para comercios, pymes e instituciones. Desde Catamarca, Argentina.">
+    <meta name="author" content="agunacci">
+    <meta name="theme-color" content="#020617">
+
+    <!-- Open Graph (Facebook, WhatsApp, LinkedIn, etc.) -->
+    <!-- NOTA: para previews 100% confiables en WhatsApp, reemplazar las URLs por absolutas cuando tengas el dominio final.
+         Ej: https://agunacci.com/assets/og-image.png -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="agunacci">
+    <meta property="og:title" content="agunacci — Software que opera en el mundo real">
+    <meta property="og:description" content="Desarrollo fullstack independiente. Sistemas a medida para comercios, pymes e instituciones. Desde Catamarca, Argentina.">
+    <meta property="og:image" content="assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Portfolio de agunacci — software que opera en el mundo real">
+    <meta property="og:locale" content="es_AR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="agunacci — Software que opera en el mundo real">
+    <meta name="twitter:description" content="Desarrollo fullstack independiente. Sistemas a medida para comercios, pymes e instituciones.">
+    <meta name="twitter:image" content="assets/og-image.png">
+    <meta name="twitter:image:alt" content="Portfolio de agunacci">
+
+    <!-- Schema.org Person (SEO) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "agunacci",
+      "jobTitle": "Desarrollador Fullstack Independiente",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "San Fernando del Valle de Catamarca",
+        "addressRegion": "Catamarca",
+        "addressCountry": "AR"
+      },
+      "email": "agunacciprojects@gmail.com",
+      "telephone": "+5493834271005",
+      "sameAs": ["https://instagram.com/naccitech.arg"]
+    }
+    </script>
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23f43f5e%22/></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=JetBrains+Mono:wght@300..800&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        // Nuestra paleta personalizada "Vino Neón"
+                        ink: { DEFAULT: '#020617', 2: '#070b1a', 3: '#0d1326' },
+                        bone: { DEFAULT: '#e6e9f0', mute: '#7d8499', deep: '#b8bdcc' },
                         wine: {
-                            400: '#ff4d79', // Neón brillante (rosa/rojo)
-                            500: '#f43f5e', // Color base vino intenso
-                            600: '#e11d48', // Vino más oscuro para fondos
-                            900: '#881337', // Vino profundo para bordes sutiles
-                        },
-                        slate: {
-                            950: '#020617', // Fondo casi negro
+                            300: '#fda4af',
+                            400: '#ff4d79',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                            900: '#881337',
+                            950: '#4c0519'
                         }
                     },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    },
-                    boxShadow: {
-                        'neon': '0 0 20px -5px rgba(244, 63, 94, 0.5), 0 0 10px -6px rgba(244, 63, 94, 0.2)',
-                        'neon-strong': '0 0 30px -5px rgba(244, 63, 94, 0.7), 0 0 15px -6px rgba(244, 63, 94, 0.4)',
+                    fontFamily: {
+                        display: ['"Unbounded"', 'system-ui', 'sans-serif'],
+                        sans: ['"Geist"', 'system-ui', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', '"Geist Mono"', 'ui-monospace', 'monospace'],
                     }
                 }
             }
         }
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
-        /* Estilos base */
-        body { background-color: #020617; color: #e2e8f0; }
-        
-        /* Gradiente de texto Vino Neón */
-        .gradient-text-wine {
-            background: linear-gradient(to right, #ff4d79, #e11d48);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 8px rgba(244, 63, 94, 0.3));
+        :root {
+            --ink: #020617;
+            --wine: #f43f5e;
+            --wine-glow: rgba(244, 63, 94, 0.45);
         }
 
-        /* Clase utilitaria para efectos hover fluidos */
-        .hover-trigger {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        * { -webkit-tap-highlight-color: transparent; }
+        html, body { background-color: var(--ink); color: #e6e9f0; }
+        body {
+            font-family: 'Geist', system-ui, sans-serif;
+            font-feature-settings: "ss01", "cv11";
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            cursor: default;
         }
-        
-        /* Fondo sutil con brillo vino */
-        .bg-glow-radial {
-            background: radial-gradient(circle at 50% 0%, rgba(136, 19, 55, 0.25) 0%, rgba(2, 6, 23, 1) 60%);
+
+        /* ============================
+           ATMOSPHERE
+        ============================ */
+        #particles {
+            position: fixed; inset: 0; z-index: 0;
+            pointer-events: none;
         }
+
+        .bg-aura {
+            position: fixed; inset: 0; z-index: -1;
+            background:
+              radial-gradient(circle at 20% 10%, rgba(136, 19, 55, 0.45), transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(244, 63, 94, 0.18), transparent 55%),
+              radial-gradient(circle at 50% 100%, rgba(76, 5, 25, 0.6), transparent 50%),
+              #020617;
+        }
+
+        .noise::before {
+            content: ""; position: fixed; inset: 0; pointer-events: none;
+            opacity: 0.06; mix-blend-mode: overlay; z-index: 1;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* Grid pattern overlay */
+        .grid-bg {
+            background-image:
+              linear-gradient(rgba(244, 63, 94, 0.06) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(244, 63, 94, 0.06) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 90%);
+        }
+
+        /* Cursor glow */
+        .cursor-glow {
+            position: fixed; pointer-events: none; z-index: 2;
+            width: 480px; height: 480px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(244, 63, 94, 0.18), transparent 65%);
+            transform: translate(-50%, -50%);
+            transition: opacity 0.4s ease;
+            mix-blend-mode: screen;
+            filter: blur(8px);
+        }
+
+        /* ============================
+           SCROLL PROGRESS
+        ============================ */
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; height: 2px; z-index: 100;
+            background: linear-gradient(90deg, #f43f5e, #ff4d79, #f43f5e);
+            box-shadow: 0 0 12px rgba(244, 63, 94, 0.8);
+            width: 0%; transition: width 0.1s linear;
+        }
+
+        /* ============================
+           FLOATING CODE SNIPPETS
+        ============================ */
+        .code-float {
+            position: absolute; pointer-events: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: rgba(244, 63, 94, 0.22);
+            line-height: 1.6;
+            white-space: pre;
+            user-select: none;
+            text-shadow: 0 0 12px rgba(244, 63, 94, 0.2);
+            transform-origin: center;
+            will-change: transform;
+        }
+        .code-float .kw { color: rgba(255, 77, 121, 0.55); }
+        .code-float .str { color: rgba(173, 232, 230, 0.45); }
+        .code-float .num { color: rgba(252, 211, 77, 0.35); }
+        .code-float .cm { color: rgba(125, 132, 153, 0.45); font-style: italic; }
+
+        @keyframes drift-1 { 0%,100% { transform: translate(0,0) rotate(-4deg); } 50% { transform: translate(20px,-15px) rotate(-2deg); } }
+        @keyframes drift-2 { 0%,100% { transform: translate(0,0) rotate(3deg); } 50% { transform: translate(-15px,12px) rotate(5deg); } }
+        @keyframes drift-3 { 0%,100% { transform: translate(0,0) rotate(-2deg); } 50% { transform: translate(10px,-20px) rotate(0deg); } }
+        @keyframes drift-4 { 0%,100% { transform: translate(0,0) rotate(5deg); } 50% { transform: translate(-25px,8px) rotate(3deg); } }
+        @keyframes drift-5 { 0%,100% { transform: translate(0,0) rotate(-3deg); } 50% { transform: translate(18px,18px) rotate(-1deg); } }
+
+        .drift-1 { animation: drift-1 14s ease-in-out infinite; }
+        .drift-2 { animation: drift-2 18s ease-in-out infinite; }
+        .drift-3 { animation: drift-3 16s ease-in-out infinite; }
+        .drift-4 { animation: drift-4 20s ease-in-out infinite; }
+        .drift-5 { animation: drift-5 12s ease-in-out infinite; }
+
+        /* ============================
+           TYPOGRAPHY
+        ============================ */
+        .font-display { font-family: 'Unbounded', sans-serif; }
+        .text-display-tight { letter-spacing: -0.04em; line-height: 0.92; }
+
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+        }
+        .glitch::before {
+            color: #00e5ff; mix-blend-mode: screen;
+            animation: glitch-anim-1 4s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            color: #f43f5e; mix-blend-mode: screen;
+            animation: glitch-anim-2 5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim-1 {
+            0%, 90%, 100% { transform: translate(0,0); opacity: 0; }
+            92% { transform: translate(-2px, 1px); opacity: 0.6; }
+            94% { transform: translate(2px, -1px); opacity: 0.4; }
+            96% { transform: translate(0,0); opacity: 0; }
+        }
+        @keyframes glitch-anim-2 {
+            0%, 88%, 100% { transform: translate(0,0); opacity: 0; }
+            89% { transform: translate(2px, 1px); opacity: 0.5; }
+            93% { transform: translate(-2px, -1px); opacity: 0.6; }
+            97% { transform: translate(0,0); opacity: 0; }
+        }
+
+        .text-wine-gradient {
+            background: linear-gradient(135deg, #ff8da0 0%, #f43f5e 50%, #881337 100%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 25px rgba(244, 63, 94, 0.35));
+        }
+        .text-bone-gradient {
+            background: linear-gradient(180deg, #ffffff 0%, #b8bdcc 100%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+        }
+
+        /* ============================
+           ELEMENTS
+        ============================ */
+        .eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #f43f5e;
+        }
+
+        .chip {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.4rem 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem; letter-spacing: 0.04em;
+            color: #b8bdcc;
+            background: rgba(7, 11, 26, 0.7);
+            border: 1px solid rgba(244, 63, 94, 0.18);
+            border-radius: 999px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .chip::before {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(244, 63, 94, 0.25), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        .chip:hover {
+            color: #fff; border-color: rgba(244, 63, 94, 0.7);
+            box-shadow: 0 0 24px -4px rgba(244, 63, 94, 0.5);
+            transform: translateY(-1px);
+        }
+        .chip:hover::before { transform: translateX(100%); }
+
+        .magnetic {
+            display: inline-flex; align-items: center; gap: 0.65rem;
+            padding: 0.9rem 1.5rem; border-radius: 999px;
+            font-weight: 500; letter-spacing: 0.01em;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background-color 0.3s ease;
+            will-change: transform;
+        }
+        .magnetic-primary {
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+            color: #020617;
+        }
+        .magnetic-primary:hover { box-shadow: 0 0 50px -8px rgba(244, 63, 94, 0.85), inset 0 0 0 1px rgba(255,255,255,0.2); }
+        .magnetic-ghost {
+            border: 1px solid rgba(230, 233, 240, 0.18);
+            color: #e6e9f0; background: rgba(7, 11, 26, 0.4); backdrop-filter: blur(8px);
+        }
+        .magnetic-ghost:hover { border-color: rgba(244, 63, 94, 0.6); background: rgba(244, 63, 94, 0.08); }
+
+        /* Project card */
+        .proj-card {
+            position: relative; overflow: hidden;
+            background: linear-gradient(180deg, rgba(7, 11, 26, 0.85), rgba(13, 19, 38, 0.6));
+            border: 1px solid rgba(244, 63, 94, 0.15);
+            border-radius: 1.25rem;
+            transition: border-color 0.4s ease, box-shadow 0.5s ease, transform 0.3s ease;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        .proj-card::before {
+            content: ""; position: absolute; inset: 0; pointer-events: none;
+            background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(244, 63, 94, 0.18), transparent 40%);
+            opacity: 0; transition: opacity 0.5s ease;
+        }
+        .proj-card:hover { border-color: rgba(244, 63, 94, 0.45); box-shadow: 0 30px 80px -25px rgba(244, 63, 94, 0.35); }
+        .proj-card:hover::before { opacity: 1; }
+
+        .corner-tl, .corner-tr, .corner-bl, .corner-br {
+            position: absolute; width: 14px; height: 14px;
+            border-color: rgba(244, 63, 94, 0.6);
+            transition: all 0.4s ease;
+        }
+        .corner-tl { top: 10px; left: 10px; border-top: 1px solid; border-left: 1px solid; }
+        .corner-tr { top: 10px; right: 10px; border-top: 1px solid; border-right: 1px solid; }
+        .corner-bl { bottom: 10px; left: 10px; border-bottom: 1px solid; border-left: 1px solid; }
+        .corner-br { bottom: 10px; right: 10px; border-bottom: 1px solid; border-right: 1px solid; }
+        .proj-card:hover .corner-tl, .proj-card:hover .corner-tr, .proj-card:hover .corner-bl, .proj-card:hover .corner-br { width: 28px; height: 28px; border-color: #f43f5e; }
+
+        /* Stack toggle */
+        .toggle-tile {
+            position: relative;
+            padding: 1.25rem;
+            background: rgba(7, 11, 26, 0.6);
+            border: 1px solid rgba(244, 63, 94, 0.12);
+            border-radius: 0.85rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .toggle-tile::before {
+            content: ""; position: absolute; inset: 0;
+            background: radial-gradient(circle at 50% 100%, rgba(244, 63, 94, 0.4), transparent 70%);
+            opacity: 0; transition: opacity 0.5s ease;
+        }
+        .toggle-tile .led {
+            position: absolute; top: 12px; right: 12px;
+            width: 6px; height: 6px; border-radius: 50%;
+            background: rgba(244, 63, 94, 0.25);
+            transition: all 0.4s ease;
+        }
+        .toggle-tile:hover { border-color: rgba(244, 63, 94, 0.6); transform: translateY(-3px); box-shadow: 0 20px 60px -20px rgba(244, 63, 94, 0.4); }
+        .toggle-tile:hover::before { opacity: 1; }
+        .toggle-tile:hover .led { background: #f43f5e; box-shadow: 0 0 14px #f43f5e; }
+        .toggle-tile:hover .ico { color: #ff4d79; filter: drop-shadow(0 0 12px rgba(244,63,94,0.7)); }
+
+        /* ============================
+           ANIMATIONS / REVEAL
+        ============================ */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+
+        .reveal-stagger > * { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-stagger.in > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+        .reveal-stagger.in > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
+        .reveal-stagger.in > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
+        .reveal-stagger.in > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.35s; }
+        .reveal-stagger.in > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.45s; }
+        .reveal-stagger.in > *:nth-child(n+6) { opacity: 1; transform: translateY(0); transition-delay: 0.55s; }
+
+        @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+        .caret { display: inline-block; width: 0.55em; height: 1em; background: #f43f5e; margin-left: 0.15em; vertical-align: -0.12em; animation: blink 1.1s steps(2) infinite; box-shadow: 0 0 18px #f43f5e; }
+
+        @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+        .marquee-track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+        .marquee-track-rev { display: flex; width: max-content; animation: marquee 46s linear infinite reverse; }
+
+        @keyframes pulseSoft { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        .pulse-soft { animation: pulseSoft 2.4s ease-in-out infinite; }
+
+        @keyframes rot { 0%{ transform: rotate(0); } 100% { transform: rotate(360deg); } }
+        .rot { animation: rot 22s linear infinite; }
+
+        /* Counter */
+        .counter { font-variant-numeric: tabular-nums; }
+
+        /* Selection */
+        ::selection { background: #f43f5e; color: #020617; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #4c0519; border-radius: 6px; }
+        ::-webkit-scrollbar-thumb:hover { background: #881337; }
+
+        /* Section anchor styling */
+        .section-tag {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 0.35rem 0.85rem; border-radius: 999px;
+            background: rgba(244, 63, 94, 0.08);
+            border: 1px solid rgba(244, 63, 94, 0.25);
+            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+            color: #ff4d79; letter-spacing: 0.1em;
+        }
+        .section-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: #f43f5e; box-shadow: 0 0 10px #f43f5e; }
+
+        /* Link underline */
+        .link-line { position: relative; }
+        .link-line::after {
+            content: ""; position: absolute; left: 0; bottom: -3px; height: 1px; width: 100%;
+            background: currentColor; transform: scaleX(0); transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .link-line:hover::after { transform: scaleX(1); }
+
+        /* Editorial divider */
+        .ed-rule { height: 1px; background: linear-gradient(90deg, transparent, rgba(244, 63, 94, 0.5), transparent); }
+
+        /* Hide cursor glow on touch */
+        @media (hover: none) { .cursor-glow { display: none; } }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        }
+
+        /* Focus states (a11y) */
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid #f43f5e;
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        /* Photo duotone */
+        .photo-frame {
+            position: relative;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            isolation: isolate;
+        }
+        .photo-frame img {
+            display: block;
+            width: 100%; height: auto;
+            filter: grayscale(0.8) contrast(1.05) brightness(0.95);
+            transition: filter 0.6s ease, transform 0.6s ease;
+        }
+        .photo-frame::before {
+            content: "";
+            position: absolute; inset: 0;
+            background: linear-gradient(165deg, rgba(244, 63, 94, 0.35) 0%, rgba(76, 5, 25, 0.45) 60%, rgba(2, 6, 23, 0.25) 100%);
+            mix-blend-mode: color;
+            pointer-events: none;
+            z-index: 2;
+            transition: opacity 0.6s ease;
+        }
+        .photo-frame::after {
+            content: "";
+            position: absolute; inset: 0;
+            background:
+              repeating-linear-gradient(0deg, rgba(244, 63, 94, 0.08) 0px, rgba(244, 63, 94, 0.08) 1px, transparent 1px, transparent 3px);
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.5;
+            mix-blend-mode: overlay;
+        }
+        .photo-frame:hover img { filter: grayscale(0.2) contrast(1.05) brightness(1); transform: scale(1.02); }
+        .photo-frame:hover::before { opacity: 0.55; }
+
+        .photo-corner {
+            position: absolute; width: 22px; height: 22px;
+            border: 1px solid #f43f5e;
+            z-index: 4;
+            box-shadow: 0 0 12px rgba(244, 63, 94, 0.4);
+        }
+        .photo-corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .photo-corner.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+        .photo-corner.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+        .photo-corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+        /* Tree (profile) */
+        .tree {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem; line-height: 1.85;
+            color: #b8bdcc;
+        }
+        .tree .k { color: #ff4d79; }
+        .tree .v { color: #e6e9f0; }
+        .tree .sym { color: rgba(244, 63, 94, 0.5); }
     </style>
 </head>
-<body class="font-sans antialiased selection:bg-wine-500 selection:text-white bg-slate-950 bg-glow-radial min-h-screen">
+<body class="noise relative min-h-screen">
 
-    <nav class="fixed w-full z-50 bg-slate-950/70 backdrop-blur-lg border-b border-wine-900/30">
-        <div class="max-w-6xl mx-auto px-6 h-16 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold tracking-tighter flex items-center gap-2 group hover-trigger">
-                <i class="fa-solid fa-terminal text-wine-500 group-hover:text-wine-400 transition"></i>
-                <span class="text-white">DEV<span class="text-wine-500 group-hover:text-wine-400 transition group-hover:drop-shadow-[0_0_8px_rgba(244,63,94,0.5)]">.PORTFOLIO</span></span>
+    <!-- Background atmosphere -->
+    <div class="bg-aura"></div>
+    <canvas id="particles"></canvas>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Scroll progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Floating code (ambient decoration) -->
+    <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <pre class="code-float drift-1 hidden md:block" style="top: 18%; left: 4%;"><span class="cm">// always-on</span>
+<span class="kw">const</span> sistema = {
+  operacion: <span class="str">"tiempo-real"</span>,
+  offline: <span class="kw">true</span>,
+};</pre>
+
+        <pre class="code-float drift-2 hidden md:block" style="top: 62%; right: 3%;"><span class="kw">function</span> cobrar(item) {
+  stock--;
+  <span class="kw">return</span> <span class="str">"ok"</span>;
+}</pre>
+
+        <pre class="code-float drift-3 hidden lg:block" style="top: 110%; left: 6%;"><span class="cm">--# query diaria</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> ventas
+<span class="kw">WHERE</span> estado = <span class="str">'live'</span>;</pre>
+
+        <pre class="code-float drift-4 hidden lg:block" style="top: 168%; right: 5%;"><span class="cm">✓</span> deploy: <span class="str">production</span>
+<span class="cm">✓</span> uptime: <span class="num">99.9%</span>
+<span class="cm">✓</span> tests: <span class="num">47</span> passed</pre>
+
+        <pre class="code-float drift-5 hidden md:block" style="top: 230%; left: 3%;">{
+  <span class="str">"sistema"</span>: <span class="str">"offline-first"</span>,
+  <span class="str">"clientes"</span>: <span class="num">06</span>
+}</pre>
+
+        <pre class="code-float drift-1 hidden lg:block" style="top: 290%; right: 4%;"><span class="cm"># build</span>
+$ npm run deploy
+<span class="cm">→ live</span></pre>
+    </div>
+
+    <!-- Nav -->
+    <nav class="fixed w-full z-50 backdrop-blur-xl bg-ink/70 border-b border-wine-900/20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex justify-between items-center">
+            <a href="#" class="group flex items-center gap-2.5">
+                <span class="relative flex h-2 w-2">
+                    <span class="absolute inline-flex h-full w-full rounded-full bg-wine-500 opacity-70 pulse-soft"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-wine-500"></span>
+                </span>
+                <span class="font-display text-base text-bone tracking-tight" style="font-weight: 600;">agunacci</span>
+                <span class="font-mono text-xs text-wine-500/70">v1.5</span>
             </a>
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
-                <a href="#proyectos" class="hover:text-wine-400 transition hover:drop-shadow-[0_0_5px_rgba(244,63,94,0.5)]">Proyectos</a>
-                <a href="#habilidades" class="hover:text-wine-400 transition hover:drop-shadow-[0_0_5px_rgba(244,63,94,0.5)]">Stack</a>
-                <a href="#contacto" class="hover:text-wine-400 transition hover:drop-shadow-[0_0_5px_rgba(244,63,94,0.5)]">Contacto</a>
+            <div class="hidden md:flex items-center gap-7 text-sm text-bone-deep font-mono">
+                <a href="#sobre-mi" class="link-line hover:text-bone transition">./agustin</a>
+                <a href="#filosofia" class="link-line hover:text-bone transition">./manifiesto</a>
+                <a href="#trabajos" class="link-line hover:text-bone transition">./trabajos</a>
+                <a href="#stack" class="link-line hover:text-bone transition">./stack</a>
+                <a href="#contacto" class="link-line hover:text-bone transition">./contacto</a>
             </div>
+            <a href="https://wa.me/5493834271005" target="_blank" rel="noopener" class="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-wine-500/10 border border-wine-500/40 text-wine-300 hover:bg-wine-500 hover:text-ink rounded-full text-sm font-medium transition-all duration-300 font-mono">
+                <i class="fa-brands fa-whatsapp"></i> $ chat
+            </a>
         </div>
     </nav>
 
-    <section class="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-wine-600/20 rounded-full blur-[120px] -z-10 animate-pulse-slow"></div>
+    <!-- ===========================
+         HERO
+    ============================ -->
+    <header class="relative pt-28 pb-20 lg:pt-36 lg:pb-24 z-10">
+        <div class="grid-bg absolute inset-0 -z-10 opacity-60"></div>
 
-        <div class="max-w-4xl mx-auto px-6 text-center animate-fade-in-up">
-            <div class="inline-flex items-center px-4 py-1.5 mb-6 text-xs font-bold tracking-wider text-wine-400 uppercase bg-wine-900/30 rounded-full border border-wine-500/30 shadow-neon">
-                <span class="relative flex h-2 w-2 mr-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-wine-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-wine-500"></span>
-                  </span>
-                Disponible para nuevos retos
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 relative">
+
+            <!-- Top meta -->
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-12 reveal">
+                <div class="section-tag">
+                    <span class="dot pulse-soft"></span>
+                    <span>SYSTEM // ONLINE</span>
+                </div>
+                <div class="hidden md:flex items-center gap-3 font-mono text-xs text-bone-mute">
+                    <span class="text-wine-500">~</span>
+                    <span>portfolio.run</span>
+                    <span class="text-bone-mute/40">|</span>
+                    <span>build: 2026.05</span>
+                    <span class="text-bone-mute/40">|</span>
+                    <span class="text-wine-400">disponible</span>
+                </div>
             </div>
-            
-            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-8 leading-tight">
-                Arquitectura Full Stack <br>
-                <span class="gradient-text-wine">sin fricción ni excusas.</span>
+
+            <!-- Headline -->
+            <h1 class="font-display max-w-6xl reveal text-display-tight" style="font-weight: 600;">
+                <span class="block text-5xl sm:text-6xl md:text-7xl lg:text-[7.5rem] text-bone-gradient">SISTEMAS</span>
+                <span class="block text-5xl sm:text-6xl md:text-7xl lg:text-[7.5rem] mt-1 lg:mt-2">
+                    <span class="font-mono font-light text-wine-500/40 italic mr-2 align-top text-3xl lg:text-5xl">{</span>
+                    <span class="text-wine-gradient">a medida</span>
+                    <span class="font-mono font-light text-wine-500/40 italic ml-2 align-top text-3xl lg:text-5xl">}</span>
+                </span>
+                <span class="block text-5xl sm:text-6xl md:text-7xl lg:text-[7.5rem] mt-1 lg:mt-2 text-bone-gradient">
+                    PARA QUE TU NEGOCIO
+                </span>
+                <span class="block text-5xl sm:text-6xl md:text-7xl lg:text-[7.5rem] mt-1 lg:mt-2 text-bone-gradient">
+                    <span class="glitch" data-text="NO SE DETENGA.">NO SE DETENGA.</span><span class="caret"></span>
+                </span>
             </h1>
-            
-            <p class="text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-                Soluciones diseñadas por <strong class="text-wine-500 drop-shadow-[0_0_8px_rgba(244,63,94,0.4)]">agunacci</strong>. Especializado en conectar el mundo físico con el digital mediante sistemas en tiempo real y optimización de procesos críticos.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row justify-center gap-5">
-                <a href="#proyectos" class="group relative px-8 py-3 bg-wine-600 text-white rounded-lg font-bold overflow-hidden hover-trigger hover:shadow-neon-strong hover:-translate-y-1">
-                    <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-wine-500 to-wine-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <span class="relative flex items-center gap-2">
-                        Ver Proyectos <i class="fa-solid fa-arrow-down-long group-hover:translate-y-1 transition-transform"></i>
-                    </span>
-                </a>
-                <a href="#contacto" class="px-8 py-3 bg-transparent text-wine-400 rounded-lg font-bold border-2 border-wine-900/50 hover:border-wine-500 hover:text-white hover:shadow-neon hover-trigger hover:-translate-y-1 transition">
-                    Contactar
-                </a>
+
+            <!-- Subhead + CTAs -->
+            <div class="mt-14 lg:mt-20 grid lg:grid-cols-12 gap-10 items-end reveal">
+
+                <div class="lg:col-span-7">
+                    <div class="border-l-2 border-wine-500 pl-5">
+                        <p class="font-mono text-xs text-wine-400 mb-3">// soy.agustin</p>
+                        <p class="text-lg lg:text-xl text-bone-deep leading-relaxed max-w-2xl">
+                            Desarrollador fullstack independiente. Diseño y construyo software a medida — POS, gestión, integraciones, herramientas de escritorio — para comercios, pymes e instituciones. Sin agencias, sin intermediarios.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 flex flex-col sm:flex-row gap-3 lg:justify-end">
+                    <a href="#trabajos" class="magnetic magnetic-primary group">
+                        <span class="font-mono text-sm">$ ver trabajos</span>
+                        <i class="fa-solid fa-arrow-down text-xs group-hover:translate-y-0.5 transition-transform"></i>
+                    </a>
+                    <a href="https://wa.me/5493834271005" target="_blank" rel="noopener" class="magnetic magnetic-ghost group">
+                        <i class="fa-brands fa-whatsapp text-wine-400"></i>
+                        <span class="font-mono text-sm">conversemos</span>
+                    </a>
+                </div>
+
             </div>
+
+            <!-- Hero stats / terminal-style -->
+            <div class="mt-20 lg:mt-28 grid grid-cols-2 md:grid-cols-4 gap-4 reveal-stagger reveal">
+                <div class="p-5 border border-wine-900/30 bg-ink-2/60 backdrop-blur-sm rounded-xl">
+                    <div class="font-mono text-xs text-wine-400 mb-2">[ 01 ]</div>
+                    <div class="font-display text-3xl text-bone counter" data-count="6">0</div>
+                    <div class="font-mono text-[11px] text-bone-mute mt-1 uppercase tracking-wider">sistemas en producción</div>
+                </div>
+                <div class="p-5 border border-wine-900/30 bg-ink-2/60 backdrop-blur-sm rounded-xl">
+                    <div class="font-mono text-xs text-wine-400 mb-2">[ 02 ]</div>
+                    <div class="font-display text-3xl text-bone counter" data-count="4">0</div>
+                    <div class="font-mono text-[11px] text-bone-mute mt-1 uppercase tracking-wider">verticales abordadas</div>
+                </div>
+                <div class="p-5 border border-wine-900/30 bg-ink-2/60 backdrop-blur-sm rounded-xl">
+                    <div class="font-mono text-xs text-wine-400 mb-2">[ 03 ]</div>
+                    <div class="font-display text-3xl text-bone"><span class="counter" data-count="100">0</span><span class="text-wine-500">%</span></div>
+                    <div class="font-mono text-[11px] text-bone-mute mt-1 uppercase tracking-wider">trato directo</div>
+                </div>
+                <div class="p-5 border border-wine-900/30 bg-ink-2/60 backdrop-blur-sm rounded-xl">
+                    <div class="font-mono text-xs text-wine-400 mb-2">[ 04 ]</div>
+                    <div class="font-display text-3xl text-bone">CAT<span class="text-wine-500">.</span></div>
+                    <div class="font-mono text-[11px] text-bone-mute mt-1 uppercase tracking-wider">catamarca, ar</div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ===========================
+         MARQUEE
+    ============================ -->
+    <section aria-hidden="true" class="relative py-6 border-y border-wine-900/30 overflow-hidden bg-ink-2/60 z-10">
+        <div class="marquee-track font-mono text-bone-mute/80 text-sm tracking-widest uppercase">
+            <span class="flex items-center gap-8 pr-8">
+                <span class="text-wine-500">✦</span><span>{ punto de venta }</span>
+                <span class="text-wine-500">✦</span><span>{ control de stock }</span>
+                <span class="text-wine-500">✦</span><span>{ facturación afip }</span>
+                <span class="text-wine-500">✦</span><span>{ PWA mobile-first }</span>
+                <span class="text-wine-500">✦</span><span>{ migración legacy }</span>
+                <span class="text-wine-500">✦</span><span>{ apps de escritorio }</span>
+                <span class="text-wine-500">✦</span><span>{ integraciones a medida }</span>
+                <span class="text-wine-500">✦</span><span>{ reportes con un clic }</span>
+                <span class="text-wine-500">✦</span><span>{ qr + tiempo real }</span>
+            </span>
+            <span class="flex items-center gap-8 pr-8" aria-hidden="true">
+                <span class="text-wine-500">✦</span><span>{ punto de venta }</span>
+                <span class="text-wine-500">✦</span><span>{ control de stock }</span>
+                <span class="text-wine-500">✦</span><span>{ facturación afip }</span>
+                <span class="text-wine-500">✦</span><span>{ PWA mobile-first }</span>
+                <span class="text-wine-500">✦</span><span>{ migración legacy }</span>
+                <span class="text-wine-500">✦</span><span>{ apps de escritorio }</span>
+                <span class="text-wine-500">✦</span><span>{ integraciones a medida }</span>
+                <span class="text-wine-500">✦</span><span>{ reportes con un clic }</span>
+                <span class="text-wine-500">✦</span><span>{ qr + tiempo real }</span>
+            </span>
         </div>
     </section>
 
-    <section id="proyectos" class="py-24 relative z-10">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-3xl font-bold text-white mb-16 flex items-center gap-3 relative">
-                <span class="absolute -left-4 w-1 h-8 bg-wine-500 rounded-full shadow-neon"></span>
-                Proyectos Destacados
+    <!-- ===========================
+         SOBRE MÍ
+    ============================ -->
+    <section id="sobre-mi" class="relative py-24 lg:py-36 z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+
+                <!-- Photo column -->
+                <div class="lg:col-span-5 reveal">
+                    <div class="relative max-w-sm mx-auto lg:mx-0">
+
+                        <!-- Decorative rotating border behind photo -->
+                        <div class="absolute -inset-4 border border-wine-900/40 rounded-3xl rot pointer-events-none" aria-hidden="true"></div>
+
+                        <!-- Photo frame -->
+                        <div class="photo-frame border border-wine-500/30">
+                            <span class="photo-corner tl"></span>
+                            <span class="photo-corner tr"></span>
+                            <span class="photo-corner bl"></span>
+                            <span class="photo-corner br"></span>
+                            <img src="assets/yo.png" width="340" height="512"
+                                 alt="Retrato de Agustín, desarrollador fullstack desde Catamarca, Argentina"
+                                 loading="lazy" decoding="async">
+                        </div>
+
+                        <!-- Floating badge -->
+                        <div class="absolute -bottom-4 -right-4 z-10">
+                            <div class="chip !text-bone !border-wine-500/50 !bg-ink shadow-[0_0_30px_-6px_rgba(244,63,94,0.5)]">
+                                <span class="inline-block h-1.5 w-1.5 rounded-full bg-wine-400 pulse-soft"></span>
+                                soy.agustin( )
+                            </div>
+                        </div>
+
+                        <!-- Floating tag top-left -->
+                        <div class="absolute -top-3 -left-3 z-10">
+                            <div class="font-mono text-[10px] uppercase tracking-widest px-2.5 py-1 bg-wine-500 text-ink rounded">
+                                AGUNACCI · v1.0
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Text column -->
+                <div class="lg:col-span-7 reveal">
+                    <div class="section-tag mb-6">
+                        <span>// .ABOUT</span>
+                    </div>
+
+                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-display-tight mb-8" style="font-weight: 600;">
+                        <span class="text-bone-gradient">CONSTRUYO</span><br>
+                        <span class="text-bone-gradient">DESDE</span>
+                        <span class="text-wine-gradient">CATAMARCA.</span>
+                    </h2>
+
+                    <div class="space-y-5 text-bone-deep text-lg leading-relaxed max-w-2xl mb-10">
+                        <p>
+                            Soy <span class="text-bone font-medium">Agustín</span>. Desarrollo fullstack independiente — sin agencia, sin equipo invisible, sin call centers detrás. Cada proyecto lo encaro de punta a punta: relevamiento del negocio, diseño, desarrollo, deploy y capacitación al equipo del cliente.
+                        </p>
+                        <p>
+                            Lo que más me importa es que el sistema funcione el segundo lunes, no solo en la demo del primero. Por eso priorizo arquitectura simple, datos en orden, y atender el teléfono cuando algo no anda.
+                        </p>
+                    </div>
+
+                    <!-- Profile tree -->
+                    <div class="p-5 lg:p-6 bg-ink-2/60 border border-wine-900/30 rounded-xl backdrop-blur-sm">
+                        <div class="font-mono text-xs text-wine-400 mb-3">$ cat .profile</div>
+                        <pre class="tree m-0"><span class="sym">.</span><span class="k">profile</span>
+<span class="sym">├── </span><span class="k">identidad</span><span class="sym">: </span><span class="v">agustín · agunacci</span>
+<span class="sym">├── </span><span class="k">base</span><span class="sym">: </span><span class="v">san fernando del valle, catamarca · ar</span>
+<span class="sym">├── </span><span class="k">rol</span><span class="sym">: </span><span class="v">desarrollador fullstack independiente</span>
+<span class="sym">├── </span><span class="k">modalidad</span><span class="sym">: </span><span class="v">trato directo · sin intermediarios</span>
+<span class="sym">├── </span><span class="k">foco</span><span class="sym">: </span><span class="v">software para uso diario · no demos</span>
+<span class="sym">└── </span><span class="k">status</span><span class="sym">: </span><span class="v" style="color: #4ade80;">disponible</span></pre>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===========================
+         FILOSOFIA / MANIFIESTO
+    ============================ -->
+    <section id="filosofia" class="relative py-24 lg:py-36 z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+            <div class="grid lg:grid-cols-12 gap-10 mb-16 reveal">
+                <div class="lg:col-span-5">
+                    <div class="section-tag mb-6">
+                        <span>// MANIFIESTO.MD</span>
+                    </div>
+                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-display-tight" style="font-weight: 600;">
+                        <span class="text-bone-gradient">NO VENDO</span><br>
+                        <span class="text-bone-gradient">FEATURES.</span><br>
+                        <span class="text-wine-gradient">CONSTRUYO</span><br>
+                        <span class="text-wine-gradient">HERRAMIENTAS.</span>
+                    </h2>
+                </div>
+                <div class="lg:col-span-6 lg:col-start-7 flex items-end">
+                    <div class="border-l-2 border-wine-900/50 pl-5">
+                        <p class="font-mono text-xs text-wine-400 mb-3">// principios.txt</p>
+                        <p class="text-lg text-bone-deep leading-relaxed">
+                            El software que sirve no es el que tiene más botones. Es el que entra al día a día del negocio sin fricción, que no se rompe el primer lunes feriado, y que está respaldado por alguien que atiende cuando lo llamás.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ed-rule mb-16"></div>
+
+            <div class="grid md:grid-cols-3 gap-8 lg:gap-12 reveal-stagger reveal">
+
+                <div class="p-7 lg:p-9 bg-ink-2/40 border border-wine-900/30 rounded-2xl backdrop-blur-sm relative group hover:border-wine-500/40 transition">
+                    <div class="absolute top-5 right-5 font-mono text-xs text-wine-500/60 group-hover:text-wine-400 transition">[01]</div>
+                    <div class="text-4xl text-wine-500 mb-4 group-hover:scale-110 transition origin-left"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3 class="font-display text-xl text-bone mb-3" style="font-weight: 600;">Problemas, no features.</h3>
+                    <p class="text-bone-deep leading-relaxed text-[15px]">
+                        Cada sistema arranca entendiendo cómo opera tu negocio. Las funcionalidades llegan después, cuando sabemos para qué tienen que estar.
+                    </p>
+                </div>
+
+                <div class="p-7 lg:p-9 bg-ink-2/40 border border-wine-900/30 rounded-2xl backdrop-blur-sm relative group hover:border-wine-500/40 transition">
+                    <div class="absolute top-5 right-5 font-mono text-xs text-wine-500/60 group-hover:text-wine-400 transition">[02]</div>
+                    <div class="text-4xl text-wine-500 mb-4 group-hover:scale-110 transition origin-left"><i class="fa-solid fa-bolt"></i></div>
+                    <h3 class="font-display text-xl text-bone mb-3" style="font-weight: 600;">Funciona todos los días.</h3>
+                    <p class="text-bone-deep leading-relaxed text-[15px]">
+                        Diseño pensando en cortes de luz, conexiones intermitentes y empleados nuevos. Si fallan los servidores, vos seguís vendiendo.
+                    </p>
+                </div>
+
+                <div class="p-7 lg:p-9 bg-ink-2/40 border border-wine-900/30 rounded-2xl backdrop-blur-sm relative group hover:border-wine-500/40 transition">
+                    <div class="absolute top-5 right-5 font-mono text-xs text-wine-500/60 group-hover:text-wine-400 transition">[03]</div>
+                    <div class="text-4xl text-wine-500 mb-4 group-hover:scale-110 transition origin-left"><i class="fa-solid fa-headset"></i></div>
+                    <h3 class="font-display text-xl text-bone mb-3" style="font-weight: 600;">Después de la entrega.</h3>
+                    <p class="text-bone-deep leading-relaxed text-[15px]">
+                        La entrega no es el final. Capacitación, ajustes y soporte real. Sin agencias ni call centers de por medio.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===========================
+         TRABAJOS
+    ============================ -->
+    <section id="trabajos" class="relative py-24 lg:py-36 border-y border-wine-900/30 z-10">
+        <div class="absolute inset-0 grid-bg opacity-40 -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 reveal">
+                <div>
+                    <div class="section-tag mb-5">
+                        <span>// TRABAJOS.LOG · 2025-2026</span>
+                    </div>
+                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-display-tight" style="font-weight: 600;">
+                        <span class="text-bone-gradient">06 SISTEMAS</span><br>
+                        <span class="text-wine-gradient">EN PRODUCCIÓN.</span>
+                    </h2>
+                </div>
+                <p class="md:max-w-sm font-mono text-sm text-bone-deep leading-relaxed">
+                    <span class="text-wine-500">$</span> Cada uno fue construido para un caso real. Lo que ves acá no es un demo: entró en uso.
+                </p>
+            </div>
+
+            <!-- Project grid -->
+            <div class="grid lg:grid-cols-2 gap-6 lg:gap-8 reveal-stagger reveal">
+
+                <!-- 01 NacciStock -->
+                <article class="proj-card p-8 lg:p-10 tilt" data-tilt>
+                    <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
+
+                    <div class="flex justify-between items-start mb-8 relative z-10">
+                        <span class="eyebrow">[ proj.01 / 06 ] · POS offline</span>
+                        <span class="chip">producción</span>
+                    </div>
+
+                    <div class="flex items-center gap-5 mb-6 relative z-10">
+                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-wine-500/10 border border-wine-500/30">
+                            <i class="fa-solid fa-cash-register text-2xl text-wine-500"></i>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs text-wine-400">$ ./nacci-stock</div>
+                            <div class="font-display text-2xl text-bone" style="font-weight: 600;">NacciStock</div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                        Vender sin depender<br><span class="text-wine-gradient">de internet.</span>
+                    </h3>
+
+                    <p class="text-bone-deep leading-relaxed mb-4 relative z-10">
+                        POS, control de inventario y reportes que funcionan en la PC del negocio. Si se corta la conexión seguís cobrando. Si se corta la luz, los datos están a salvo.
+                    </p>
+                    <p class="text-bone-mute text-sm mb-6 relative z-10">
+                        <span class="text-wine-400 font-mono">→</span> despensas, kioscos y comercios chicos que no dependen de la nube.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 relative z-10">
+                        <span class="chip">Electron</span>
+                        <span class="chip">SQLite</span>
+                        <span class="chip">Node.js</span>
+                        <span class="chip">Excel</span>
+                    </div>
+
+                    <a href="#contacto" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
+                        <span class="link-line">pedir info sobre este sistema</span>
+                        <span class="group-hover/cta:translate-x-1 transition-transform">→</span>
+                    </a>
+                </article>
+
+                <!-- 02 BarberPOS -->
+                <article class="proj-card p-8 lg:p-10 tilt" data-tilt>
+                    <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
+
+                    <div class="flex justify-between items-start mb-8 relative z-10">
+                        <span class="eyebrow">[ proj.02 / 06 ] · gestión financiera</span>
+                        <span class="chip">producción</span>
+                    </div>
+
+                    <div class="flex items-center gap-5 mb-6 relative z-10">
+                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-wine-500/10 border border-wine-500/30">
+                            <i class="fa-solid fa-scissors text-2xl text-wine-500"></i>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs text-wine-400">$ ./barber-pos</div>
+                            <div class="font-display text-2xl text-bone" style="font-weight: 600;">BarberPOS</div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                        Saber exactamente<br><span class="text-wine-gradient">cuánto te queda.</span>
+                    </h3>
+
+                    <p class="text-bone-deep leading-relaxed mb-4 relative z-10">
+                        Separa gastos propios de los compartidos, calcula automáticamente lo que te corresponde a fin de mes y te muestra la salud del negocio sin abrir Excel.
+                    </p>
+                    <p class="text-bone-mute text-sm mb-6 relative z-10">
+                        <span class="text-wine-400 font-mono">→</span> negocios compartidos entre socios independientes.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 relative z-10">
+                        <span class="chip">Next.js</span>
+                        <span class="chip">Prisma</span>
+                        <span class="chip">TypeScript</span>
+                        <span class="chip">Tailwind</span>
+                    </div>
+
+                    <a href="#contacto" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
+                        <span class="link-line">pedir info sobre este sistema</span>
+                        <span class="group-hover/cta:translate-x-1 transition-transform">→</span>
+                    </a>
+                </article>
+
+                <!-- 03 CONTA Modern -->
+                <article class="proj-card p-8 lg:p-10 tilt" data-tilt>
+                    <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
+
+                    <div class="flex justify-between items-start mb-8 relative z-10">
+                        <span class="eyebrow">[ proj.03 / 06 ] · migración legacy</span>
+                        <span class="chip">v1.0</span>
+                    </div>
+
+                    <div class="flex items-center gap-5 mb-6 relative z-10">
+                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-wine-500/10 border border-wine-500/30">
+                            <i class="fa-solid fa-database text-2xl text-wine-500"></i>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs text-wine-400">$ ./conta-modern</div>
+                            <div class="font-display text-2xl text-bone" style="font-weight: 600;">CONTA Modern</div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                        Modernizá sin perder<br><span class="text-wine-gradient">décadas de info.</span>
+                    </h3>
+
+                    <p class="text-bone-deep leading-relaxed mb-4 relative z-10">
+                        Reemplazo de sistemas viejos preservando todos los datos históricos. Importación masiva, balances con un clic y flujo simple para usuarios que llevan años con lo mismo.
+                    </p>
+                    <p class="text-bone-mute text-sm mb-6 relative z-10">
+                        <span class="text-wine-400 font-mono">→</span> instituciones y empresas con sistemas heredados.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 relative z-10">
+                        <span class="chip">FastAPI</span>
+                        <span class="chip">Python</span>
+                        <span class="chip">SQLite</span>
+                        <span class="chip">PDF</span>
+                    </div>
+
+                    <a href="#contacto" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
+                        <span class="link-line">pedir info sobre este sistema</span>
+                        <span class="group-hover/cta:translate-x-1 transition-transform">→</span>
+                    </a>
+                </article>
+
+                <!-- 04 Programa de Beneficios -->
+                <article class="proj-card p-8 lg:p-10 tilt" data-tilt>
+                    <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
+
+                    <div class="flex justify-between items-start mb-8 relative z-10">
+                        <span class="eyebrow">[ proj.04 / 06 ] · PWA · QR</span>
+                        <span class="chip">demo live</span>
+                    </div>
+
+                    <div class="flex items-center gap-5 mb-6 relative z-10">
+                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-wine-500/10 border border-wine-500/30">
+                            <i class="fa-solid fa-qrcode text-2xl text-wine-500"></i>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs text-wine-400">$ ./benefits-pwa</div>
+                            <div class="font-display text-2xl text-bone" style="font-weight: 600;">Programa de beneficios</div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                        Validá socios desde<br><span class="text-wine-gradient">el celular.</span>
+                    </h3>
+
+                    <p class="text-bone-deep leading-relaxed mb-4 relative z-10">
+                        QR único por socio, validación en tiempo real al escanearlo, y panel para ver qué comercios participan y cómo evoluciona el programa.
+                    </p>
+                    <p class="text-bone-mute text-sm mb-6 relative z-10">
+                        <span class="text-wine-400 font-mono">→</span> clubes, gimnasios y asociaciones con red de comercios.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 relative z-10">
+                        <span class="chip">Next.js</span>
+                        <span class="chip">PWA</span>
+                        <span class="chip">QR dinámico</span>
+                        <span class="chip">Mobile-first</span>
+                    </div>
+
+                    <a href="#contacto" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
+                        <span class="link-line">pedir info sobre este sistema</span>
+                        <span class="group-hover/cta:translate-x-1 transition-transform">→</span>
+                    </a>
+                </article>
+
+                <!-- 05 Win Optimizer -->
+                <article class="proj-card p-8 lg:p-10 tilt" data-tilt>
+                    <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
+
+                    <div class="flex justify-between items-start mb-8 relative z-10">
+                        <span class="eyebrow">[ proj.05 / 06 ] · desktop tool</span>
+                        <span class="chip">i18n</span>
+                    </div>
+
+                    <div class="flex items-center gap-5 mb-6 relative z-10">
+                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-wine-500/10 border border-wine-500/30">
+                            <i class="fa-solid fa-bolt text-2xl text-wine-500"></i>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs text-wine-400">$ ./win-optimizer</div>
+                            <div class="font-display text-2xl text-bone" style="font-weight: 600;">Windows Optimizer Pro</div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                        Mantenimiento de PC<br><span class="text-wine-gradient">sin complicaciones.</span>
+                    </h3>
+
+                    <p class="text-bone-deep leading-relaxed mb-4 relative z-10">
+                        App liviana para limpiar archivos basura, liberar espacio y optimizar el rendimiento con un click. Interfaz en español e inglés.
+                    </p>
+                    <p class="text-bone-mute text-sm mb-6 relative z-10">
+                        <span class="text-wine-400 font-mono">→</span> usuarios sin conocimientos técnicos.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 relative z-10">
+                        <span class="chip">Tauri</span>
+                        <span class="chip">React</span>
+                        <span class="chip">TypeScript</span>
+                        <span class="chip">i18n</span>
+                    </div>
+
+                    <a href="#contacto" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
+                        <span class="link-line">pedir info sobre este sistema</span>
+                        <span class="group-hover/cta:translate-x-1 transition-transform">→</span>
+                    </a>
+                </article>
+
+                <!-- 06 bios_assistant -->
+                <article class="proj-card p-8 lg:p-10 tilt" data-tilt>
+                    <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
+
+                    <div class="flex justify-between items-start mb-8 relative z-10">
+                        <span class="eyebrow">[ proj.06 / 06 ] · IA aplicada</span>
+                        <span class="chip">CLI</span>
+                    </div>
+
+                    <div class="flex items-center gap-5 mb-6 relative z-10">
+                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-wine-500/10 border border-wine-500/30">
+                            <i class="fa-solid fa-microchip text-2xl text-wine-500"></i>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs text-wine-400">$ ./bios-assistant</div>
+                            <div class="font-display text-2xl text-bone" style="font-weight: 600;">bios_assistant</div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display text-3xl lg:text-4xl text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                        Diagnóstico de hardware<br><span class="text-wine-gradient">asistido por IA.</span>
+                    </h3>
+
+                    <p class="text-bone-deep leading-relaxed mb-4 relative z-10">
+                        CLI que analiza dumps de BIOS para detectar corrupciones y diferencias entre versiones, ahorrando horas de comparación manual en el taller.
+                    </p>
+                    <p class="text-bone-mute text-sm mb-6 relative z-10">
+                        <span class="text-wine-400 font-mono">→</span> talleres de reparación de electrónica.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 relative z-10">
+                        <span class="chip">Python</span>
+                        <span class="chip">Claude API</span>
+                        <span class="chip">SQLite</span>
+                        <span class="chip">CLI</span>
+                    </div>
+
+                    <a href="#contacto" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
+                        <span class="link-line">pedir info sobre este sistema</span>
+                        <span class="group-hover/cta:translate-x-1 transition-transform">→</span>
+                    </a>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Marquee reverse -->
+    <section aria-hidden="true" class="relative py-6 border-b border-wine-900/30 overflow-hidden bg-ink-2/40 z-10">
+        <div class="marquee-track-rev font-mono text-bone-mute/50 text-xs tracking-widest uppercase">
+            <span class="flex items-center gap-6 pr-6">
+                <span class="text-wine-500/70">→</span><span>react</span>
+                <span class="text-wine-500/70">→</span><span>node.js</span>
+                <span class="text-wine-500/70">→</span><span>typescript</span>
+                <span class="text-wine-500/70">→</span><span>python</span>
+                <span class="text-wine-500/70">→</span><span>fastapi</span>
+                <span class="text-wine-500/70">→</span><span>electron</span>
+                <span class="text-wine-500/70">→</span><span>tauri</span>
+                <span class="text-wine-500/70">→</span><span>tailwind</span>
+                <span class="text-wine-500/70">→</span><span>prisma</span>
+                <span class="text-wine-500/70">→</span><span>sqlite</span>
+                <span class="text-wine-500/70">→</span><span>postgresql</span>
+                <span class="text-wine-500/70">→</span><span>claude api</span>
+                <span class="text-wine-500/70">→</span><span>afip</span>
+                <span class="text-wine-500/70">→</span><span>mercadopago</span>
+            </span>
+            <span class="flex items-center gap-6 pr-6" aria-hidden="true">
+                <span class="text-wine-500/70">→</span><span>react</span>
+                <span class="text-wine-500/70">→</span><span>node.js</span>
+                <span class="text-wine-500/70">→</span><span>typescript</span>
+                <span class="text-wine-500/70">→</span><span>python</span>
+                <span class="text-wine-500/70">→</span><span>fastapi</span>
+                <span class="text-wine-500/70">→</span><span>electron</span>
+                <span class="text-wine-500/70">→</span><span>tauri</span>
+                <span class="text-wine-500/70">→</span><span>tailwind</span>
+                <span class="text-wine-500/70">→</span><span>prisma</span>
+                <span class="text-wine-500/70">→</span><span>sqlite</span>
+                <span class="text-wine-500/70">→</span><span>postgresql</span>
+                <span class="text-wine-500/70">→</span><span>claude api</span>
+                <span class="text-wine-500/70">→</span><span>afip</span>
+                <span class="text-wine-500/70">→</span><span>mercadopago</span>
+            </span>
+        </div>
+    </section>
+
+    <!-- ===========================
+         STACK
+    ============================ -->
+    <section id="stack" class="relative py-24 lg:py-32 z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+            <div class="grid lg:grid-cols-12 gap-10 mb-14 reveal">
+                <div class="lg:col-span-5">
+                    <div class="section-tag mb-6">
+                        <span>// STACK.JSON</span>
+                    </div>
+                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-display-tight" style="font-weight: 600;">
+                        <span class="text-bone-gradient">HERRAMIENTAS</span><br>
+                        <span class="text-wine-gradient">PROBADAS EN CAMPO.</span>
+                    </h2>
+                </div>
+                <div class="lg:col-span-6 lg:col-start-7 flex items-end">
+                    <div class="border-l-2 border-wine-900/50 pl-5">
+                        <p class="font-mono text-xs text-wine-400 mb-3">// stack.philosophy</p>
+                        <p class="text-bone-deep leading-relaxed">
+                            No persigo modas. Uso lo que conozco a fondo, lo que se mantiene en el tiempo y lo que puedo soportar yo mismo cuando un cliente necesita ayuda a las 3 AM.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 lg:gap-4 reveal-stagger reveal">
+                <div class="toggle-tile group">
+                    <span class="led"></span>
+                    <i class="ico fa-brands fa-react text-2xl text-bone-deep transition mb-3"></i>
+                    <div class="text-sm text-bone font-display" style="font-weight: 500;">React</div>
+                    <div class="text-[10px] text-bone-mute font-mono mt-0.5">UI · 19.x</div>
+                </div>
+                <div class="toggle-tile group">
+                    <span class="led"></span>
+                    <i class="ico fa-solid fa-n text-2xl text-bone-deep transition mb-3"></i>
+                    <div class="text-sm text-bone font-display" style="font-weight: 500;">Next.js</div>
+                    <div class="text-[10px] text-bone-mute font-mono mt-0.5">fullstack · 16</div>
+                </div>
+                <div class="toggle-tile group">
+                    <span class="led"></span>
+                    <i class="ico fa-brands fa-node text-2xl text-bone-deep transition mb-3"></i>
+                    <div class="text-sm text-bone font-display" style="font-weight: 500;">Node.js</div>
+                    <div class="text-[10px] text-bone-mute font-mono mt-0.5">backend · LTS</div>
+                </div>
+                <div class="toggle-tile group">
+                    <span class="led"></span>
+                    <i class="ico fa-brands fa-python text-2xl text-bone-deep transition mb-3"></i>
+                    <div class="text-sm text-bone font-display" style="font-weight: 500;">Python</div>
+                    <div class="text-[10px] text-bone-mute font-mono mt-0.5">FastAPI · 3.x</div>
+                </div>
+                <div class="toggle-tile group">
+                    <span class="led"></span>
+                    <i class="ico fa-solid fa-database text-2xl text-bone-deep transition mb-3"></i>
+                    <div class="text-sm text-bone font-display" style="font-weight: 500;">SQLite + PG</div>
+                    <div class="text-[10px] text-bone-mute font-mono mt-0.5">datos</div>
+                </div>
+                <div class="toggle-tile group">
+                    <span class="led"></span>
+                    <i class="ico fa-solid fa-bolt text-2xl text-bone-deep transition mb-3"></i>
+                    <div class="text-sm text-bone font-display" style="font-weight: 500;">Electron / Tauri</div>
+                    <div class="text-[10px] text-bone-mute font-mono mt-0.5">desktop</div>
+                </div>
+                <div class="toggle-tile group">
+                    <span class="led"></span>
+                    <i class="ico fa-solid fa-code text-2xl text-bone-deep transition mb-3"></i>
+                    <div class="text-sm text-bone font-display" style="font-weight: 500;">TypeScript</div>
+                    <div class="text-[10px] text-bone-mute font-mono mt-0.5">tipos</div>
+                </div>
+                <div class="toggle-tile group">
+                    <span class="led"></span>
+                    <i class="ico fa-solid fa-wind text-2xl text-bone-deep transition mb-3"></i>
+                    <div class="text-sm text-bone font-display" style="font-weight: 500;">Tailwind</div>
+                    <div class="text-[10px] text-bone-mute font-mono mt-0.5">estilo</div>
+                </div>
+                <div class="toggle-tile group">
+                    <span class="led"></span>
+                    <i class="ico fa-solid fa-cube text-2xl text-bone-deep transition mb-3"></i>
+                    <div class="text-sm text-bone font-display" style="font-weight: 500;">Prisma</div>
+                    <div class="text-[10px] text-bone-mute font-mono mt-0.5">ORM</div>
+                </div>
+                <div class="toggle-tile group">
+                    <span class="led"></span>
+                    <i class="ico fa-solid fa-qrcode text-2xl text-bone-deep transition mb-3"></i>
+                    <div class="text-sm text-bone font-display" style="font-weight: 500;">QR + PWA</div>
+                    <div class="text-[10px] text-bone-mute font-mono mt-0.5">mobile</div>
+                </div>
+                <div class="toggle-tile group">
+                    <span class="led"></span>
+                    <i class="ico fa-solid fa-file-invoice-dollar text-2xl text-bone-deep transition mb-3"></i>
+                    <div class="text-sm text-bone font-display" style="font-weight: 500;">AFIP / ARCA</div>
+                    <div class="text-[10px] text-bone-mute font-mono mt-0.5">fiscal</div>
+                </div>
+                <div class="toggle-tile group">
+                    <span class="led"></span>
+                    <i class="ico fa-solid fa-robot text-2xl text-bone-deep transition mb-3"></i>
+                    <div class="text-sm text-bone font-display" style="font-weight: 500;">Claude API</div>
+                    <div class="text-[10px] text-bone-mute font-mono mt-0.5">IA</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===========================
+         CONTACTO
+    ============================ -->
+    <section id="contacto" class="relative py-24 lg:py-36 border-t border-wine-900/30 overflow-hidden z-10">
+
+        <!-- background flare -->
+        <div class="absolute inset-0 -z-10">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-wine-700/25 blur-[140px]"></div>
+            <div class="absolute inset-0 grid-bg opacity-30"></div>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-6 lg:px-10 text-center reveal">
+
+            <div class="section-tag mx-auto mb-8">
+                <span class="dot pulse-soft"></span>
+                <span>READY // INIT NEW PROJECT</span>
+            </div>
+
+            <h2 class="font-display text-5xl md:text-7xl lg:text-8xl text-display-tight mb-8" style="font-weight: 600;">
+                <span class="text-bone-gradient">¿TENÉS UN</span><br>
+                <span class="text-bone-gradient">PROYECTO</span>
+                <span class="text-wine-gradient glitch" data-text="EN MENTE?">EN MENTE?</span>
             </h2>
 
-            <div class="group relative bg-slate-900/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-wine-900/30 hover-trigger hover:border-wine-500/50 hover:shadow-neon">
-                <div class="grid md:grid-cols-2 gap-0">
-                    <div class="bg-slate-800/50 h-64 md:h-auto relative overflow-hidden flex items-center justify-center group/img p-6">
-                        <img src="assets/ecosistema.jpg" 
-                             class="w-full h-full object-contain drop-shadow-2xl group-hover/img:scale-105 transition duration-700" 
-                             alt="Ecosistema Terminal: Dashboard Web y App Móvil">
-                        
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-500"></div>
-                    </div>
-
-                    <div class="p-8 flex flex-col justify-center relative z-20">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-wine-400 transition">Sistema de Gestión de Tráfico</h3>
-                                <p class="text-wine-500 text-sm font-mono tracking-wider">Terminal de Ómnibus & Empresas</p>
-                            </div>
-                            <span class="px-3 py-1 bg-wine-900/40 text-wine-400 text-xs rounded-full border border-wine-500/30 shadow-neon">v1.0 Finalizado</span>
-                        </div>
-                        
-                        <p class="text-slate-300 mb-6 leading-relaxed border-l-2 border-wine-900/50 pl-4 my-4">
-                            Plataforma integral para digitalizar el flujo de pasajeros y buses. Resuelve la falta de sincronización mediante un ecosistema en tiempo real.
-                        </p>
-
-                        <ul class="space-y-3 mb-8 text-sm text-slate-400">
-                            <li class="flex items-start gap-3">
-                                <i class="fa-regular fa-circle-check text-wine-500 mt-1 shadow-neon"></i>
-                                <span><strong>Sincronización:</strong> WebSockets para actualizar estados en todos los dispositivos.</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <i class="fa-regular fa-circle-check text-wine-500 mt-1 shadow-neon"></i>
-                                <span><strong>Resiliencia Offline:</strong> Arquitectura híbrida para funcionar sin internet.</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <i class="fa-regular fa-circle-check text-wine-500 mt-1 shadow-neon"></i>
-                                <span><strong>Hardware Integration:</strong> Uso de cámara nativa vía navegador para QR.</span>
-                            </li>
-                        </ul>
-
-                        <div class="flex flex-wrap gap-2 mt-auto">
-                            <span class="px-3 py-1 bg-slate-950 border border-wine-900/30 text-xs rounded-md text-wine-300 group-hover:border-wine-500/30 transition">Node.js</span>
-                            <span class="px-3 py-1 bg-slate-950 border border-wine-900/30 text-xs rounded-md text-wine-300 group-hover:border-wine-500/30 transition">Socket.io</span>
-                            <span class="px-3 py-1 bg-slate-950 border border-wine-900/30 text-xs rounded-md text-wine-300 group-hover:border-wine-500/30 transition">Tailwind</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-12 bg-slate-900/30 rounded-2xl p-8 border border-dashed border-wine-900/50 relative hover:bg-slate-900/60 hover:border-wine-500/40 transition duration-500">
-                <div class="absolute top-0 right-0 bg-wine-600 text-white text-[10px] uppercase font-bold px-4 py-1 rounded-bl-lg rounded-tr-lg shadow-neon">En Progreso</div>
-                <div class="flex flex-col md:flex-row gap-6 items-center">
-                    <div class="bg-slate-800/80 p-5 rounded-2xl border border-wine-900/30 shadow-neon">
-                        <i class="fa-solid fa-database text-4xl text-wine-500"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white group-hover:text-wine-400 transition">Reingeniería de Sistema Contable (Legacy)</h3>
-                        <p class="text-slate-400 text-sm mt-2 max-w-2xl">
-                            Migración de arquitectura financiera antigua a <strong>Electron.js + SQLite</strong>. 
-                            Objetivo: Modernizar la interfaz y asegurar la portabilidad offline mediante ingeniería inversa de datos.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section id="habilidades" class="py-20 bg-slate-950 relative z-10 border-t border-wine-900/20">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-3xl font-bold text-white mb-12 text-center">Arsenal Tecnológico</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="p-6 bg-slate-900/50 rounded-xl border border-wine-900/30 text-center hover-trigger hover:border-wine-500/60 hover:shadow-neon hover:-translate-y-2 group">
-                    <i class="fa-brands fa-node text-5xl text-slate-600 mb-6 group-hover:text-wine-500 transition duration-500 group-hover:drop-shadow-[0_0_10px_rgba(244,63,94,0.7)]"></i>
-                    <h4 class="font-bold text-white mb-1">Node.js</h4>
-                    <p class="text-xs text-wine-400">Backend & API REST</p>
-                </div>
-                <div class="p-6 bg-slate-900/50 rounded-xl border border-wine-900/30 text-center hover-trigger hover:border-wine-500/60 hover:shadow-neon hover:-translate-y-2 group">
-                    <i class="fa-brands fa-js text-5xl text-slate-600 mb-6 group-hover:text-wine-500 transition duration-500 group-hover:drop-shadow-[0_0_10px_rgba(244,63,94,0.7)]"></i>
-                    <h4 class="font-bold text-white mb-1">JavaScript</h4>
-                    <p class="text-xs text-wine-400">Frontend Dinámico</p>
-                </div>
-                <div class="p-6 bg-slate-900/50 rounded-xl border border-wine-900/30 text-center hover-trigger hover:border-wine-500/60 hover:shadow-neon hover:-translate-y-2 group">
-                    <i class="fa-solid fa-bolt text-5xl text-slate-600 mb-6 group-hover:text-wine-500 transition duration-500 group-hover:drop-shadow-[0_0_10px_rgba(244,63,94,0.7)]"></i>
-                    <h4 class="font-bold text-white mb-1">Socket.io</h4>
-                    <p class="text-xs text-wine-400">Real-time Communication</p>
-                </div>
-                <div class="p-6 bg-slate-900/50 rounded-xl border border-wine-900/30 text-center hover-trigger hover:border-wine-500/60 hover:shadow-neon hover:-translate-y-2 group">
-                    <i class="fa-brands fa-electron text-5xl text-slate-600 mb-6 group-hover:text-wine-500 transition duration-500 group-hover:drop-shadow-[0_0_10px_rgba(244,63,94,0.7)]"></i>
-                    <h4 class="font-bold text-white mb-1">Electron.js</h4>
-                    <p class="text-xs text-wine-400">Desktop Apps (Próximamente)</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contacto" class="py-24 bg-gradient-to-b from-slate-950 to-wine-950/20 border-t border-wine-900/30 relative">
-        <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
-            <h2 class="text-4xl font-bold text-white mb-8 leading-tight">¿Listo para <span class="text-wine-500 drop-shadow-[0_0_10px_rgba(244,63,94,0.5)]">digitalizar</span> tu próxima idea?</h2>
-            <p class="text-slate-400 mb-10 text-lg">
-                Hablemos sobre cómo migrar sistemas antiguos o crear nuevas soluciones en tiempo real.
+            <p class="text-lg lg:text-xl text-bone-deep max-w-2xl mx-auto mb-12 leading-relaxed">
+                Contame en qué estás pensando. Si encaja con lo que hago, te cuento cómo lo encararía y qué necesitaríamos para arrancar.
             </p>
-            <a href="mailto:agunacciprojects@gmail.com" class="group relative inline-flex items-center gap-3 px-10 py-4 bg-wine-600 hover:bg-wine-500 text-white rounded-xl font-bold transition-all duration-300 text-lg shadow-neon-strong hover:-translate-y-1 overflow-hidden">
-                <div class="absolute inset-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <i class="fa-regular fa-envelope text-xl"></i>
-                Iniciar Conversación
-            </a>
-            
-            <div class="mt-16 pt-8 border-t border-wine-900/30 flex justify-center gap-8 text-slate-500">
-                <a href="#" class="hover:text-wine-400 transition hover:drop-shadow-[0_0_8px_rgba(244,63,94,0.6)] hover:-translate-y-1"><i class="fa-brands fa-github text-3xl"></i></a>
-                <a href="#" class="hover:text-wine-400 transition hover:drop-shadow-[0_0_8px_rgba(244,63,94,0.6)] hover:-translate-y-1"><i class="fa-brands fa-linkedin text-3xl"></i></a>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-16">
+                <a href="https://wa.me/5493834271005" target="_blank" rel="noopener" class="magnetic magnetic-primary group !px-8 !py-5 !text-lg">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i>
+                    <span>WhatsApp directo</span>
+                    <span class="font-mono text-sm opacity-70 hidden sm:inline">+54 9 3834 27-1005</span>
+                </a>
+                <a href="mailto:agunacciprojects@gmail.com" class="magnetic magnetic-ghost !px-8 !py-5 !text-lg">
+                    <i class="fa-regular fa-envelope text-xl text-wine-400"></i>
+                    <span>agunacciprojects@gmail.com</span>
+                </a>
             </div>
-            <p class="mt-8 text-sm text-slate-600">Diseñado y Desarrollado con pasión by <span class="text-wine-500 font-bold drop-shadow-[0_0_5px_rgba(244,63,94,0.4)]">agunacci</span>. 2026.</p>
+
+            <div class="ed-rule max-w-md mx-auto"></div>
+
+            <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-5 md:gap-8 text-bone-mute text-sm font-mono">
+                <a href="https://instagram.com/naccitech.arg" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-wine-400 transition">
+                    <i class="fa-brands fa-instagram text-lg"></i> @naccitech.arg
+                </a>
+                <span class="hidden md:inline text-wine-900">·</span>
+                <span class="flex items-center gap-2">
+                    <i class="fa-solid fa-location-dot text-wine-500"></i> Catamarca · AR
+                </span>
+                <span class="hidden md:inline text-wine-900">·</span>
+                <span class="flex items-center gap-2">
+                    <span class="inline-block h-1.5 w-1.5 rounded-full bg-wine-400 pulse-soft"></span> disponible
+                </span>
+            </div>
+
         </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="relative border-t border-wine-900/20 bg-ink-2/60 z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-bone-mute font-mono">
+            <div>
+                <span class="text-wine-500">$</span> © 2026 · build by <a href="#" class="text-bone link-line">agunacci</a>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+                <span class="text-wine-500">✦</span>
+                <span>handcrafted in San Fernando del Valle</span>
+                <span class="text-wine-500">✦</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // ============================
+    // CURSOR GLOW
+    // ============================
+    const glow = document.getElementById('cursorGlow');
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    let glowX = mouseX, glowY = mouseY;
+    window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+    function animateGlow() {
+        glowX += (mouseX - glowX) * 0.12;
+        glowY += (mouseY - glowY) * 0.12;
+        glow.style.left = glowX + 'px';
+        glow.style.top = glowY + 'px';
+        requestAnimationFrame(animateGlow);
+    }
+    animateGlow();
+    document.addEventListener('mouseleave', () => glow.style.opacity = '0');
+    document.addEventListener('mouseenter', () => glow.style.opacity = '1');
+
+    // ============================
+    // SCROLL PROGRESS
+    // ============================
+    const progress = document.getElementById('scrollProgress');
+    function updateProgress() {
+        const scrolled = window.scrollY;
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = ((scrolled / total) * 100) + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    // ============================
+    // PARTICLES
+    // ============================
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let W, H;
+
+    function resize() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const PARTICLE_COUNT = Math.min(90, Math.floor((window.innerWidth * window.innerHeight) / 18000));
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.25,
+            vy: (Math.random() - 0.5) * 0.25,
+            r: Math.random() * 1.4 + 0.4,
+            a: Math.random() * 0.5 + 0.15
+        });
+    }
+
+    function tick() {
+        ctx.clearRect(0, 0, W, H);
+
+        // Mouse repel
+        for (let p of particles) {
+            const dx = p.x - mouseX;
+            const dy = p.y - mouseY;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < 140) {
+                const f = (140 - dist) / 140 * 0.6;
+                p.x += (dx / dist) * f;
+                p.y += (dy / dist) * f;
+            }
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+            if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(244, 63, 94, ${p.a})`;
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Connections
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const a = particles[i], b = particles[j];
+                const dx = a.x - b.x, dy = a.y - b.y;
+                const d2 = dx*dx + dy*dy;
+                if (d2 < 14000) {
+                    const opacity = (1 - d2/14000) * 0.18;
+                    ctx.strokeStyle = `rgba(244, 63, 94, ${opacity})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(b.x, b.y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(tick);
+    }
+    tick();
+
+    // ============================
+    // REVEAL ON SCROLL
+    // ============================
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+                // Counter trigger
+                entry.target.querySelectorAll('.counter').forEach(el => {
+                    if (!el.dataset.done) {
+                        animateCounter(el);
+                        el.dataset.done = '1';
+                    }
+                });
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+
+    // ============================
+    // COUNTER ANIMATION
+    // ============================
+    function animateCounter(el) {
+        const target = parseInt(el.dataset.count, 10);
+        const duration = 1400;
+        const start = performance.now();
+        function step(now) {
+            const t = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - t, 3);
+            el.textContent = Math.floor(target * eased);
+            if (t < 1) requestAnimationFrame(step);
+            else el.textContent = target;
+        }
+        requestAnimationFrame(step);
+    }
+
+    // ============================
+    // MAGNETIC BUTTONS
+    // ============================
+    document.querySelectorAll('.magnetic').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'translate(0, 0)';
+        });
+    });
+
+    // ============================
+    // 3D TILT CARDS
+    // ============================
+    document.querySelectorAll('[data-tilt]').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            const rotY = (x - 0.5) * 6;
+            const rotX = (0.5 - y) * 6;
+            card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px)`;
+            card.style.setProperty('--mx', (x * 100) + '%');
+            card.style.setProperty('--my', (y * 100) + '%');
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        });
+    });
+
+    // ============================
+    // FLOATING CODE PARALLAX
+    // ============================
+    const codeFloats = document.querySelectorAll('.code-float');
+    let scrollY = 0;
+    window.addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
+    function parallaxLoop() {
+        codeFloats.forEach((el, i) => {
+            const factor = (i % 2 === 0 ? -1 : 1) * 0.15;
+            el.style.translate = `0 ${scrollY * factor * (0.4 + (i * 0.1))}px`;
+        });
+        requestAnimationFrame(parallaxLoop);
+    }
+    parallaxLoop();
+    </script>
 
 </body>
 </html>
