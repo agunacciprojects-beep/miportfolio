@@ -1,0 +1,37 @@
+# Local backup files (kept locally, not in repo)
+*.backup.html
+
+# Claude Code local config
+.claude/
+
+# Reel intermediate files (regeneradas con generate_audio.py + record.py)
+reel/audio.wav
+reel/naccitech-reel.mp4
+reel/_video_raw/
+
+# Compressed backups
+*.zip
+*.rar
+*.7z
+
+# System / editor
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
+
+# Python (scripts ocasionales)
+*.pyc
+__pycache__/
+*.pyo
+.venv/
+venv/
+
+# Node (por si en el futuro)
+node_modules/
+package-lock.json
+
+# Logs y temp
+*.log
+_*.png
+_*.py
