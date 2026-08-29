@@ -7,7 +7,7 @@
 Portafolio personal de **Kamlovski Agustín** · desarrollador fullstack independiente.
 San Fernando del Valle de Catamarca, Argentina.
 
-[**Ver el sitio →**](https://agunacciprojects-beep.github.io/miportfolio)
+[**Ver el sitio →**](https://agunacci.vercel.app)
 
 `Sin agencia · sin intermediarios · trato directo`
 
@@ -22,6 +22,24 @@ El portafolio que uso para mostrar mis trabajos a clientes potenciales. Acá viv
 No es un template ni un boilerplate. Es un proyecto a medida con un objetivo concreto: **cerrar clientes nuevos**. Cada decisión de diseño (paleta, motion, tipografía, copy) está pensada para eso.
 
 ---
+
+## Donde vive el sitio
+
+**Principal: https://agunacci.vercel.app** (Vercel, proyecto `agunacci`).
+Link viejo, todavia vivo: `agunacciprojects-beep.github.io/miportfolio`, con el
+`canonical` apuntando a Vercel para que no compitan como contenido duplicado.
+
+⚠️ **Las cuatro URLs absolutas del `<head>` (`canonical`, `og:url`, `og:image`,
+`twitter:image`) tienen que apuntar al dominio principal.** Con rutas relativas
+WhatsApp no muestra miniatura: es un bug que ya nos comimos una vez. Si el sitio
+se muda de dominio, se cambian esas cuatro **antes** de deployar.
+
+El deploy a Vercel es por CLI (`vercel deploy --prod`), no por git push: la
+conexion del repo de GitHub con el proyecto de Vercel quedo sin hacer.
+
+**No renombrar el usuario de GitHub** aunque `agunacci` este libre: GitHub
+redirige los repos viejos pero NO las URLs `*.github.io`, asi que todo link ya
+repartido quedaria muerto sin aviso.
 
 ## Stack técnico
 
