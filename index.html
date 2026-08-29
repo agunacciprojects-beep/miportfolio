@@ -1193,7 +1193,6 @@ $ npm run deploy
                 <span class="text-wine-500/70">→</span><span>prisma</span>
                 <span class="text-wine-500/70">→</span><span>sqlite</span>
                 <span class="text-wine-500/70">→</span><span>postgresql</span>
-                <span class="text-wine-500/70">→</span><span>claude api</span>
                 <span class="text-wine-500/70">→</span><span>afip</span>
                 <span class="text-wine-500/70">→</span><span>mercadopago</span>
             </span>
@@ -1209,7 +1208,6 @@ $ npm run deploy
                 <span class="text-wine-500/70">→</span><span>prisma</span>
                 <span class="text-wine-500/70">→</span><span>sqlite</span>
                 <span class="text-wine-500/70">→</span><span>postgresql</span>
-                <span class="text-wine-500/70">→</span><span>claude api</span>
                 <span class="text-wine-500/70">→</span><span>afip</span>
                 <span class="text-wine-500/70">→</span><span>mercadopago</span>
             </span>
@@ -1222,20 +1220,10 @@ $ npm run deploy
     <section id="stack" class="relative py-20 lg:py-24 z-10">
         <div class="max-w-7xl mx-auto px-6 lg:px-10">
 
-            <div class="grid lg:grid-cols-12 gap-10 mb-14 reveal">
-                <div class="lg:col-span-5">
-                    <h2 class="font-display text-[1.7rem]/[1.1] sm:text-[2rem]/[1.1] md:text-4xl/[1.1] lg:text-[2.75rem]/[1.1] text-display-tight" style="font-weight: 600;">
-                        <span class="text-bone-gradient">CON LO QUE</span><br>
-                        <span class="text-wine-gradient">TRABAJO TODOS LOS DÍAS.</span>
-                    </h2>
-                </div>
-                <div class="lg:col-span-6 lg:col-start-7 flex items-end">
-                    <div class="border-l-2 border-wine-900/50 pl-5">
-                        <p class="text-bone-deep leading-relaxed">
-                            No corro atrás de la moda. Uso lo que conozco a fondo y lo que voy a poder arreglar yo mismo dentro de dos años, cuando me llames un sábado porque algo no anda.
-                        </p>
-                    </div>
-                </div>
+            <div class="text-center mb-12 reveal">
+                <h2 class="font-display text-[1.7rem]/[1.1] sm:text-[2rem]/[1.1] md:text-4xl/[1.1] lg:text-[2.75rem]/[1.1] text-display-tight" style="font-weight: 600;">
+                    <span class="text-wine-gradient">stack</span>
+                </h2>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 lg:gap-4 reveal-stagger reveal">
@@ -1307,9 +1295,9 @@ $ npm run deploy
                 </div>
                 <div class="toggle-tile group">
                     <span class="led"></span>
-                    <i class="ico fa-solid fa-robot text-2xl text-bone-deep transition mb-3"></i>
-                    <div class="text-sm text-bone font-display" style="font-weight: 500;">Claude API</div>
-                    <div class="text-[10px] text-bone-mute font-mono mt-0.5">IA</div>
+                    <i class="ico fa-solid fa-cloud text-2xl text-bone-deep transition mb-3"></i>
+                    <div class="text-sm text-bone font-display" style="font-weight: 500;">Cloudflare</div>
+                    <div class="text-[10px] text-bone-mute font-mono mt-0.5">hosting</div>
                 </div>
             </div>
 
@@ -1353,15 +1341,23 @@ $ npm run deploy
                 </a>
             </div>
 
-            <div class="ed-rule max-w-md mx-auto"></div>
+        </div>
+    </section>
 
-            <div class="mt-8 flex flex-col md:flex-row items-center justify-center gap-5 md:gap-8 text-bone-mute text-sm font-mono">
+    <!-- Footer -->
+    <!-- El pie se lleva toda la informacion fria (contacto secundario, ubicacion,
+         disponibilidad). Antes esa linea vivia al final de #contacto y el footer
+         repetia la ubicacion, asi que quedaban dos veces y el pie sin contenido. -->
+    <footer class="relative border-t border-wine-500/25 bg-ink z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 py-9">
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-7 text-bone-deep text-sm font-mono mb-7">
                 <a href="https://instagram.com/naccitech.arg" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-wine-400 transition">
                     <i class="fa-brands fa-instagram text-lg"></i> @naccitech.arg
                 </a>
                 <span class="hidden md:inline text-wine-900">·</span>
                 <span class="flex items-center gap-2">
-                    <i class="fa-solid fa-location-dot text-wine-500"></i> Catamarca, Argentina
+                    <i class="fa-solid fa-location-dot text-wine-500"></i> San Fernando del Valle, Catamarca
                 </span>
                 <span class="hidden md:inline text-wine-900">·</span>
                 <span class="flex items-center gap-2">
@@ -1369,18 +1365,17 @@ $ npm run deploy
                 </span>
             </div>
 
-        </div>
-    </section>
+            <div class="ed-rule max-w-xs mx-auto"></div>
 
-    <!-- Footer -->
-    <footer class="relative border-t border-wine-900/20 bg-ink-2/60 z-10">
-        <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-bone-mute font-mono">
-            <div>
-                <span class="text-wine-500">$</span> © 2026 <a href="#inicio" class="text-bone link-line">agunacci</a>
+            <div class="mt-7 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-bone-mute font-mono">
+                <div>
+                    <span class="text-wine-500">$</span> © 2026 <a href="#inicio" class="text-bone link-line">agunacci</a>
+                </div>
+                <a href="https://wa.me/5493834271005" target="_blank" rel="noopener" class="hover:text-wine-400 transition">
+                    +54 9 3834 27-1005
+                </a>
             </div>
-            <div class="text-xs">
-                <span>San Fernando del Valle de Catamarca</span>
-            </div>
+
         </div>
     </footer>
 
