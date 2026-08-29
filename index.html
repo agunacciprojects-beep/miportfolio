@@ -7,6 +7,7 @@
     <meta name="description" content="Desarrollo fullstack independiente. Sistemas a medida para comercios, pymes e instituciones. Desde Catamarca, Argentina.">
     <meta name="author" content="agunacci">
     <meta name="theme-color" content="#020617">
+    <link rel="canonical" href="https://agunacciprojects-beep.github.io/miportfolio/">
 
     <!-- Open Graph (Facebook, WhatsApp, LinkedIn, etc.) -->
     <!-- NOTA: para previews 100% confiables en WhatsApp, reemplazar las URLs por absolutas cuando tengas el dominio final.
@@ -106,7 +107,6 @@
             font-feature-settings: "ss01", "cv11";
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            cursor: default;
         }
 
         /* ============================
@@ -117,13 +117,39 @@
             pointer-events: none;
         }
 
+        /* Fondo: tres focos wine muy diluidos sobre el slate, mas un velo
+           vertical que separa las secciones sin dibujar una linea.
+           Bajado de 0.45/0.18/0.60 a 0.20/0.09/0.28: antes lavaba el fondo,
+           ahora es atmosfera. El drift es de 40s y ~2% de recorrido: le da
+           profundidad a una pagina oscura sin que se note que se mueve. */
         .bg-aura {
-            position: fixed; inset: 0; z-index: -1;
+            position: fixed; inset: -10%; z-index: -1;
             background:
-              radial-gradient(circle at 20% 10%, rgba(136, 19, 55, 0.45), transparent 50%),
-              radial-gradient(circle at 80% 70%, rgba(244, 63, 94, 0.18), transparent 55%),
-              radial-gradient(circle at 50% 100%, rgba(76, 5, 25, 0.6), transparent 50%),
+              radial-gradient(ellipse 70% 55% at 18% 8%, rgba(136, 19, 55, 0.20), transparent 60%),
+              radial-gradient(ellipse 60% 50% at 82% 68%, rgba(244, 63, 94, 0.09), transparent 62%),
+              radial-gradient(ellipse 90% 45% at 50% 104%, rgba(76, 5, 25, 0.28), transparent 60%),
               #020617;
+            will-change: transform;
+            animation: auraDrift 40s ease-in-out infinite alternate;
+        }
+        @keyframes auraDrift {
+            from { transform: translate3d(-1%, -1%, 0) scale(1.02); }
+            to   { transform: translate3d(1.5%, 1%, 0) scale(1.06); }
+        }
+
+        /* Velo vertical: arriba respira, el pie se hunde. Separa secciones
+           sin bordes ni cards de mas. */
+        .bg-veil {
+            position: fixed; inset: 0; z-index: -1; pointer-events: none;
+            background: linear-gradient(180deg,
+              rgba(2, 6, 23, 0.55) 0%,
+              rgba(2, 6, 23, 0) 22%,
+              rgba(2, 6, 23, 0) 68%,
+              rgba(2, 6, 23, 0.75) 100%);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .bg-aura { animation: none; }
         }
 
         .noise::before {
@@ -141,57 +167,32 @@
             mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 90%);
         }
 
-        /* Cursor glow (atmospheric radial blob) */
-        .cursor-glow {
-            position: fixed; pointer-events: none; z-index: 2;
-            width: 480px; height: 480px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(244, 63, 94, 0.18), transparent 65%);
-            transform: translate(-50%, -50%);
-            transition: opacity 0.4s ease;
-            mix-blend-mode: screen;
-            filter: blur(8px);
-            left: -1000px; top: -1000px;
+        /* La seccion de trabajos se pinea y tiene que entrar ENTERA en la altura
+           disponible. En notebooks de 728-800px la card se estira a ~547px por el
+           texto que envuelve mas, y el fondo quedaba cortado. Acá se recorta el aire
+           interno, que es lo unico que sobra. */
+        @media (min-width: 1024px) and (max-height: 850px) {
+            #trabajos .proj-card { padding: 1.15rem 1.5rem; }
+            #trabajos .proj-card > div:first-of-type { margin-bottom: 0.75rem; }
+            #trabajos .proj-card .h-14 { height: 2.75rem; width: 2.75rem; }
+            #trabajos .proj-card .h-14 i { font-size: 1.15rem; }
+            #trabajos .proj-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+            #trabajos .proj-card p { font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.65rem; }
+            #trabajos .proj-card a { margin-top: 0.8rem; }
+            #trabajos .trabajos-track { gap: 1.5rem; }
+            #trabajos > div > div:first-child { margin-bottom: 0.75rem; }
         }
 
-        /* Cursor dot + ring (refined, follows with inertia) */
-        .cursor-dot, .cursor-ring {
-            position: fixed; pointer-events: none; z-index: 99;
-            top: 0; left: 0;
-            border-radius: 50%;
-            transform: translate3d(-100px, -100px, 0);
-            will-change: transform, width, height;
-        }
-        .cursor-dot {
-            width: 6px; height: 6px;
-            background: #f43f5e;
-            box-shadow: 0 0 12px rgba(244, 63, 94, 0.9);
-            margin: -3px 0 0 -3px;
-            transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease, background 0.25s ease;
-        }
-        .cursor-ring {
-            width: 36px; height: 36px;
-            border: 1px solid rgba(244, 63, 94, 0.6);
-            margin: -18px 0 0 -18px;
-            transition: width 0.4s cubic-bezier(0.16,1,0.3,1),
-                        height 0.4s cubic-bezier(0.16,1,0.3,1),
-                        margin 0.4s cubic-bezier(0.16,1,0.3,1),
-                        border-color 0.3s ease,
-                        background 0.3s ease;
-        }
-        /* Hover-active state on links/buttons */
-        body.cursor-hover .cursor-dot { width: 4px; height: 4px; margin: -2px 0 0 -2px; background: #ff4d79; }
-        body.cursor-hover .cursor-ring {
-            width: 64px; height: 64px; margin: -32px 0 0 -32px;
-            border-color: rgba(244, 63, 94, 1);
-            background: rgba(244, 63, 94, 0.08);
-            box-shadow: 0 0 30px rgba(244, 63, 94, 0.25);
-        }
-        @media (hover: none) { .cursor-dot, .cursor-ring { display: none; } }
-        @media (prefers-reduced-motion: reduce) { .cursor-dot, .cursor-ring { display: none; } }
-        /* Only hide the OS cursor once the JS cursor is actually running */
-        @media (hover: hover) and (pointer: fine) {
-            body.cursor-active, body.cursor-active a, body.cursor-active button,
-            body.cursor-active .magnetic, body.cursor-active .toggle-tile { cursor: none; }
+        /* Red de seguridad: si aun compactado el contenido no entra, el JS marca
+           .sin-pin y volvemos a la grilla. Preferimos quedarnos sin scroll
+           horizontal antes que mostrar las cards cortadas. */
+        @media (min-width: 1024px) {
+            #trabajos.sin-pin { height: auto; padding: 6rem 0; }
+            #trabajos.sin-pin .trabajos-track {
+                display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 1.75rem;
+            }
+            #trabajos.sin-pin .proj-card { width: auto; min-width: 0; max-width: none; }
         }
 
         /* SplitType reveal helpers */
@@ -211,7 +212,13 @@
             will-change: transform, opacity;
         }
 
-        /* Preserve gradient on SplitType chars / words (each span re-applies the gradient) */
+        /* Preserve gradient on SplitType chars / words (each span re-applies the gradient).
+           OJO: el hero se parte en 'words,chars' y los h2 solo en 'words', por eso la
+           regla tiene que cubrir los dos. Pero cuando existen AMBOS, la palabra y el
+           char pintan el MISMO glifo con background-clip:text sobre cajas de gradiente
+           de distinto ancho, y queda un glifo fantasma corrido en la primera letra de
+           cada palabra. La regla :has() de abajo apaga el pintado de la palabra solo
+           cuando adentro hay chars que ya lo hacen. */
         .text-bone-gradient .char,
         .text-bone-gradient .word {
             background: linear-gradient(180deg, #ffffff 0%, #b8bdcc 100%);
@@ -222,6 +229,21 @@
         .text-wine-gradient .word {
             background: linear-gradient(135deg, #ff8da0 0%, #f43f5e 50%, #881337 100%);
             -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+        }
+
+        /* Regla unica: pinta el envoltorio MAS INTERNO, y solo ese.
+           Sin esto, el span de la linea (caja de 1152px), la palabra y el char
+           pintan los tres el mismo glifo con background-clip:text sobre cajas de
+           gradiente de distinto ancho, y WebKit deja glifos fantasma corridos.
+           - h1: se parte en words+chars -> apaga linea y word, pinta el char.
+           - h2: se parte solo en words  -> apaga la linea, pinta la word. */
+        .text-bone-gradient:has(.word), .text-bone-gradient:has(.char),
+        .text-wine-gradient:has(.word), .text-wine-gradient:has(.char),
+        .text-bone-gradient .word:has(.char),
+        .text-wine-gradient .word:has(.char) {
+            background: none;
+            -webkit-text-fill-color: transparent;
             color: transparent;
         }
 
@@ -277,7 +299,11 @@
            TYPOGRAPHY
         ============================ */
         .font-display { font-family: 'Unbounded', sans-serif; }
-        .text-display-tight { letter-spacing: -0.04em; line-height: 0.92; }
+        /* line-height 0.92 dejaba el renglon MAS CHICO que la letra y cortaba los
+           acentos de arriba (DIAS, ACA, MAS) al apilarse las lineas. En castellano
+           eso se ve en casi todo titular. 1.04 da aire al acento y el titular sigue
+           compacto. */
+        .text-display-tight { letter-spacing: -0.035em; line-height: 1.04; }
 
         .glitch {
             position: relative;
@@ -358,13 +384,15 @@
         }
         .chip:hover::before { transform: translateX(100%); }
 
+        /* Los botones NO se mueven: el boton que se corre del cursor se siente
+           roto y hace fallar el click. Al presionar, el borde se retroilumina. */
         .magnetic {
             display: inline-flex; align-items: center; gap: 0.65rem;
             padding: 0.9rem 1.5rem; border-radius: 999px;
             font-weight: 500; letter-spacing: 0.01em;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background-color 0.3s ease;
-            will-change: transform;
+            transition: box-shadow 0.28s ease, background-color 0.28s ease, border-color 0.28s ease;
         }
+
         .magnetic-primary {
             background: linear-gradient(135deg, #f43f5e, #e11d48);
             color: #020617;
@@ -375,6 +403,23 @@
             color: #e6e9f0; background: rgba(7, 11, 26, 0.4); backdrop-filter: blur(8px);
         }
         .magnetic-ghost:hover { border-color: rgba(244, 63, 94, 0.6); background: rgba(244, 63, 94, 0.08); }
+
+        /* Al presionar, el borde se retroilumina. VA DESPUES de los :hover a
+           proposito: tienen la misma especificidad y gana el ultimo, asi que si
+           esto sube, el hover se lo come y el boton no responde al click. */
+        .magnetic-primary:active,
+        .magnetic-ghost:active {
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 214, 224, 0.45),
+                0 0 0 1px rgba(244, 63, 94, 0.6),
+                0 0 24px 2px rgba(244, 63, 94, 0.40);
+        }
+        .magnetic-ghost:active { border-color: rgba(244, 63, 94, 0.85); }
+        .magnetic-primary:focus-visible,
+        .magnetic-ghost:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.9), 0 0 18px rgba(244, 63, 94, 0.35);
+        }
 
         /* Project card */
         .proj-card {
@@ -494,8 +539,6 @@
         /* Editorial divider */
         .ed-rule { height: 1px; background: linear-gradient(90deg, transparent, rgba(244, 63, 94, 0.5), transparent); }
 
-        /* Hide cursor glow on touch */
-        @media (hover: none) { .cursor-glow { display: none; } }
 
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
@@ -592,10 +635,8 @@
 
     <!-- Background atmosphere -->
     <div class="bg-aura"></div>
+    <div class="bg-veil"></div>
     <canvas id="particles"></canvas>
-    <div class="cursor-glow" id="cursorGlow"></div>
-    <div class="cursor-ring" id="cursorRing"></div>
-    <div class="cursor-dot" id="cursorDot"></div>
 
     <!-- Scroll progress -->
     <div class="scroll-progress" id="scrollProgress"></div>
@@ -618,12 +659,12 @@
 <span class="kw">WHERE</span> estado = <span class="str">'live'</span>;</pre>
 
         <pre class="code-float drift-4 hidden lg:block" style="top: 168%; right: 5%;"><span class="cm">✓</span> deploy: <span class="str">production</span>
-<span class="cm">✓</span> uptime: <span class="num">99.9%</span>
-<span class="cm">✓</span> tests: <span class="num">47</span> passed</pre>
+<span class="cm">✓</span> clientes activos: <span class="num">03</span>
+<span class="cm">✓</span> tests: <span class="num">996</span> passed</pre>
 
         <pre class="code-float drift-5 hidden md:block" style="top: 230%; left: 3%;">{
   <span class="str">"sistema"</span>: <span class="str">"offline-first"</span>,
-  <span class="str">"clientes"</span>: <span class="num">06</span>
+  <span class="str">"actualiza"</span>: <span class="str">"OTA firmado"</span>
 }</pre>
 
         <pre class="code-float drift-1 hidden lg:block" style="top: 290%; right: 4%;"><span class="cm"># build</span>
@@ -634,13 +675,12 @@ $ npm run deploy
     <!-- Nav -->
     <nav class="fixed w-full z-50 backdrop-blur-xl bg-ink/70 border-b border-wine-900/20">
         <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex justify-between items-center">
-            <a href="#" class="group flex items-center gap-2.5">
+            <a href="#inicio" class="group flex items-center gap-2.5">
                 <span class="relative flex h-2 w-2">
                     <span class="absolute inline-flex h-full w-full rounded-full bg-wine-500 opacity-70 pulse-soft"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-wine-500"></span>
                 </span>
                 <span class="font-display text-base text-bone tracking-tight" style="font-weight: 600;">agunacci</span>
-                <span class="font-mono text-xs text-wine-500/70">v1.5</span>
             </a>
             <div class="hidden md:flex items-center gap-7 text-sm text-bone-deep font-mono">
                 <a href="#sobre-mi" class="link-line hover:text-bone transition">./agustin</a>
@@ -658,40 +698,35 @@ $ npm run deploy
     <!-- ===========================
          HERO
     ============================ -->
-    <header class="relative pt-28 pb-20 lg:pt-36 lg:pb-24 z-10">
+    <header id="inicio" class="relative pt-28 pb-20 lg:pt-36 lg:pb-24 z-10">
         <div class="grid-bg absolute inset-0 -z-10 opacity-60"></div>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-10 relative">
 
             <!-- Top meta -->
             <div class="flex flex-wrap items-center justify-between gap-4 mb-12 reveal">
-                <div class="section-tag">
-                    <span class="dot pulse-soft"></span>
-                    <span>SISTEMA // ACTIVO</span>
+                <div class="font-mono text-xs text-bone-mute">
+                    <span class="text-wine-500">$</span> desarrollo a medida, desde Catamarca
                 </div>
                 <div class="hidden md:flex items-center gap-3 font-mono text-xs text-bone-mute">
-                    <span class="text-wine-500">~</span>
-                    <span>portfolio.run</span>
-                    <span class="text-bone-mute/40">|</span>
-                    <span>build: 2026.05</span>
-                    <span class="text-bone-mute/40">|</span>
-                    <span class="text-wine-400">disponible</span>
+                    <span class="dot pulse-soft"></span>
+                    <span class="text-wine-400">tomando trabajo para este trimestre</span>
                 </div>
             </div>
 
             <!-- Headline -->
             <h1 class="font-display max-w-6xl reveal text-display-tight" style="font-weight: 600;">
-                <span class="block text-[2.2rem] sm:text-5xl md:text-7xl lg:text-[7.5rem] text-bone-gradient">SISTEMAS</span>
-                <span class="block text-[2.2rem] sm:text-5xl md:text-7xl lg:text-[7.5rem] mt-1 lg:mt-2">
-                    <span class="font-mono font-light text-wine-500/40 italic mr-2 align-top text-3xl lg:text-5xl">{</span>
+                <span class="block text-[1.9rem]/[1.08] sm:text-4xl/[1.08] md:text-5xl/[1.08] lg:text-[4.25rem]/[1.08] text-bone-gradient">PROGRAMAS</span>
+                <span class="block text-[1.9rem]/[1.08] sm:text-4xl/[1.08] md:text-5xl/[1.08] lg:text-[4.25rem]/[1.08] mt-1 lg:mt-2">
+                    <span class="font-mono font-light text-wine-500/40 italic mr-2 align-top text-2xl lg:text-3xl">{</span>
                     <span class="text-wine-gradient">a medida</span>
-                    <span class="font-mono font-light text-wine-500/40 italic ml-2 align-top text-3xl lg:text-5xl">}</span>
+                    <span class="font-mono font-light text-wine-500/40 italic ml-2 align-top text-2xl lg:text-3xl">}</span>
                 </span>
-                <span class="block text-[2.2rem] sm:text-5xl md:text-7xl lg:text-[7.5rem] mt-1 lg:mt-2 text-bone-gradient">
-                    PARA QUE TU NEGOCIO
+                <span class="block text-[1.9rem]/[1.08] sm:text-4xl/[1.08] md:text-5xl/[1.08] lg:text-[4.25rem]/[1.08] mt-1 lg:mt-2 text-bone-gradient">
+                    PARA TU NEGOCIO,
                 </span>
-                <span class="block text-[2.2rem] sm:text-5xl md:text-7xl lg:text-[7.5rem] mt-1 lg:mt-2 text-bone-gradient">
-                    <span class="glitch" data-text="NO SE DETENGA.">NO SE DETENGA.</span><span class="caret"></span>
+                <span class="block text-[1.9rem]/[1.08] sm:text-4xl/[1.08] md:text-5xl/[1.08] lg:text-[4.25rem]/[1.08] mt-1 lg:mt-2 text-bone-gradient">
+                    <span class="glitch" data-text="HECHOS ACÁ.">HECHOS ACÁ.</span><span class="caret"></span>
                 </span>
             </h1>
 
@@ -700,9 +735,8 @@ $ npm run deploy
 
                 <div class="lg:col-span-7">
                     <div class="border-l-2 border-wine-500 pl-5">
-                        <p class="font-mono text-xs text-wine-400 mb-3">// soy.agustin</p>
                         <p class="text-lg lg:text-xl text-bone-deep leading-relaxed max-w-2xl">
-                            Desarrollador fullstack independiente. Diseño y construyo software a medida — POS, gestión, integraciones, herramientas de escritorio — para comercios, pymes e instituciones. Sin agencias, sin intermediarios.
+                            Programo por mi cuenta, desde Catamarca. Hablás conmigo y con nadie más: no hay agencia ni intermediario en el medio.
                         </p>
                     </div>
                 </div>
@@ -710,7 +744,7 @@ $ npm run deploy
                 <div class="lg:col-span-5 flex flex-col sm:flex-row gap-3 lg:justify-end">
                     <a href="#trabajos" class="magnetic magnetic-primary group">
                         <span class="font-mono text-sm">$ ver trabajos</span>
-                        <i class="fa-solid fa-arrow-down text-xs group-hover:translate-y-0.5 transition-transform"></i>
+                        <i class="fa-solid fa-arrow-down text-xs transition-opacity"></i>
                     </a>
                     <a href="https://wa.me/5493834271005" target="_blank" rel="noopener" class="magnetic magnetic-ghost group">
                         <i class="fa-brands fa-whatsapp text-wine-400"></i>
@@ -724,13 +758,13 @@ $ npm run deploy
             <div class="mt-20 lg:mt-28 grid grid-cols-2 md:grid-cols-4 gap-4 reveal-stagger reveal">
                 <div class="p-5 border border-wine-900/30 bg-ink-2/60 backdrop-blur-sm rounded-xl">
                     <div class="font-mono text-xs text-wine-400 mb-2">[ 01 ]</div>
-                    <div class="font-display text-3xl text-bone counter" data-count="6">0</div>
-                    <div class="font-mono text-[11px] text-bone-mute mt-1 uppercase tracking-wider">sistemas en producción</div>
+                    <div class="font-display text-3xl text-bone counter" data-count="3">0</div>
+                    <div class="font-mono text-[11px] text-bone-mute mt-1 uppercase tracking-wider">negocios usándolo hoy</div>
                 </div>
                 <div class="p-5 border border-wine-900/30 bg-ink-2/60 backdrop-blur-sm rounded-xl">
                     <div class="font-mono text-xs text-wine-400 mb-2">[ 02 ]</div>
-                    <div class="font-display text-3xl text-bone counter" data-count="4">0</div>
-                    <div class="font-mono text-[11px] text-bone-mute mt-1 uppercase tracking-wider">verticales abordadas</div>
+                    <div class="font-display text-3xl text-bone counter" data-count="996">0</div>
+                    <div class="font-mono text-[11px] text-bone-mute mt-1 uppercase tracking-wider">tests antes de cada entrega</div>
                 </div>
                 <div class="p-5 border border-wine-900/30 bg-ink-2/60 backdrop-blur-sm rounded-xl">
                     <div class="font-mono text-xs text-wine-400 mb-2">[ 03 ]</div>
@@ -753,26 +787,26 @@ $ npm run deploy
     <section aria-hidden="true" class="relative py-6 border-y border-wine-900/30 overflow-hidden bg-ink-2/60 z-10">
         <div class="marquee-track font-mono text-bone-mute/80 text-sm tracking-widest uppercase">
             <span class="flex items-center gap-8 pr-8">
-                <span class="text-wine-500">✦</span><span>{ punto de venta }</span>
-                <span class="text-wine-500">✦</span><span>{ control de stock }</span>
-                <span class="text-wine-500">✦</span><span>{ facturación afip }</span>
-                <span class="text-wine-500">✦</span><span>{ PWA mobile-first }</span>
-                <span class="text-wine-500">✦</span><span>{ migración legacy }</span>
-                <span class="text-wine-500">✦</span><span>{ apps de escritorio }</span>
-                <span class="text-wine-500">✦</span><span>{ integraciones a medida }</span>
-                <span class="text-wine-500">✦</span><span>{ reportes con un clic }</span>
-                <span class="text-wine-500">✦</span><span>{ qr + tiempo real }</span>
+                <span class="text-wine-500/70">/</span><span>{ punto de venta }</span>
+                <span class="text-wine-500/70">/</span><span>{ control de stock }</span>
+                <span class="text-wine-500/70">/</span><span>{ facturación afip }</span>
+                <span class="text-wine-500/70">/</span><span>{ PWA mobile-first }</span>
+                <span class="text-wine-500/70">/</span><span>{ migración legacy }</span>
+                <span class="text-wine-500/70">/</span><span>{ apps de escritorio }</span>
+                <span class="text-wine-500/70">/</span><span>{ integraciones a medida }</span>
+                <span class="text-wine-500/70">/</span><span>{ reportes con un clic }</span>
+                <span class="text-wine-500/70">/</span><span>{ qr + tiempo real }</span>
             </span>
             <span class="flex items-center gap-8 pr-8" aria-hidden="true">
-                <span class="text-wine-500">✦</span><span>{ punto de venta }</span>
-                <span class="text-wine-500">✦</span><span>{ control de stock }</span>
-                <span class="text-wine-500">✦</span><span>{ facturación afip }</span>
-                <span class="text-wine-500">✦</span><span>{ PWA mobile-first }</span>
-                <span class="text-wine-500">✦</span><span>{ migración legacy }</span>
-                <span class="text-wine-500">✦</span><span>{ apps de escritorio }</span>
-                <span class="text-wine-500">✦</span><span>{ integraciones a medida }</span>
-                <span class="text-wine-500">✦</span><span>{ reportes con un clic }</span>
-                <span class="text-wine-500">✦</span><span>{ qr + tiempo real }</span>
+                <span class="text-wine-500/70">/</span><span>{ punto de venta }</span>
+                <span class="text-wine-500/70">/</span><span>{ control de stock }</span>
+                <span class="text-wine-500/70">/</span><span>{ facturación afip }</span>
+                <span class="text-wine-500/70">/</span><span>{ PWA mobile-first }</span>
+                <span class="text-wine-500/70">/</span><span>{ migración legacy }</span>
+                <span class="text-wine-500/70">/</span><span>{ apps de escritorio }</span>
+                <span class="text-wine-500/70">/</span><span>{ integraciones a medida }</span>
+                <span class="text-wine-500/70">/</span><span>{ reportes con un clic }</span>
+                <span class="text-wine-500/70">/</span><span>{ qr + tiempo real }</span>
             </span>
         </div>
     </section>
@@ -814,7 +848,7 @@ $ npm run deploy
                         <!-- Floating tag top-left -->
                         <div class="absolute -top-3 -left-3 z-10">
                             <div class="font-mono text-[10px] uppercase tracking-widest px-2.5 py-1 bg-wine-500 text-ink rounded">
-                                AGUNACCI · v1.0
+                                CATAMARCA · AR
                             </div>
                         </div>
 
@@ -827,7 +861,7 @@ $ npm run deploy
                         <span>// .ABOUT</span>
                     </div>
 
-                    <h2 class="font-display text-[1.95rem] sm:text-4xl md:text-5xl lg:text-6xl text-display-tight mb-8" style="font-weight: 600;">
+                    <h2 class="font-display text-[1.7rem]/[1.1] sm:text-[2rem]/[1.1] md:text-4xl/[1.1] lg:text-[2.75rem]/[1.1] text-display-tight mb-8" style="font-weight: 600;">
                         <span class="text-bone-gradient">CONSTRUYO</span><br>
                         <span class="text-bone-gradient">DESDE</span>
                         <span class="text-wine-gradient">CATAMARCA.</span>
@@ -835,7 +869,7 @@ $ npm run deploy
 
                     <div class="space-y-5 text-bone-deep text-lg leading-relaxed max-w-2xl mb-10">
                         <p>
-                            Soy <span class="text-bone font-medium">Agustín</span>. Desarrollo fullstack independiente — sin agencia, sin equipo invisible, sin call centers detrás. Cada proyecto lo encaro de punta a punta: relevamiento del negocio, diseño, desarrollo, deploy y capacitación al equipo del cliente.
+                            Soy <span class="text-bone font-medium">Agustín</span>. Trabajo solo: sin agencia, sin equipo invisible, sin call center atrás. Cada proyecto lo llevo de punta a punta: relevamiento del negocio, diseño, desarrollo, deploy y capacitación al equipo del cliente.
                         </p>
                         <p>
                             Lo que más me importa es que el sistema funcione el segundo lunes, no solo en la demo del primero. Por eso priorizo arquitectura simple, datos en orden, y atender el teléfono cuando algo no anda.
@@ -872,18 +906,17 @@ $ npm run deploy
                     <div class="section-tag mb-6">
                         <span>// MANIFIESTO.MD</span>
                     </div>
-                    <h2 class="font-display text-[1.95rem] sm:text-4xl md:text-5xl lg:text-6xl text-display-tight" style="font-weight: 600;">
-                        <span class="text-bone-gradient">NO VENDO</span><br>
-                        <span class="text-bone-gradient">FUNCIONES.</span><br>
-                        <span class="text-wine-gradient">CONSTRUYO</span><br>
-                        <span class="text-wine-gradient">HERRAMIENTAS.</span>
+                    <h2 class="font-display text-[1.7rem]/[1.1] sm:text-[2rem]/[1.1] md:text-4xl/[1.1] lg:text-[2.75rem]/[1.1] text-display-tight" style="font-weight: 600;">
+                        <span class="text-bone-gradient">HAGO</span><br>
+                        <span class="text-bone-gradient">PROGRAMAS</span><br>
+                        <span class="text-wine-gradient">QUE SE USAN</span><br>
+                        <span class="text-wine-gradient">TODOS LOS DÍAS.</span>
                     </h2>
                 </div>
                 <div class="lg:col-span-6 lg:col-start-7 flex items-end">
                     <div class="border-l-2 border-wine-900/50 pl-5">
-                        <p class="font-mono text-xs text-wine-400 mb-3">// principios.txt</p>
                         <p class="text-lg text-bone-deep leading-relaxed">
-                            El software que sirve no es el que tiene más botones. Es el que entra al día a día del negocio sin fricción, que no se rompe el primer lunes feriado, y que está respaldado por alguien que atiende cuando lo llamás.
+                            Un programa sirve cuando el que lo usa deja de pensarlo. Que arranque el lunes feriado, que aguante el corte de luz, y que del otro lado haya alguien que te atienda el teléfono.
                         </p>
                     </div>
                 </div>
@@ -928,7 +961,11 @@ $ npm run deploy
     <!-- ===========================
          TRABAJOS
     ============================ -->
-    <section id="trabajos" class="relative py-24 lg:py-0 lg:h-screen lg:pt-[80px] lg:flex lg:flex-col lg:justify-center border-y border-wine-900/30 z-10">
+    <!-- La seccion se pinea a top+=64 (debajo del nav fijo). Si midiera 100vh
+         quedaria 64px MAS ABAJO del viewport y se comeria el fondo de las cards:
+         medido en 1366x728 se cortaban 95px. Por eso mide 100dvh MENOS el nav.
+         dvh y no vh: en mobile la barra del navegador cambia el 100vh. -->
+    <section id="trabajos" class="relative py-24 lg:py-0 lg:h-[calc(100dvh-64px)] lg:pt-0 lg:flex lg:flex-col lg:justify-center border-y border-wine-900/30 z-10">
         <div class="absolute inset-0 grid-bg opacity-40 -z-10"></div>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-10 lg:w-full">
@@ -939,69 +976,26 @@ $ npm run deploy
                     <div class="section-tag mb-4 lg:mb-3">
                         <span>// TRABAJOS.LOG · 2025-2026</span>
                     </div>
-                    <h2 class="font-display text-[1.95rem] sm:text-4xl md:text-5xl lg:text-[2.6rem] text-display-tight" style="font-weight: 600;">
-                        <span class="text-bone-gradient">06 SISTEMAS</span>
-                        <span class="text-wine-gradient">EN PRODUCCIÓN.</span>
+                    <h2 class="font-display text-[1.7rem]/[1.1] sm:text-[2rem]/[1.1] md:text-4xl/[1.1] lg:text-[2.4rem]/[1.1] text-display-tight" style="font-weight: 600;">
+                        <span class="text-bone-gradient">04 TRABAJOS</span>
+                        <span class="text-wine-gradient">CON CLIENTE REAL.</span>
                     </h2>
                 </div>
                 <p class="md:max-w-sm font-mono text-xs lg:text-[11px] text-bone-deep leading-relaxed">
-                    <span class="text-wine-500">$</span> Cada uno fue construido para un caso real. Lo que ves acá no es un demo: entró en uso.
+                    <span class="text-wine-500">$</span> Al lado de cada uno dice cómo está hoy: andando, entregado o terminado. Sin adornos.
                 </p>
             </div>
 
             <!-- Project track: grid mobile, horizontal flex desktop. Centered vertically in pin area. -->
             <div class="trabajos-track grid grid-cols-1 gap-6 lg:flex lg:flex-nowrap lg:items-center lg:gap-8 reveal-stagger reveal">
 
-                <!-- 01 NacciStock -->
+                <!-- 01 TuBarber -->
                 <article class="proj-card lg:w-[45vw] lg:min-w-[580px] lg:max-w-[700px] lg:flex-shrink-0 p-7 lg:p-8 tilt" data-tilt>
                     <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
 
                     <div class="flex justify-between items-start mb-8 relative z-10">
-                        <span class="eyebrow">[ proj.01 / 06 ] · POS offline</span>
-                        <span class="chip">producción</span>
-                    </div>
-
-                    <div class="flex items-center gap-5 mb-6 relative z-10">
-                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-wine-500/10 border border-wine-500/30">
-                            <i class="fa-solid fa-cash-register text-2xl text-wine-500"></i>
-                        </div>
-                        <div>
-                            <div class="font-mono text-xs text-wine-400">$ ./nacci-stock</div>
-                            <div class="font-display text-2xl text-bone" style="font-weight: 600;">NacciStock</div>
-                        </div>
-                    </div>
-
-                    <h3 class="font-display text-2xl sm:text-2xl lg:text-[1.7rem] text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
-                        Vender sin depender<br><span class="text-wine-gradient">de internet.</span>
-                    </h3>
-
-                    <p class="text-bone-deep leading-relaxed mb-4 relative z-10">
-                        POS, control de inventario y reportes que funcionan en la PC del negocio. Si se corta la conexión seguís cobrando. Si se corta la luz, los datos están a salvo.
-                    </p>
-                    <p class="text-bone-mute text-sm mb-6 relative z-10">
-                        <span class="text-wine-400 font-mono">→</span> despensas, kioscos y comercios chicos que no dependen de la nube.
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 relative z-10">
-                        <span class="chip">Electron</span>
-                        <span class="chip">SQLite</span>
-                        <span class="chip">Node.js</span>
-                        <span class="chip">Excel</span>
-                    </div>
-
-                    <a href="https://agunacciprojects-beep.github.io/naccistock/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
-                        <span class="link-line">ver caso completo de naccistock</span>
-                        <span class="group-hover/cta:translate-x-1 transition-transform">→</span>
-                    </a>
-                </article>
-
-                <!-- 02 BarberPOS -->
-                <article class="proj-card lg:w-[45vw] lg:min-w-[580px] lg:max-w-[700px] lg:flex-shrink-0 p-7 lg:p-8 tilt" data-tilt>
-                    <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
-
-                    <div class="flex justify-between items-start mb-8 relative z-10">
-                        <span class="eyebrow">[ proj.02 / 06 ] · gestión financiera</span>
-                        <span class="chip">producción</span>
+                        <span class="eyebrow">producto propio · POS offline</span>
+                        <span class="chip">en producción · 3 locales</span>
                     </div>
 
                     <div class="flex items-center gap-5 mb-6 relative z-10">
@@ -1009,27 +1003,78 @@ $ npm run deploy
                             <i class="fa-solid fa-scissors text-2xl text-wine-500"></i>
                         </div>
                         <div>
-                            <div class="font-mono text-xs text-wine-400">$ ./barber-pos</div>
-                            <div class="font-display text-2xl text-bone" style="font-weight: 600;">BarberPOS</div>
+                            <div class="font-mono text-xs text-wine-400">$ ./tubarber</div>
+                            <div class="font-display text-xl text-bone" style="font-weight: 600;">TuBarber</div>
                         </div>
                     </div>
 
-                    <h3 class="font-display text-2xl sm:text-2xl lg:text-[1.7rem] text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
-                        Saber exactamente<br><span class="text-wine-gradient">cuánto te queda.</span>
+                    <h3 class="font-display text-xl/[1.25] sm:text-xl/[1.25] lg:text-[1.4rem]/[1.25] text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                        Cobrar todo el día<br><span class="text-wine-gradient">sin depender de internet.</span>
                     </h3>
 
                     <p class="text-bone-deep leading-relaxed mb-4 relative z-10">
-                        Separa gastos propios de los compartidos, calcula automáticamente lo que te corresponde a fin de mes y te muestra la salud del negocio sin abrir Excel.
+                        Producto mío, no un encargo: lo diseñé, lo vendo y lo mantengo. Corre entero en la PC del local, así que se corta la conexión y seguís cobrando. Separa lo que cobró cada barbero, reparte la ganancia de los productos y al cierre del mes te dice el sueldo real, sin abrir un Excel. Tres barberías lo usan todos los días.
                     </p>
                     <p class="text-bone-mute text-sm mb-6 relative z-10">
-                        <span class="text-wine-400 font-mono">→</span> negocios compartidos entre socios independientes.
+                        <span class="text-wine-400 font-mono">→</span> locales donde cobra más de una persona y a fin de mes hay que repartir.
                     </p>
 
                     <div class="flex flex-wrap gap-2 relative z-10">
-                        <span class="chip">Next.js</span>
+                        <span class="chip">Next.js 16</span>
+                        <span class="chip">Electron</span>
                         <span class="chip">Prisma</span>
+                        <span class="chip">SQLite</span>
                         <span class="chip">TypeScript</span>
-                        <span class="chip">Tailwind</span>
+                    </div>
+
+                    <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 relative z-10">
+                        <a href="https://tubarber.vercel.app" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition group/cta">
+                            <span class="link-line">ver la landing</span>
+                            <span class="group-hover/cta:translate-x-1 transition-transform">→</span>
+                        </a>
+                        <a href="https://tubarber-socio.vercel.app" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition group/cta">
+                            <span class="link-line">probar la calculadora</span>
+                            <span class="group-hover/cta:translate-x-1 transition-transform">→</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 02 Panel de licencias -->
+                <article class="proj-card lg:w-[45vw] lg:min-w-[580px] lg:max-w-[700px] lg:flex-shrink-0 p-7 lg:p-8 tilt" data-tilt>
+                    <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
+
+                    <div class="flex justify-between items-start mb-8 relative z-10">
+                        <span class="eyebrow">la trastienda de TuBarber</span>
+                        <span class="chip">en producción</span>
+                    </div>
+
+                    <div class="flex items-center gap-5 mb-6 relative z-10">
+                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-wine-500/10 border border-wine-500/30">
+                            <i class="fa-solid fa-key text-2xl text-wine-500"></i>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs text-wine-400">$ ./panel-licencias</div>
+                            <div class="font-display text-xl text-bone" style="font-weight: 600;">Panel de licencias</div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display text-xl/[1.25] sm:text-xl/[1.25] lg:text-[1.4rem]/[1.25] text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                        Las licencias y las actualizaciones,<br><span class="text-wine-gradient">de este lado del mostrador.</span>
+                    </h3>
+
+                    <p class="text-bone-deep leading-relaxed mb-4 relative z-10">
+                        La otra mitad de TuBarber. Desde acá emito, renuevo y doy de baja la licencia de cada barbería. Cada una va firmada y atada a esa PC, avisa cinco días antes de vencer, y las actualizaciones llegan solas. Nadie reinstala nada ni pierde un dato.
+                    </p>
+                    <p class="text-bone-mute text-sm mb-6 relative z-10">
+                        <span class="text-wine-400 font-mono">→</span> lo que hace que el programa siga andando después de la entrega.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 relative z-10">
+                        <span class="chip">Next.js 16</span>
+                        <span class="chip">Prisma 7</span>
+                        <span class="chip">PostgreSQL</span>
+                        <span class="chip">Cloudflare</span>
+                        <span class="chip">Ed25519</span>
                     </div>
 
                     <a href="#contacto" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
@@ -1038,34 +1083,77 @@ $ npm run deploy
                     </a>
                 </article>
 
-                <!-- 03 CONTA Modern -->
+                <!-- 03 Comercio local online (identidad del cliente reservada) -->
                 <article class="proj-card lg:w-[45vw] lg:min-w-[580px] lg:max-w-[700px] lg:flex-shrink-0 p-7 lg:p-8 tilt" data-tilt>
                     <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
 
                     <div class="flex justify-between items-start mb-8 relative z-10">
-                        <span class="eyebrow">[ proj.03 / 06 ] · COBOL → moderno</span>
-                        <span class="chip">v1.0</span>
+                        <span class="eyebrow">comercio local online</span>
+                        <span class="chip">entregado</span>
                     </div>
 
                     <div class="flex items-center gap-5 mb-6 relative z-10">
                         <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-wine-500/10 border border-wine-500/30">
-                            <i class="fa-solid fa-database text-2xl text-wine-500"></i>
+                            <i class="fa-solid fa-lightbulb text-2xl text-wine-500"></i>
                         </div>
                         <div>
-                            <div class="font-mono text-xs text-wine-400">$ ./conta-modern</div>
-                            <div class="font-display text-2xl text-bone" style="font-weight: 600;">Modernización contable</div>
+                            <div class="font-mono text-xs text-wine-400">$ ./catalogo-retiro</div>
+                            <div class="font-display text-xl text-bone" style="font-weight: 600;">Catálogo y pedido por WhatsApp</div>
                         </div>
                     </div>
 
-                    <h3 class="font-display text-2xl sm:text-2xl lg:text-[1.7rem] text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
-                        Sistema en COBOL,<br><span class="text-wine-gradient">interfaz del siglo XXI.</span>
+                    <h3 class="font-display text-xl/[1.25] sm:text-xl/[1.25] lg:text-[1.4rem]/[1.25] text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                        La gente ya los buscaba.<br><span class="text-wine-gradient">No había dónde mandarla.</span>
                     </h3>
 
                     <p class="text-bone-deep leading-relaxed mb-4 relative z-10">
-                        Reemplazo de un sistema contable desarrollado en COBOL (más de 30 años en producción). Se preservan todos los datos históricos, importación masiva de registros, balances con un clic y un flujo simple para usuarios que llevan décadas con lo mismo.
+                        Un comercio de iluminación con años de calle y nada en internet. Ahora el cliente arma el pedido desde el celular, lo manda por WhatsApp ya escrito y lo retira en el local. La marca la sacamos de la foto del cartel: el dueño vio la suya, no una plantilla.
                     </p>
                     <p class="text-bone-mute text-sm mb-6 relative z-10">
-                        <span class="text-wine-400 font-mono">→</span> instituciones con sistemas contables legacy que necesitan modernizar sin perder información.
+                        <span class="text-wine-400 font-mono">→</span> comercios de barrio que ya tienen clientela y ningún lugar donde mandarla.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 relative z-10">
+                        <span class="chip">HTML/CSS/JS</span>
+                        <span class="chip">Cloudflare</span>
+                        <span class="chip">GSAP</span>
+                        <span class="chip">QR vectorial</span>
+                    </div>
+
+                    <a href="https://lumicat.agunacciprojects.workers.dev" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
+                        <span class="link-line">abrir el sitio y probarlo</span>
+                        <span class="group-hover/cta:translate-x-1 transition-transform">→</span>
+                    </a>
+                </article>
+
+                <!-- 04 Modernización contable -->
+                <article class="proj-card lg:w-[45vw] lg:min-w-[580px] lg:max-w-[700px] lg:flex-shrink-0 p-7 lg:p-8 tilt" data-tilt>
+                    <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
+
+                    <div class="flex justify-between items-start mb-8 relative z-10">
+                        <span class="eyebrow">COBOL a moderno</span>
+                        <span class="chip">terminado</span>
+                    </div>
+
+                    <div class="flex items-center gap-5 mb-6 relative z-10">
+                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-wine-500/10 border border-wine-500/30">
+                            <i class="fa-solid fa-file-invoice-dollar text-2xl text-wine-500"></i>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs text-wine-400">$ ./conta-modern</div>
+                            <div class="font-display text-xl text-bone" style="font-weight: 600;">Modernización contable</div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display text-xl/[1.25] sm:text-xl/[1.25] lg:text-[1.4rem]/[1.25] text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
+                        Treinta años de datos,<br><span class="text-wine-gradient">interfaz de hoy.</span>
+                    </h3>
+
+                    <p class="text-bone-deep leading-relaxed mb-4 relative z-10">
+                        Reemplazo de un sistema contable en COBOL que lleva más de treinta años andando. Se trae el histórico entero sin perder un registro, saca los balances con un clic, y lo maneja la misma persona que viene usando el programa viejo de toda la vida. Está terminado y funcionando; la institución lo tiene para evaluar.
+                    </p>
+                    <p class="text-bone-mute text-sm mb-6 relative z-10">
+                        <span class="text-wine-400 font-mono">→</span> oficinas atadas a un sistema que ya casi nadie sabe mantener.
                     </p>
 
                     <div class="flex flex-wrap gap-2 relative z-10">
@@ -1073,135 +1161,6 @@ $ npm run deploy
                         <span class="chip">Python</span>
                         <span class="chip">SQLite</span>
                         <span class="chip">PDF</span>
-                    </div>
-
-                    <a href="#contacto" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
-                        <span class="link-line">pedir info sobre este sistema</span>
-                        <span class="group-hover/cta:translate-x-1 transition-transform">→</span>
-                    </a>
-                </article>
-
-                <!-- 04 Programa de Beneficios -->
-                <article class="proj-card lg:w-[45vw] lg:min-w-[580px] lg:max-w-[700px] lg:flex-shrink-0 p-7 lg:p-8 tilt" data-tilt>
-                    <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
-
-                    <div class="flex justify-between items-start mb-8 relative z-10">
-                        <span class="eyebrow">[ proj.04 / 06 ] · PWA · QR</span>
-                        <span class="chip">demo en vivo</span>
-                    </div>
-
-                    <div class="flex items-center gap-5 mb-6 relative z-10">
-                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-wine-500/10 border border-wine-500/30">
-                            <i class="fa-solid fa-qrcode text-2xl text-wine-500"></i>
-                        </div>
-                        <div>
-                            <div class="font-mono text-xs text-wine-400">$ ./benefits-pwa</div>
-                            <div class="font-display text-2xl text-bone" style="font-weight: 600;">Programa de beneficios</div>
-                        </div>
-                    </div>
-
-                    <h3 class="font-display text-2xl sm:text-2xl lg:text-[1.7rem] text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
-                        Validá socios desde<br><span class="text-wine-gradient">el celular.</span>
-                    </h3>
-
-                    <p class="text-bone-deep leading-relaxed mb-4 relative z-10">
-                        QR único por socio, validación en tiempo real al escanearlo, y panel para ver qué comercios participan y cómo evoluciona el programa.
-                    </p>
-                    <p class="text-bone-mute text-sm mb-6 relative z-10">
-                        <span class="text-wine-400 font-mono">→</span> clubes, gimnasios y asociaciones con red de comercios.
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 relative z-10">
-                        <span class="chip">Next.js</span>
-                        <span class="chip">PWA</span>
-                        <span class="chip">QR dinámico</span>
-                        <span class="chip">Mobile-first</span>
-                    </div>
-
-                    <a href="#contacto" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
-                        <span class="link-line">pedir info sobre este sistema</span>
-                        <span class="group-hover/cta:translate-x-1 transition-transform">→</span>
-                    </a>
-                </article>
-
-                <!-- 05 Win Optimizer -->
-                <article class="proj-card lg:w-[45vw] lg:min-w-[580px] lg:max-w-[700px] lg:flex-shrink-0 p-7 lg:p-8 tilt" data-tilt>
-                    <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
-
-                    <div class="flex justify-between items-start mb-8 relative z-10">
-                        <span class="eyebrow">[ proj.05 / 06 ] · app de escritorio</span>
-                        <span class="chip">i18n</span>
-                    </div>
-
-                    <div class="flex items-center gap-5 mb-6 relative z-10">
-                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-wine-500/10 border border-wine-500/30">
-                            <i class="fa-solid fa-bolt text-2xl text-wine-500"></i>
-                        </div>
-                        <div>
-                            <div class="font-mono text-xs text-wine-400">$ ./win-optimizer</div>
-                            <div class="font-display text-2xl text-bone" style="font-weight: 600;">Windows Optimizer Pro</div>
-                        </div>
-                    </div>
-
-                    <h3 class="font-display text-2xl sm:text-2xl lg:text-[1.7rem] text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
-                        Mantenimiento de PC<br><span class="text-wine-gradient">sin complicaciones.</span>
-                    </h3>
-
-                    <p class="text-bone-deep leading-relaxed mb-4 relative z-10">
-                        App liviana para limpiar archivos basura, liberar espacio y optimizar el rendimiento con un click. Interfaz en español e inglés.
-                    </p>
-                    <p class="text-bone-mute text-sm mb-6 relative z-10">
-                        <span class="text-wine-400 font-mono">→</span> usuarios sin conocimientos técnicos.
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 relative z-10">
-                        <span class="chip">Tauri</span>
-                        <span class="chip">React</span>
-                        <span class="chip">TypeScript</span>
-                        <span class="chip">i18n</span>
-                    </div>
-
-                    <a href="#contacto" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
-                        <span class="link-line">pedir info sobre este sistema</span>
-                        <span class="group-hover/cta:translate-x-1 transition-transform">→</span>
-                    </a>
-                </article>
-
-                <!-- 06 bios_assistant -->
-                <article class="proj-card lg:w-[45vw] lg:min-w-[580px] lg:max-w-[700px] lg:flex-shrink-0 p-7 lg:p-8 tilt" data-tilt>
-                    <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
-
-                    <div class="flex justify-between items-start mb-8 relative z-10">
-                        <span class="eyebrow">[ proj.06 / 06 ] · IA aplicada</span>
-                        <span class="chip">CLI</span>
-                    </div>
-
-                    <div class="flex items-center gap-5 mb-6 relative z-10">
-                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-wine-500/10 border border-wine-500/30">
-                            <i class="fa-solid fa-microchip text-2xl text-wine-500"></i>
-                        </div>
-                        <div>
-                            <div class="font-mono text-xs text-wine-400">$ ./bios-assistant</div>
-                            <div class="font-display text-2xl text-bone" style="font-weight: 600;">bios_assistant</div>
-                        </div>
-                    </div>
-
-                    <h3 class="font-display text-2xl sm:text-2xl lg:text-[1.7rem] text-bone mb-4 text-display-tight relative z-10" style="font-weight: 500;">
-                        Diagnóstico de hardware<br><span class="text-wine-gradient">asistido por IA.</span>
-                    </h3>
-
-                    <p class="text-bone-deep leading-relaxed mb-4 relative z-10">
-                        CLI que analiza dumps de BIOS para detectar corrupciones y diferencias entre versiones, ahorrando horas de comparación manual en el taller.
-                    </p>
-                    <p class="text-bone-mute text-sm mb-6 relative z-10">
-                        <span class="text-wine-400 font-mono">→</span> talleres de reparación de electrónica.
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 relative z-10">
-                        <span class="chip">Python</span>
-                        <span class="chip">Claude API</span>
-                        <span class="chip">SQLite</span>
-                        <span class="chip">CLI</span>
                     </div>
 
                     <a href="#contacto" class="mt-6 inline-flex items-center gap-2 font-mono text-xs text-wine-400 hover:text-wine-300 transition relative z-10 group/cta w-fit">
@@ -1256,24 +1215,20 @@ $ npm run deploy
     <!-- ===========================
          STACK
     ============================ -->
-    <section id="stack" class="relative py-24 lg:py-32 z-10">
+    <section id="stack" class="relative py-20 lg:py-24 z-10">
         <div class="max-w-7xl mx-auto px-6 lg:px-10">
 
             <div class="grid lg:grid-cols-12 gap-10 mb-14 reveal">
                 <div class="lg:col-span-5">
-                    <div class="section-tag mb-6">
-                        <span>// STACK.JSON</span>
-                    </div>
-                    <h2 class="font-display text-[1.95rem] sm:text-4xl md:text-5xl lg:text-6xl text-display-tight" style="font-weight: 600;">
-                        <span class="text-bone-gradient">HERRAMIENTAS</span><br>
-                        <span class="text-wine-gradient">PROBADAS EN CAMPO.</span>
+                    <h2 class="font-display text-[1.7rem]/[1.1] sm:text-[2rem]/[1.1] md:text-4xl/[1.1] lg:text-[2.75rem]/[1.1] text-display-tight" style="font-weight: 600;">
+                        <span class="text-bone-gradient">CON LO QUE</span><br>
+                        <span class="text-wine-gradient">TRABAJO TODOS LOS DÍAS.</span>
                     </h2>
                 </div>
                 <div class="lg:col-span-6 lg:col-start-7 flex items-end">
                     <div class="border-l-2 border-wine-900/50 pl-5">
-                        <p class="font-mono text-xs text-wine-400 mb-3">// stack.philosophy</p>
                         <p class="text-bone-deep leading-relaxed">
-                            No persigo modas. Uso lo que conozco a fondo, lo que se mantiene en el tiempo y lo que puedo soportar yo mismo cuando un cliente necesita ayuda a las 3 AM.
+                            No corro atrás de la moda. Uso lo que conozco a fondo y lo que voy a poder arreglar yo mismo dentro de dos años, cuando me llames un sábado porque algo no anda.
                         </p>
                     </div>
                 </div>
@@ -1360,38 +1315,35 @@ $ npm run deploy
     <!-- ===========================
          CONTACTO
     ============================ -->
-    <section id="contacto" class="relative py-24 lg:py-36 border-t border-wine-900/30 overflow-hidden z-10">
+    <!-- py-36 daba 288px de padding para 462px de contenido: la seccion ocupaba
+         el 96% de una pantalla de 780px. Bajado a py-20. -->
+    <section id="contacto" class="relative py-20 lg:py-24 border-t border-wine-900/30 overflow-hidden z-10">
 
         <!-- background flare -->
         <div class="absolute inset-0 -z-10">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-wine-700/25 blur-[140px]"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] rounded-full bg-wine-700/20 blur-[120px]"></div>
             <div class="absolute inset-0 grid-bg opacity-30"></div>
         </div>
 
         <div class="max-w-5xl mx-auto px-6 lg:px-10 text-center reveal">
 
-            <div class="section-tag mx-auto mb-8">
-                <span class="dot pulse-soft"></span>
-                <span>LISTO // INICIAR PROYECTO</span>
-            </div>
-
-            <h2 class="font-display text-[2.2rem] sm:text-5xl md:text-7xl lg:text-8xl text-display-tight mb-8" style="font-weight: 600;">
+            <h2 class="font-display text-[1.9rem]/[1.08] sm:text-4xl/[1.08] md:text-5xl/[1.08] lg:text-[3.5rem]/[1.08] text-display-tight mb-8" style="font-weight: 600;">
                 <span class="text-bone-gradient">¿TENÉS UN</span><br>
                 <span class="text-bone-gradient">PROYECTO</span>
                 <span class="text-wine-gradient glitch" data-text="EN MENTE?">EN MENTE?</span>
             </h2>
 
-            <p class="text-lg lg:text-xl text-bone-deep max-w-2xl mx-auto mb-12 leading-relaxed">
+            <p class="text-base lg:text-lg text-bone-deep max-w-2xl mx-auto mb-10 leading-relaxed">
                 Contame en qué estás pensando. Si encaja con lo que hago, te cuento cómo lo encararía y qué necesitaríamos para arrancar.
             </p>
 
-            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-16">
-                <a href="https://wa.me/5493834271005" target="_blank" rel="noopener" class="magnetic magnetic-primary group !px-8 !py-5 !text-lg">
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-12">
+                <a href="https://wa.me/5493834271005" target="_blank" rel="noopener" class="magnetic magnetic-primary group !px-7 !py-4">
                     <i class="fa-brands fa-whatsapp text-2xl"></i>
                     <span>WhatsApp directo</span>
                     <span class="font-mono text-sm opacity-70 hidden sm:inline">+54 9 3834 27-1005</span>
                 </a>
-                <a href="mailto:agunacciprojects@gmail.com" class="magnetic magnetic-ghost !px-8 !py-5 !text-lg">
+                <a href="mailto:agunacciprojects@gmail.com" class="magnetic magnetic-ghost !px-7 !py-4">
                     <i class="fa-regular fa-envelope text-xl text-wine-400"></i>
                     <span>agunacciprojects@gmail.com</span>
                 </a>
@@ -1399,13 +1351,13 @@ $ npm run deploy
 
             <div class="ed-rule max-w-md mx-auto"></div>
 
-            <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-5 md:gap-8 text-bone-mute text-sm font-mono">
+            <div class="mt-8 flex flex-col md:flex-row items-center justify-center gap-5 md:gap-8 text-bone-mute text-sm font-mono">
                 <a href="https://instagram.com/naccitech.arg" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-wine-400 transition">
                     <i class="fa-brands fa-instagram text-lg"></i> @naccitech.arg
                 </a>
                 <span class="hidden md:inline text-wine-900">·</span>
                 <span class="flex items-center gap-2">
-                    <i class="fa-solid fa-location-dot text-wine-500"></i> Catamarca · AR
+                    <i class="fa-solid fa-location-dot text-wine-500"></i> Catamarca, Argentina
                 </span>
                 <span class="hidden md:inline text-wine-900">·</span>
                 <span class="flex items-center gap-2">
@@ -1420,12 +1372,10 @@ $ npm run deploy
     <footer class="relative border-t border-wine-900/20 bg-ink-2/60 z-10">
         <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-bone-mute font-mono">
             <div>
-                <span class="text-wine-500">$</span> © 2026 · build by <a href="#" class="text-bone link-line">agunacci</a>
+                <span class="text-wine-500">$</span> © 2026 <a href="#inicio" class="text-bone link-line">agunacci</a>
             </div>
-            <div class="flex items-center gap-2 text-xs">
-                <span class="text-wine-500">✦</span>
-                <span>handcrafted in San Fernando del Valle</span>
-                <span class="text-wine-500">✦</span>
+            <div class="text-xs">
+                <span>San Fernando del Valle de Catamarca</span>
             </div>
         </div>
     </footer>
@@ -1433,7 +1383,7 @@ $ npm run deploy
     <script>
     /* ============================================================
        PREMIUM MOTION LAYER
-       Lenis smooth scroll + GSAP ScrollTrigger + SplitType + custom cursor
+       Lenis smooth scroll + GSAP ScrollTrigger + SplitType
        Pack A (foundation) + Pack D (parallax / velocity-aware refinements)
     ============================================================ */
 
@@ -1441,36 +1391,9 @@ $ npm run deploy
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches && !isTouchDevice;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Shared mouse state for cursor + particles repel
+    // Posicion del mouse, la usa el repel de las particulas
     let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
     window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-
-    /* ============================
-       CURSOR — glow + ring + dot (inertia)
-    ============================ */
-    const glow = document.getElementById('cursorGlow');
-    const ring = document.getElementById('cursorRing');
-    const dot  = document.getElementById('cursorDot');
-    if (canHover && !reduceMotion) {
-        document.body.classList.add('cursor-active');
-        let glowX = mouseX, glowY = mouseY;
-        let ringX = mouseX, ringY = mouseY;
-        function cursorLoop() {
-            glowX += (mouseX - glowX) * 0.10;
-            glowY += (mouseY - glowY) * 0.10;
-            glow.style.transform = `translate3d(${glowX - 240}px, ${glowY - 240}px, 0)`;
-            ringX += (mouseX - ringX) * 0.20;
-            ringY += (mouseY - ringY) * 0.20;
-            ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
-            dot.style.transform  = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
-            requestAnimationFrame(cursorLoop);
-        }
-        cursorLoop();
-        document.querySelectorAll('a, button, .toggle-tile, [data-tilt], .chip').forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-        });
-    }
 
     /* ============================
        PARTICLES (canvas, mouse repel)
@@ -1738,21 +1661,9 @@ $ npm run deploy
         }
 
         /* ============================
-           MAGNETIC BUTTONS + 3D TILT — desktop only, GSAP-powered
+           TILT 3D de las cards (los botones no se mueven, ver .magnetic:active)
         ============================ */
         if (canHover && !reduceMotion) {
-            document.querySelectorAll('.magnetic').forEach(btn => {
-                btn.addEventListener('mousemove', e => {
-                    const r = btn.getBoundingClientRect();
-                    const x = e.clientX - r.left - r.width / 2;
-                    const y = e.clientY - r.top - r.height / 2;
-                    gsap.to(btn, { x: x * 0.18, y: y * 0.18, duration: 0.45, ease: 'power3.out' });
-                });
-                btn.addEventListener('mouseleave', () => {
-                    gsap.to(btn, { x: 0, y: 0, duration: 0.65, ease: 'elastic.out(1, 0.5)' });
-                });
-            });
-
             document.querySelectorAll('[data-tilt]').forEach(card => {
                 card.addEventListener('mousemove', e => {
                     const r = card.getBoundingClientRect();
@@ -1797,9 +1708,20 @@ $ npm run deploy
                     return Math.max(0, trackVisualLeft + trackWidth - viewportW + endPadding);
                 };
 
+                // El pin solo vale si la seccion entra ENTERA debajo del nav.
+                // Si no entra, marcamos .sin-pin y el CSS vuelve a la grilla:
+                // cards completas sin scroll horizontal > cards cortadas con el.
+                const entra = () => {
+                    const caja = section.querySelector('.max-w-7xl');
+                    if (!caja) return true;
+                    return caja.scrollHeight <= (window.innerHeight - 64 - 16);
+                };
+
                 const setupHorizontal = () => {
                     const distance = calcDistance();
                     if (distance <= 0) return;
+                    if (!entra()) { section.classList.add('sin-pin'); return; }
+                    section.classList.remove('sin-pin');
 
                     gsap.to(track, {
                         x: () => -calcDistance(),
