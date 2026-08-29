@@ -35,3 +35,8 @@ package-lock.json
 *.log
 _*.png
 _*.py
+
+# Capturas de verificacion (Playwright), no van al repo
+*.png
+!assets/*.png
+.playwright-mcp/
