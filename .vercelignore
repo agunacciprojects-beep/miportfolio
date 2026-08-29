@@ -1,0 +1,7 @@
+# El reel es el entregable para Instagram, no lo usa el sitio: 3 MB al pedo.
+reel/
+# Backups locales y capturas de verificacion.
+*.backup.html
+*.png
+!assets/*.png
+.playwright-mcp/

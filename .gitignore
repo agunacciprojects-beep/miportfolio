@@ -40,3 +40,4 @@ _*.py
 *.png
 !assets/*.png
 .playwright-mcp/
+.vercel
