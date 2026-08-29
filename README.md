@@ -41,6 +41,87 @@ conexion del repo de GitHub con el proyecto de Vercel quedo sin hacer.
 redirige los repos viejos pero NO las URLs `*.github.io`, asi que todo link ya
 repartido quedaria muerto sin aviso.
 
+## Mudarse a otra máquina
+
+> Todo lo que necesitás para retomar este proyecto en una PC nueva. **Está acá y no en la
+> memoria de Claude a propósito:** esa memoria está indexada por la RUTA del proyecto en
+> cada máquina, así que no viaja. Lo que tiene que sobrevivir vive en el repo.
+
+### 1. Traer el repo
+
+```bash
+git clone https://github.com/agunacciprojects-beep/miportfolio.git
+cd miportfolio
+```
+
+### 2. Identidad de git (vive en `.git/config`, NO se clona)
+
+```bash
+git config user.name  "agunacci"
+git config user.email "agunacciprojects@gmail.com"
+```
+Sin esto el primer `git commit` falla con *"Author identity unknown"*.
+
+### 3. Verlo local
+
+No hay build, ni dependencias, ni variables de entorno.
+
+```bash
+python -m http.server 8765     # → http://localhost:8765
+```
+
+### 4. Volver a enlazar con Vercel (`.vercel/` está gitignoreado, NO se clona)
+
+```bash
+npm i -g vercel                                                # si no está
+vercel login                                                   # cuenta: agunacciprojects@gmail.com
+vercel link --project agunacci --team agunacci-s-projects --yes
+```
+
+Eso recrea `.vercel/project.json`. Recién ahí anda el deploy.
+
+### 5. Publicar
+
+```bash
+vercel deploy --prod -y        # → https://agunacci.vercel.app
+git push origin main           # → actualiza tambien el link viejo de GitHub Pages
+```
+
+**Los dos hay que hacerlos.** El repo de GitHub **no** está conectado al proyecto de Vercel
+(la conexión falló al crearlo, falta autorizar la app de Vercel sobre el repo). Hasta que se
+arregle, `git push` NO dispara deploy: el sitio se publica solo con `vercel deploy --prod`.
+
+### 6. Antes de dar algo por listo
+
+```bash
+python verificar.py     # sale 1 si algo falla
+```
+
+Corre sin dependencias en cualquier máquina con Python. Chequea solo cosas que se
+rompieron **de verdad** acá alguna vez, y cada regla imprime por qué está: em-dash en el
+copy, links muertos, anclas rotas, `target="_blank"` sin `noopener`, imágenes sin `alt` o
+sin medidas, huecos en la grilla del stack, y —el más caro— que `og:image`, `og:url` y
+`twitter:image` sean **URLs absolutas**, que es lo que hacía que WhatsApp no mostrara
+miniatura.
+
+Está probado en rojo: se le inyectaron los 6 bugs que tuvimos y los caza a los 6. Si
+alguna vez lo tocás, volvé a probarlo en rojo antes de creerle el verde.
+
+**Lo visual no lo ve ese script.** Que el scroll horizontal no corte el fondo de las cards,
+que los reveals aparezcan y que el encuadre esté bien hay que mirarlo en el navegador.
+Y ojo cómo lo testeás: con Lenis activo, `window.scrollTo()` desde Playwright **no llega**,
+y parece que la página está rota cuando no lo está. Me pasó tres veces en una sola sesión.
+Se testea con `page.mouse.wheel()` o clickeando la navegación del propio sitio.
+
+### Cuentas involucradas
+
+| Servicio | Cuenta | Para qué |
+|---|---|---|
+| GitHub | `agunacciprojects-beep` | repo + link viejo por Pages |
+| Vercel | `agunacci's projects` (`agunacci-s-projects`) | dominio principal |
+
+---
+
 ## Stack técnico
 
 ```
