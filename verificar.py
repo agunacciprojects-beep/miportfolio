@@ -51,8 +51,7 @@ def main():
 
     # --- Copy -------------------------------------------------------------
     revisar('em-dash en texto visible', len(re.findall(r'[—–]', txt)), 0,
-            'es el tic mas reconocible de texto generado por IA. En los comentarios '
-            'del codigo no molesta; en lo que lee el cliente, si.')
+            'es el tic mas reconocible de texto generado por IA.')
 
     revisar('sparkles decorativos', len(re.findall(r'[✦✨]', txt)), 0,
             'los simbolos tipo estrellita son firma de plantilla generada.')
@@ -73,6 +72,25 @@ def main():
     if pegues:
         avisos.append('banlist es-AR: %s\n      no es prohibicion: justifica cada uno o '
                       'reescribilo con un verbo llano.' % ', '.join(pegues))
+
+    # --- Sin comentarios en el archivo publicado --------------------------
+    # index.html se sirve tal cual, sin build: todo comentario lo lee cualquiera
+    # que abra el inspector. El por que de cada decision va al README y al mensaje
+    # de commit, no a la pagina que mira el cliente.
+    sin_script = re.sub(r'<script.*?</script>', ' ', html, flags=re.S)
+    sin_script = re.sub(r'<style.*?</style>', ' ', sin_script, flags=re.S)
+    revisar('comentarios HTML', len(re.findall(r'<!--.*?-->', sin_script, flags=re.S)), 0,
+            'el sitio se sirve sin build, asi que los comentarios quedan a la vista '
+            'de cualquiera que inspeccione. El por que va al README.')
+
+    estilo = re.search(r'<style.*?</style>', html, flags=re.S)
+    if estilo:
+        revisar('comentarios CSS', len(re.findall(r'/\*.*?\*/', estilo.group(0), flags=re.S)), 0,
+                'mismo motivo que arriba.')
+
+    bloques_js = re.findall(r'<script>(.*?)</script>', html, flags=re.S)
+    js_com = sum(len(re.findall(r'^\s*(?://|/\*)', b, flags=re.M)) for b in bloques_js)
+    revisar('comentarios JS', js_com, 0, 'mismo motivo que arriba.')
 
     # --- Estructura y links ----------------------------------------------
     revisar('links muertos href="#"', len(re.findall(r'href="#"', html)), 0,

@@ -9,15 +9,11 @@
     <meta name="theme-color" content="#020617">
     <link rel="canonical" href="https://agunacci.vercel.app/">
 
-    <!-- Open Graph (Facebook, WhatsApp, LinkedIn, etc.) -->
-    <!-- NOTA: para previews 100% confiables en WhatsApp, reemplazar las URLs por absolutas cuando tengas el dominio final.
-         Ej: https://agunacci.com/assets/og-image.png -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://agunacci.vercel.app/">
     <meta property="og:site_name" content="agunacci">
     <meta property="og:title" content="agunacci · programas a medida para tu negocio">
     <meta property="og:description" content="Desarrollo a medida para comercios y pymes, desde Catamarca. Trato directo, sin agencia ni intermediarios.">
-    <!-- URL ABSOLUTA obligatoria: con la ruta relativa WhatsApp no muestra miniatura. -->
     <meta property="og:image" content="https://agunacci.vercel.app/assets/og-image.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:secure_url" content="https://agunacci.vercel.app/assets/og-image.png">
@@ -26,14 +22,12 @@
     <meta property="og:image:alt" content="Portfolio de agunacci, desarrollo a medida desde Catamarca">
     <meta property="og:locale" content="es_AR">
 
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="agunacci · programas a medida para tu negocio">
     <meta name="twitter:description" content="Desarrollo a medida para comercios y pymes, desde Catamarca. Trato directo, sin agencia ni intermediarios.">
     <meta name="twitter:image" content="https://agunacci.vercel.app/assets/og-image.png">
     <meta name="twitter:image:alt" content="Portfolio de agunacci">
 
-    <!-- Schema.org Person (SEO) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -61,10 +55,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- ============================
-         PREMIUM MOTION STACK
-         GSAP 3.13 (Webflow free tier) + ScrollTrigger + Lenis + SplitType
-    ============================ -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js" defer></script>
@@ -113,19 +103,11 @@
             overflow-x: hidden;
         }
 
-        /* ============================
-           ATMOSPHERE
-        ============================ */
         #particles {
             position: fixed; inset: 0; z-index: 0;
             pointer-events: none;
         }
 
-        /* Fondo: tres focos wine muy diluidos sobre el slate, mas un velo
-           vertical que separa las secciones sin dibujar una linea.
-           Bajado de 0.45/0.18/0.60 a 0.20/0.09/0.28: antes lavaba el fondo,
-           ahora es atmosfera. El drift es de 40s y ~2% de recorrido: le da
-           profundidad a una pagina oscura sin que se note que se mueve. */
         .bg-aura {
             position: fixed; inset: -10%; z-index: -1;
             background:
@@ -141,8 +123,6 @@
             to   { transform: translate3d(1.5%, 1%, 0) scale(1.06); }
         }
 
-        /* Velo vertical: arriba respira, el pie se hunde. Separa secciones
-           sin bordes ni cards de mas. */
         .bg-veil {
             position: fixed; inset: 0; z-index: -1; pointer-events: none;
             background: linear-gradient(180deg,
@@ -162,7 +142,6 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* Grid pattern overlay */
         .grid-bg {
             background-image:
               linear-gradient(rgba(244, 63, 94, 0.06) 1px, transparent 1px),
@@ -171,10 +150,6 @@
             mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 90%);
         }
 
-        /* La seccion de trabajos se pinea y tiene que entrar ENTERA en la altura
-           disponible. En notebooks de 728-800px la card se estira a ~547px por el
-           texto que envuelve mas, y el fondo quedaba cortado. Acá se recorta el aire
-           interno, que es lo unico que sobra. */
         @media (min-width: 1024px) and (max-height: 850px) {
             #trabajos .proj-card { padding: 1.15rem 1.5rem; }
             #trabajos .proj-card > div:first-of-type { margin-bottom: 0.75rem; }
@@ -187,9 +162,6 @@
             #trabajos > div > div:first-child { margin-bottom: 0.75rem; }
         }
 
-        /* Red de seguridad: si aun compactado el contenido no entra, el JS marca
-           .sin-pin y volvemos a la grilla. Preferimos quedarnos sin scroll
-           horizontal antes que mostrar las cards cortadas. */
         @media (min-width: 1024px) {
             #trabajos.sin-pin { height: auto; padding: 6rem 0; }
             #trabajos.sin-pin .trabajos-track {
@@ -199,13 +171,10 @@
             #trabajos.sin-pin .proj-card { width: auto; min-width: 0; max-width: none; }
         }
 
-        /* SplitType reveal helpers */
         .split-mask {
             display: block;
             overflow: hidden;
-            padding-bottom: 0.12em; /* prevents descender clipping */
-        }
-        /* Words are inline-block so they don't break mid-word; chars sit inline within words */
+            padding-bottom: 0.12em;        }
         .word {
             display: inline-block;
             white-space: nowrap;
@@ -216,13 +185,6 @@
             will-change: transform, opacity;
         }
 
-        /* Preserve gradient on SplitType chars / words (each span re-applies the gradient).
-           OJO: el hero se parte en 'words,chars' y los h2 solo en 'words', por eso la
-           regla tiene que cubrir los dos. Pero cuando existen AMBOS, la palabra y el
-           char pintan el MISMO glifo con background-clip:text sobre cajas de gradiente
-           de distinto ancho, y queda un glifo fantasma corrido en la primera letra de
-           cada palabra. La regla :has() de abajo apaga el pintado de la palabra solo
-           cuando adentro hay chars que ya lo hacen. */
         .text-bone-gradient .char,
         .text-bone-gradient .word {
             background: linear-gradient(180deg, #ffffff 0%, #b8bdcc 100%);
@@ -236,12 +198,6 @@
             color: transparent;
         }
 
-        /* Regla unica: pinta el envoltorio MAS INTERNO, y solo ese.
-           Sin esto, el span de la linea (caja de 1152px), la palabra y el char
-           pintan los tres el mismo glifo con background-clip:text sobre cajas de
-           gradiente de distinto ancho, y WebKit deja glifos fantasma corridos.
-           - h1: se parte en words+chars -> apaga linea y word, pinta el char.
-           - h2: se parte solo en words  -> apaga la linea, pinta la word. */
         .text-bone-gradient:has(.word), .text-bone-gradient:has(.char),
         .text-wine-gradient:has(.word), .text-wine-gradient:has(.char),
         .text-bone-gradient .word:has(.char),
@@ -251,15 +207,11 @@
             color: transparent;
         }
 
-        /* When GSAP is in control, disable CSS-based reveal transitions to avoid double-animation */
         body.gsap-ready .reveal,
         body.gsap-ready .reveal-stagger > * {
             transition: none !important;
         }
 
-        /* ============================
-           SCROLL PROGRESS
-        ============================ */
         .scroll-progress {
             position: fixed; top: 0; left: 0; height: 2px; z-index: 100;
             background: linear-gradient(90deg, #f43f5e, #ff4d79, #f43f5e);
@@ -267,9 +219,6 @@
             width: 0%; transition: width 0.1s linear;
         }
 
-        /* ============================
-           FLOATING CODE SNIPPETS
-        ============================ */
         .code-float {
             position: absolute; pointer-events: none;
             font-family: 'JetBrains Mono', monospace;
@@ -299,14 +248,7 @@
         .drift-4 { animation: drift-4 20s ease-in-out infinite; }
         .drift-5 { animation: drift-5 12s ease-in-out infinite; }
 
-        /* ============================
-           TYPOGRAPHY
-        ============================ */
         .font-display { font-family: 'Unbounded', sans-serif; }
-        /* line-height 0.92 dejaba el renglon MAS CHICO que la letra y cortaba los
-           acentos de arriba (DIAS, ACA, MAS) al apilarse las lineas. En castellano
-           eso se ve en casi todo titular. 1.04 da aire al acento y el titular sigue
-           compacto. */
         .text-display-tight { letter-spacing: -0.035em; line-height: 1.04; }
 
         .glitch {
@@ -351,9 +293,6 @@
             color: transparent;
         }
 
-        /* ============================
-           ELEMENTS
-        ============================ */
         .eyebrow {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.7rem; letter-spacing: 0.18em;
@@ -388,8 +327,6 @@
         }
         .chip:hover::before { transform: translateX(100%); }
 
-        /* Los botones NO se mueven: el boton que se corre del cursor se siente
-           roto y hace fallar el click. Al presionar, el borde se retroilumina. */
         .magnetic {
             display: inline-flex; align-items: center; gap: 0.65rem;
             padding: 0.9rem 1.5rem; border-radius: 999px;
@@ -408,9 +345,6 @@
         }
         .magnetic-ghost:hover { border-color: rgba(244, 63, 94, 0.6); background: rgba(244, 63, 94, 0.08); }
 
-        /* Al presionar, el borde se retroilumina. VA DESPUES de los :hover a
-           proposito: tienen la misma especificidad y gana el ultimo, asi que si
-           esto sube, el hover se lo come y el boton no responde al click. */
         .magnetic-primary:active,
         .magnetic-ghost:active {
             box-shadow:
@@ -425,7 +359,6 @@
             box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.9), 0 0 18px rgba(244, 63, 94, 0.35);
         }
 
-        /* Project card */
         .proj-card {
             position: relative; overflow: hidden;
             background: linear-gradient(180deg, rgba(7, 11, 26, 0.85), rgba(13, 19, 38, 0.6));
@@ -454,7 +387,6 @@
         .corner-br { bottom: 10px; right: 10px; border-bottom: 1px solid; border-right: 1px solid; }
         .proj-card:hover .corner-tl, .proj-card:hover .corner-tr, .proj-card:hover .corner-bl, .proj-card:hover .corner-br { width: 28px; height: 28px; border-color: #f43f5e; }
 
-        /* Stack toggle */
         .toggle-tile {
             position: relative;
             padding: 1.25rem;
@@ -481,9 +413,6 @@
         .toggle-tile:hover .led { background: #f43f5e; box-shadow: 0 0 14px #f43f5e; }
         .toggle-tile:hover .ico { color: #ff4d79; filter: drop-shadow(0 0 12px rgba(244,63,94,0.7)); }
 
-        /* ============================
-           ANIMATIONS / REVEAL
-        ============================ */
         .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.in { opacity: 1; transform: translateY(0); }
 
@@ -508,19 +437,15 @@
         @keyframes rot { 0%{ transform: rotate(0); } 100% { transform: rotate(360deg); } }
         .rot { animation: rot 22s linear infinite; }
 
-        /* Counter */
         .counter { font-variant-numeric: tabular-nums; }
 
-        /* Selection */
         ::selection { background: #f43f5e; color: #020617; }
 
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 10px; height: 10px; }
         ::-webkit-scrollbar-track { background: #020617; }
         ::-webkit-scrollbar-thumb { background: #4c0519; border-radius: 6px; }
         ::-webkit-scrollbar-thumb:hover { background: #881337; }
 
-        /* Section anchor styling */
         .section-tag {
             display: inline-flex; align-items: center; gap: 0.6rem;
             padding: 0.35rem 0.85rem; border-radius: 999px;
@@ -531,7 +456,6 @@
         }
         .section-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: #f43f5e; box-shadow: 0 0 10px #f43f5e; }
 
-        /* Link underline */
         .link-line { position: relative; }
         .link-line::after {
             content: ""; position: absolute; left: 0; bottom: -3px; height: 1px; width: 100%;
@@ -540,23 +464,18 @@
         }
         .link-line:hover::after { transform: scaleX(1); }
 
-        /* Editorial divider */
         .ed-rule { height: 1px; background: linear-gradient(90deg, transparent, rgba(244, 63, 94, 0.5), transparent); }
 
-
-        /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
         }
 
-        /* Focus states (a11y) */
         a:focus-visible, button:focus-visible {
             outline: 2px solid #f43f5e;
             outline-offset: 3px;
             border-radius: 4px;
         }
 
-        /* Photo duotone */
         .photo-frame {
             position: relative;
             border-radius: 1.25rem;
@@ -602,7 +521,6 @@
         .photo-corner.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
         .photo-corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
 
-        /* Tree (profile) */
         .tree {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem; line-height: 1.85;
@@ -617,35 +535,25 @@
         .tree .v { color: #e6e9f0; }
         .tree .sym { color: rgba(244, 63, 94, 0.5); }
 
-        /* ============================
-           MOBILE RESPONSIVE FIXES
-        ============================ */
         @media (max-width: 640px) {
             html, body { overflow-x: hidden; max-width: 100vw; }
             .tree { font-size: 0.72rem; line-height: 1.75; }
             .hero-line, .hero-line-italic { letter-spacing: -0.035em; }
-            /* Tighter padding to gain horizontal breathing room */
             .px-mobile-tight { padding-left: 1rem; padding-right: 1rem; }
-            /* Prevent any code-float from leaking */
             .code-float { display: none !important; }
-            /* Disable 3D tilt visual jitter on touch */
             [data-tilt] { transform: none !important; }
-            /* Smaller magnetic buttons */
             .magnetic { padding: 0.7rem 1.1rem; font-size: 0.95rem; }
         }
     </style>
 </head>
 <body class="noise relative min-h-screen">
 
-    <!-- Background atmosphere -->
     <div class="bg-aura"></div>
     <div class="bg-veil"></div>
     <canvas id="particles"></canvas>
 
-    <!-- Scroll progress -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
-    <!-- Floating code (ambient decoration) -->
     <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <pre class="code-float drift-1 hidden md:block" style="top: 18%; left: 4%;"><span class="cm">// always-on</span>
 <span class="kw">const</span> sistema = {
@@ -676,7 +584,6 @@ $ npm run deploy
 <span class="cm">→ live</span></pre>
     </div>
 
-    <!-- Nav -->
     <nav class="fixed w-full z-50 backdrop-blur-xl bg-ink/70 border-b border-wine-900/20">
         <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex justify-between items-center">
             <a href="#inicio" class="group flex items-center gap-2.5">
@@ -699,15 +606,11 @@ $ npm run deploy
         </div>
     </nav>
 
-    <!-- ===========================
-         HERO
-    ============================ -->
     <header id="inicio" class="relative pt-28 pb-20 lg:pt-36 lg:pb-24 z-10">
         <div class="grid-bg absolute inset-0 -z-10 opacity-60"></div>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-10 relative">
 
-            <!-- Top meta -->
             <div class="flex flex-wrap items-center justify-between gap-4 mb-12 reveal">
                 <div class="font-mono text-xs text-bone-mute">
                     <span class="text-wine-500">$</span> desarrollo a medida, desde Catamarca
@@ -718,7 +621,6 @@ $ npm run deploy
                 </div>
             </div>
 
-            <!-- Headline -->
             <h1 class="font-display max-w-6xl reveal text-display-tight" style="font-weight: 600;">
                 <span class="block text-[1.9rem]/[1.08] sm:text-4xl/[1.08] md:text-5xl/[1.08] lg:text-[4.25rem]/[1.08] text-bone-gradient">PROGRAMAS</span>
                 <span class="block text-[1.9rem]/[1.08] sm:text-4xl/[1.08] md:text-5xl/[1.08] lg:text-[4.25rem]/[1.08] mt-1 lg:mt-2">
@@ -734,7 +636,6 @@ $ npm run deploy
                 </span>
             </h1>
 
-            <!-- Subhead + CTAs -->
             <div class="mt-14 lg:mt-20 grid lg:grid-cols-12 gap-10 items-end reveal">
 
                 <div class="lg:col-span-7">
@@ -758,7 +659,6 @@ $ npm run deploy
 
             </div>
 
-            <!-- Hero stats / terminal-style -->
             <div class="mt-20 lg:mt-28 grid grid-cols-2 md:grid-cols-4 gap-4 reveal-stagger reveal">
                 <div class="p-5 border border-wine-900/30 bg-ink-2/60 backdrop-blur-sm rounded-xl">
                     <div class="font-mono text-xs text-wine-400 mb-2">[ 01 ]</div>
@@ -785,9 +685,6 @@ $ npm run deploy
         </div>
     </header>
 
-    <!-- ===========================
-         MARQUEE
-    ============================ -->
     <section aria-hidden="true" class="relative py-6 border-y border-wine-900/30 overflow-hidden bg-ink-2/60 z-10">
         <div class="marquee-track font-mono text-bone-mute/80 text-sm tracking-widest uppercase">
             <span class="flex items-center gap-8 pr-8">
@@ -815,22 +712,16 @@ $ npm run deploy
         </div>
     </section>
 
-    <!-- ===========================
-         SOBRE MÍ
-    ============================ -->
     <section id="sobre-mi" class="relative py-24 lg:py-36 z-10">
         <div class="max-w-7xl mx-auto px-6 lg:px-10">
 
             <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
 
-                <!-- Photo column -->
                 <div class="lg:col-span-5 reveal">
                     <div class="relative max-w-sm mx-auto lg:mx-0">
 
-                        <!-- Decorative rotating border behind photo -->
                         <div class="absolute -inset-4 border border-wine-900/40 rounded-3xl rot pointer-events-none" aria-hidden="true"></div>
 
-                        <!-- Photo frame -->
                         <div class="photo-frame border border-wine-500/30">
                             <span class="photo-corner tl"></span>
                             <span class="photo-corner tr"></span>
@@ -841,7 +732,6 @@ $ npm run deploy
                                  loading="lazy" decoding="async">
                         </div>
 
-                        <!-- Floating badge -->
                         <div class="absolute -bottom-4 -right-4 z-10">
                             <div class="chip !text-bone !border-wine-500/50 !bg-ink shadow-[0_0_30px_-6px_rgba(244,63,94,0.5)]">
                                 <span class="inline-block h-1.5 w-1.5 rounded-full bg-wine-400 pulse-soft"></span>
@@ -849,7 +739,6 @@ $ npm run deploy
                             </div>
                         </div>
 
-                        <!-- Floating tag top-left -->
                         <div class="absolute -top-3 -left-3 z-10">
                             <div class="font-mono text-[10px] uppercase tracking-widest px-2.5 py-1 bg-wine-500 text-ink rounded">
                                 CATAMARCA · AR
@@ -859,7 +748,6 @@ $ npm run deploy
                     </div>
                 </div>
 
-                <!-- Text column -->
                 <div class="lg:col-span-7 reveal">
                     <div class="section-tag mb-6">
                         <span>// .ABOUT</span>
@@ -880,7 +768,6 @@ $ npm run deploy
                         </p>
                     </div>
 
-                    <!-- Profile tree -->
                     <div class="p-5 lg:p-6 bg-ink-2/60 border border-wine-900/30 rounded-xl backdrop-blur-sm">
                         <div class="font-mono text-xs text-wine-400 mb-3">$ cat .profile</div>
                         <pre class="tree m-0"><span class="tree-line"><span class="sym">.</span><span class="k">profile</span></span>
@@ -899,9 +786,6 @@ $ npm run deploy
         </div>
     </section>
 
-    <!-- ===========================
-         FILOSOFIA / MANIFIESTO
-    ============================ -->
     <section id="filosofia" class="relative py-24 lg:py-36 z-10">
         <div class="max-w-7xl mx-auto px-6 lg:px-10">
 
@@ -962,19 +846,11 @@ $ npm run deploy
         </div>
     </section>
 
-    <!-- ===========================
-         TRABAJOS
-    ============================ -->
-    <!-- La seccion se pinea a top+=64 (debajo del nav fijo). Si midiera 100vh
-         quedaria 64px MAS ABAJO del viewport y se comeria el fondo de las cards:
-         medido en 1366x728 se cortaban 95px. Por eso mide 100dvh MENOS el nav.
-         dvh y no vh: en mobile la barra del navegador cambia el 100vh. -->
     <section id="trabajos" class="relative py-24 lg:py-0 lg:h-[calc(100dvh-64px)] lg:pt-0 lg:flex lg:flex-col lg:justify-center border-y border-wine-900/30 z-10">
         <div class="absolute inset-0 grid-bg opacity-40 -z-10"></div>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-10 lg:w-full">
 
-            <!-- Header compact en desktop (sección pinned: menos altura = más espacio para cards) -->
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 lg:mb-6 reveal">
                 <div>
                     <div class="section-tag mb-4 lg:mb-3">
@@ -990,10 +866,8 @@ $ npm run deploy
                 </p>
             </div>
 
-            <!-- Project track: grid mobile, horizontal flex desktop. Centered vertically in pin area. -->
             <div class="trabajos-track grid grid-cols-1 gap-6 lg:flex lg:flex-nowrap lg:items-center lg:gap-8 reveal-stagger reveal">
 
-                <!-- 01 TuBarber -->
                 <article class="proj-card lg:w-[45vw] lg:min-w-[580px] lg:max-w-[700px] lg:flex-shrink-0 p-7 lg:p-8 tilt" data-tilt>
                     <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
 
@@ -1043,7 +917,6 @@ $ npm run deploy
                     </div>
                 </article>
 
-                <!-- 02 Panel de licencias -->
                 <article class="proj-card lg:w-[45vw] lg:min-w-[580px] lg:max-w-[700px] lg:flex-shrink-0 p-7 lg:p-8 tilt" data-tilt>
                     <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
 
@@ -1087,7 +960,6 @@ $ npm run deploy
                     </a>
                 </article>
 
-                <!-- 03 Comercio local online (identidad del cliente reservada) -->
                 <article class="proj-card lg:w-[45vw] lg:min-w-[580px] lg:max-w-[700px] lg:flex-shrink-0 p-7 lg:p-8 tilt" data-tilt>
                     <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
 
@@ -1130,7 +1002,6 @@ $ npm run deploy
                     </a>
                 </article>
 
-                <!-- 04 Modernización contable -->
                 <article class="proj-card lg:w-[45vw] lg:min-w-[580px] lg:max-w-[700px] lg:flex-shrink-0 p-7 lg:p-8 tilt" data-tilt>
                     <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
 
@@ -1178,7 +1049,6 @@ $ npm run deploy
         </div>
     </section>
 
-    <!-- Marquee reverse -->
     <section aria-hidden="true" class="relative py-6 border-b border-wine-900/30 overflow-hidden bg-ink-2/40 z-10">
         <div class="marquee-track-rev font-mono text-bone-mute/50 text-xs tracking-widest uppercase">
             <span class="flex items-center gap-6 pr-6">
@@ -1214,9 +1084,6 @@ $ npm run deploy
         </div>
     </section>
 
-    <!-- ===========================
-         STACK
-    ============================ -->
     <section id="stack" class="relative py-20 lg:py-24 z-10">
         <div class="max-w-7xl mx-auto px-6 lg:px-10">
 
@@ -1304,14 +1171,8 @@ $ npm run deploy
         </div>
     </section>
 
-    <!-- ===========================
-         CONTACTO
-    ============================ -->
-    <!-- py-36 daba 288px de padding para 462px de contenido: la seccion ocupaba
-         el 96% de una pantalla de 780px. Bajado a py-20. -->
     <section id="contacto" class="relative py-20 lg:py-24 border-t border-wine-900/30 overflow-hidden z-10">
 
-        <!-- background flare -->
         <div class="absolute inset-0 -z-10">
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] rounded-full bg-wine-700/20 blur-[120px]"></div>
             <div class="absolute inset-0 grid-bg opacity-30"></div>
@@ -1344,10 +1205,6 @@ $ npm run deploy
         </div>
     </section>
 
-    <!-- Footer -->
-    <!-- El pie se lleva toda la informacion fria (contacto secundario, ubicacion,
-         disponibilidad). Antes esa linea vivia al final de #contacto y el footer
-         repetia la ubicacion, asi que quedaban dos veces y el pie sin contenido. -->
     <footer class="relative border-t border-wine-500/25 bg-ink z-10">
         <div class="max-w-7xl mx-auto px-6 lg:px-10 py-9">
 
@@ -1380,23 +1237,14 @@ $ npm run deploy
     </footer>
 
     <script>
-    /* ============================================================
-       PREMIUM MOTION LAYER
-       Lenis smooth scroll + GSAP ScrollTrigger + SplitType
-       Pack A (foundation) + Pack D (parallax / velocity-aware refinements)
-    ============================================================ */
 
     const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches && !isTouchDevice;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Posicion del mouse, la usa el repel de las particulas
     let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
     window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
 
-    /* ============================
-       PARTICLES (canvas, mouse repel)
-    ============================ */
     const canvas = document.getElementById('particles');
     const ctx = canvas.getContext('2d');
     let particles = [], W, H;
@@ -1445,9 +1293,6 @@ $ npm run deploy
     }
     tickParticles();
 
-    /* ============================
-       FAILSAFE — if GSAP fails to load, show all reveals
-    ============================ */
     const FAILSAFE_TIMEOUT = setTimeout(() => {
         if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
             document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => el.classList.add('in'));
@@ -1459,9 +1304,6 @@ $ npm run deploy
         }
     }, 2500);
 
-    /* ============================
-       Wait for deferred libs (GSAP, ScrollTrigger, Lenis, SplitType)
-    ============================ */
     function waitForLibs(cb) {
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
             cb();
@@ -1480,9 +1322,6 @@ $ npm run deploy
         document.body.classList.add('gsap-ready');
         gsap.registerPlugin(ScrollTrigger);
 
-        /* ============================
-           LENIS — smooth scroll with inertia
-        ============================ */
         let lenis = null;
         if (!reduceMotion && canHover && typeof Lenis !== 'undefined') {
             lenis = new Lenis({
@@ -1496,7 +1335,6 @@ $ npm run deploy
             gsap.ticker.add(time => lenis.raf(time * 1000));
             gsap.ticker.lagSmoothing(0);
             window.__lenis = lenis;  // expose for testing / debugging
-            // Anchor links via Lenis
             document.querySelectorAll('a[href^="#"]').forEach(a => {
                 a.addEventListener('click', e => {
                     const id = a.getAttribute('href');
@@ -1508,18 +1346,12 @@ $ npm run deploy
             });
         }
 
-        /* ============================
-           SCROLL PROGRESS — driven by ScrollTrigger (Lenis-aware)
-        ============================ */
         const progress = document.getElementById('scrollProgress');
         ScrollTrigger.create({
             start: 0, end: 'max',
             onUpdate: self => { progress.style.width = (self.progress * 100) + '%'; }
         });
 
-        /* ============================
-           HERO SPLIT — fires immediately on load (no scroll needed)
-        ============================ */
         if (typeof SplitType !== 'undefined' && !reduceMotion) {
             const heroLines = document.querySelectorAll('header h1 > span.block');
             heroLines.forEach((line, idx) => {
@@ -1537,17 +1369,12 @@ $ npm run deploy
             });
         }
 
-        /* ============================
-           REVEALS via IntersectionObserver — bulletproof regardless of scroll engine
-           (ScrollTrigger reveals can get stuck when Lenis intercepts scroll events)
-        ============================ */
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (!entry.isIntersecting) return;
                 const el = entry.target;
                 revealObserver.unobserve(el);
 
-                // Use fromTo with explicit destination — overrides CSS opacity:0 default
                 if (el.classList.contains('reveal-stagger')) {
                     gsap.fromTo(el.children,
                         { y: 30, opacity: 0 },
@@ -1565,9 +1392,6 @@ $ npm run deploy
 
         document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver.observe(el));
 
-        /* ============================
-           SECTION H2 SPLIT — IntersectionObserver-based (works even if Lenis intercepts scroll)
-        ============================ */
         if (typeof SplitType !== 'undefined' && !reduceMotion) {
             const h2Observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1589,9 +1413,6 @@ $ npm run deploy
             document.querySelectorAll('section h2.font-display').forEach(h2 => h2Observer.observe(h2));
         }
 
-        /* ============================
-           COUNTERS — IntersectionObserver-based
-        ============================ */
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (!entry.isIntersecting) return;
@@ -1609,9 +1430,6 @@ $ npm run deploy
         }, { threshold: 0.5 });
         document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
 
-        /* ============================
-           FLOATING CODE — Pack D: 3-layer parallax
-        ============================ */
         if (!reduceMotion) {
             const floats = gsap.utils.toArray('.code-float');
             floats.forEach((el, i) => {
@@ -1630,9 +1448,6 @@ $ npm run deploy
             });
         }
 
-        /* ============================
-           MARQUEE — Pack D: velocity-aware speed
-        ============================ */
         if (!reduceMotion) {
             const tracks = document.querySelectorAll('.marquee-track, .marquee-track-rev');
             const baseDurations = new Map();
@@ -1659,9 +1474,6 @@ $ npm run deploy
             marqueeLoop();
         }
 
-        /* ============================
-           TILT 3D de las cards (los botones no se mueven, ver .magnetic:active)
-        ============================ */
         if (canHover && !reduceMotion) {
             document.querySelectorAll('[data-tilt]').forEach(card => {
                 card.addEventListener('mousemove', e => {
@@ -1685,31 +1497,19 @@ $ npm run deploy
             });
         }
 
-        /* ============================
-           PAQUETE C — Horizontal scroll trabajos (desktop only)
-           Las 6 cards se desplazan horizontalmente mientras el user scrollea vertical.
-           No usa opacity (evita el bug del Paquete B) — solo translateX.
-           Fallback mobile: grid vertical normal (sin pin).
-        ============================ */
         if (!reduceMotion && canHover && window.innerWidth >= 1024) {
             const track = document.querySelector('#trabajos .trabajos-track');
             const section = document.querySelector('#trabajos');
             if (track && section) {
-                // Dynamic distance calculation: accounts for track's visual offset (max-w-7xl + padding)
-                // and viewport width. Recalculates on refresh (resize, font-load).
                 const calcDistance = () => {
                     const trackRect = track.getBoundingClientRect();
                     const trackVisualLeft = trackRect.left + (window.pageXOffset || 0);
                     const trackWidth = track.scrollWidth;
                     const viewportW = window.innerWidth;
                     const endPadding = 40;
-                    // End position: last card's right edge aligned with viewport right edge - endPadding
                     return Math.max(0, trackVisualLeft + trackWidth - viewportW + endPadding);
                 };
 
-                // El pin solo vale si la seccion entra ENTERA debajo del nav.
-                // Si no entra, marcamos .sin-pin y el CSS vuelve a la grilla:
-                // cards completas sin scroll horizontal > cards cortadas con el.
                 const entra = () => {
                     const caja = section.querySelector('.max-w-7xl');
                     if (!caja) return true;
@@ -1729,7 +1529,6 @@ $ npm run deploy
                             trigger: section,
                             pin: true,
                             scrub: 1,
-                            // start AFTER the fixed navbar (64px) so header isn't hidden
                             start: 'top top+=64',
                             end: () => '+=' + calcDistance(),
                             invalidateOnRefresh: true,
@@ -1748,7 +1547,6 @@ $ npm run deploy
             }
         }
 
-        // Initial refresh + re-refresh after fonts/images settle (positions may shift)
         ScrollTrigger.refresh();
         window.addEventListener('load', () => ScrollTrigger.refresh());
         if (document.fonts && document.fonts.ready) {

@@ -205,6 +205,13 @@ El script graba el HTML animado con Chromium headless y lo mezcla con la banda s
 
 ## Decisiones técnicas (las que no son obvias)
 
+- **`index.html` se publica SIN un solo comentario, a proposito.** El sitio se sirve tal cual,
+  sin build: todo comentario en el HTML, el CSS o el JS lo lee cualquiera que abra el inspector,
+  y leer las razones internas de cada decision en la pagina de alguien que te vende software
+  queda mal. **El por que de cada cosa vive en este README y en los mensajes de commit**, que es
+  donde lo busca un desarrollador y no lo ve un cliente. `verificar.py` lo bloquea: si volves a
+  meter comentarios, el gate se pone en rojo. Sacarlos bajo el archivo de 95 a 86 KB (-11%).
+
 - **Sin framework**: con HTML + Tailwind CDN tengo control total y cero build step.
   **Lo que cuesta, medido (2026-08-29, `curl`):** Tailwind CDN 407 KB · Font Awesome 102 KB ·
   GSAP+ScrollTrigger 117 KB · Lenis+SplitType 26 KB · `index.html` 94 KB = **~750 KB desde 5
